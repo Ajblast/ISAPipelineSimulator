@@ -1,0 +1,24 @@
+Registers
+	Each core has own register file
+ALU
+	Each core has ALU
+
+Instructions
+	Instructions need to be updated to be 32 bits
+		**** Update Encoder
+		**** Update Decoder
+	Atomics
+		Store
+		Load
+		FetchAdd
+		FetchSub
+		FetchAnd
+		FetchOr
+		FetchXor
+		Exchange
+		CompareExchange
+	Core Instructions
+		Yield - Set a bit in the signal register
+		WaitForSignal - Waits for a specific mask to be meet
+Register
+	Core Signal Register
