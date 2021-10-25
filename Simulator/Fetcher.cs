@@ -18,13 +18,16 @@ namespace Simulator
 		}
 
 		// Fetch an instruction from memory and increment the program counter
-		public ushort Fetch()
+		public uint Fetch()
 		{
 			int index = ((PC1.Value & 0x000F) << 16) | PC2.Value;
 
 			// Retrieve the instruction from memory
-			ushort instruction = memory[index];
+			uint instruction = (uint)(memory[index] << 16);
 			// Increment the program counter
+			index += 2;
+			// Retrieve lower order bits of the instruction
+			instruction |= memory[index];
 			index += 2;
 
 			PC1.Value = (ushort)((uint)(index & 0x000F0000) >> 16); 

@@ -12,7 +12,6 @@ namespace Simulator
 	public class Decoder
 	{
 		
-		private Fetcher fetcher;
 		private Registers registers;
 		private Memory memory;
 		private ALU alu;
@@ -27,9 +26,8 @@ namespace Simulator
 		private const ushort RegOP2 = 0x000F; //used for any instruction format where 2nd op is 4 LSB of 32-bit LBSs
 
 		// Create the decoder with the fetcher, registers, and memory
-		public Decoder(Fetcher fetcher, Registers registers, Memory memory, ALU alu, Register halt)
+		public Decoder(Registers registers, Memory memory, ALU alu, Register halt)
 		{
-			this.fetcher = fetcher;
 			this.registers = registers;
 			this.memory = memory;
 			this.alu = alu;
@@ -37,9 +35,9 @@ namespace Simulator
 		}
 
 		// Decode an instruction
-		public Instruction Decode(ushort EncodedInstruction)
+		public Instruction Decode(uint EncodedInstruction)
 		{
-			ushort OpCode = ExtractInstruction(EncodedInstruction);
+			ushort OpCode = ExtractOpCode(EncodedInstruction);
 			Instruction CreatedInstruction;
 			switch (OpCode)
 			{
@@ -155,309 +153,324 @@ namespace Simulator
 			return CreatedInstruction;
 		}
 
-        private Instruction CreateADDInstruction(ushort encodedInstruction)
+        private Instruction CreateADDInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+ 			if (immediateBitSet(UpperBits))
 				return new addImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new addRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateADDCInstruction(ushort encodedInstruction)
+        private Instruction CreateADDCInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new addcImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG, 
 					alu);
             else
 				return new addcRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateSUBBInstruction(ushort encodedInstruction)
+        private Instruction CreateSUBBInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new subbImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new subbRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateANDInstruction(ushort encodedInstruction)
+        private Instruction CreateANDInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new andImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new andRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateORInstruction(ushort encodedInstruction)
+        private Instruction CreateORInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new orImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new orRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateNORInstruction(ushort encodedInstruction)
+        private Instruction CreateNORInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new norImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new norRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateSHLInstruction(ushort encodedInstruction)
+        private Instruction CreateSHLInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new shlImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new shlRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateSHRInstruction(ushort encodedInstruction)
+        private Instruction CreateSHRInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new shrImmediate(
 					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new shrRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-		private Instruction CreateSHARInstruction(ushort encodedInstruction)
+		private Instruction CreateSHARInstruction(uint encodedInstruction)
 		{
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new sharImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new sharRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-		private Instruction CreateRORInstruction(ushort encodedInstruction)
+		private Instruction CreateRORInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new rorImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new rorRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateROLInstruction(ushort encodedInstruction)
+        private Instruction CreateROLInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new rolImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new rolRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateRORCInstruction(ushort encodedInstruction)
+        private Instruction CreateRORCInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new rorcImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new rorcRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateROLCInstruction(ushort encodedInstruction)
+        private Instruction CreateROLCInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new rolcImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new rolcRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateLOADInstruction(ushort encodedInstruction)
+        private Instruction CreateLOADInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new loadImmediate(
 					memory,
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					(((uint)encodedInstruction & 0xF) << 16) | LowerBits);
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					(((uint)UpperBits & 0xF) << 16) | LowerBits);
 			else
 				return new loadRegister(
 					memory,
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)]
 					);
 		}
 
-        private Instruction CreateSTORInstruction(ushort encodedInstruction)
+        private Instruction CreateSTORInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new storImmediate(
 					memory,
-					(((uint)encodedInstruction & 0xF) << 16) | LowerBits,
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)]);
+					(((uint)UpperBits & 0xF) << 16) | LowerBits,
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)]);
 			else
 				return new storRegister(
 					memory,
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)]
 					);
 		}
 
-        private Instruction CreateMOVInstruction(ushort encodedInstruction)
+        private Instruction CreateMOVInstruction(uint encodedInstruction)
         {
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
             {
-				ushort LowerBits = fetcher.Fetch();
 				return new moveImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
 					LowerBits);
 			}				
 			else
 				return new moveRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)]);
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)]);
 		}
 
-        private Instruction CreatePUSHInstruction(ushort encodedInstruction)
+        private Instruction CreatePUSHInstruction(uint encodedInstruction)
         {
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 			{
-				ushort LowerBits = fetcher.Fetch();
 				return new pushImmediate(
 					memory,
 					LowerBits,
@@ -467,30 +480,36 @@ namespace Simulator
 			else
 				return new pushRegister(
 					memory,
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
 					registers.SP1,
 					registers.SP2);
 		}
 
-        private Instruction CreatePOPInstruction(ushort encodedInstruction)
+        private Instruction CreatePOPInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new pop(
 				memory,
-				registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
+				registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
 				registers.SP1,
 				registers.SP2);
 		}
 
-        private Instruction CreateCMPInstruction(ushort encodedInstruction)
+        private Instruction CreateCMPInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new cmp(
-				registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-				registers[(int)((uint)(encodedInstruction & Arith1RegOP))],
+				registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+				registers[(int)((uint)(UpperBits & Arith1RegOP))],
 				alu);
         }
 
-        private Instruction CreateJZInstruction(ushort encodedInstruction)
+        private Instruction CreateJZInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new jz(
 				registers.FLAG,
 				registers.PC1,
@@ -499,8 +518,10 @@ namespace Simulator
 				registers.RF);
         }
 
-        private Instruction CreateJNZInstruction(ushort encodedInstruction)
+        private Instruction CreateJNZInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new jnz(
 				registers.FLAG,
 				registers.PC1,
@@ -509,8 +530,10 @@ namespace Simulator
 				registers.RF);
 		}
 
-        private Instruction CreateJGInstruction(ushort encodedInstruction)
+        private Instruction CreateJGInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new jg(
 				registers.FLAG,
 				registers.PC1,
@@ -519,8 +542,10 @@ namespace Simulator
 				registers.RF);
 		}
 
-        private Instruction CreateJGEInstruction(ushort encodedInstruction)
+        private Instruction CreateJGEInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new jge(
 				registers.FLAG,
 				registers.PC1,
@@ -529,8 +554,10 @@ namespace Simulator
 				registers.RF);
 		}
 
-        private Instruction CreateJLInstruction(ushort encodedInstruction)
+        private Instruction CreateJLInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new jl(
 				registers.FLAG,
 				registers.PC1,
@@ -539,8 +566,10 @@ namespace Simulator
 				registers.RF);
 		}
 
-        private Instruction CreateJLEInstruction(ushort encodedInstruction)
+        private Instruction CreateJLEInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new jle(
 				registers.FLAG,
 				registers.PC1,
@@ -549,8 +578,10 @@ namespace Simulator
 				registers.RF);
 		}
 
-        private Instruction CreateJAInstruction(ushort encodedInstruction)
+        private Instruction CreateJAInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new ja(
 				registers.FLAG,
 				registers.PC1,
@@ -559,8 +590,10 @@ namespace Simulator
 				registers.RF);
 		}
 
-        private Instruction CreateJAEInstruction(ushort encodedInstruction)
+        private Instruction CreateJAEInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new jae(
 				registers.FLAG,
 				registers.PC1,
@@ -569,8 +602,10 @@ namespace Simulator
 				registers.RF);
 		}
 
-        private Instruction CreateJBInstruction(ushort encodedInstruction)
+        private Instruction CreateJBInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new jb(
 				registers.FLAG,
 				registers.PC1,
@@ -579,8 +614,10 @@ namespace Simulator
 				registers.RF);
 		}
 
-        private Instruction CreateJBEInstruction(ushort encodedInstruction)
+        private Instruction CreateJBEInstruction(uint encodedInstruction)
         {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new jbe(
 				registers.FLAG,
 				registers.PC1,
@@ -589,75 +626,80 @@ namespace Simulator
 				registers.RF);
 		}
 
-        private Instruction CreateLDAInstruction(ushort encodedInstruction)
+        private Instruction CreateLDAInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
+
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
 			return new lda(
 				registers.RE,
 				registers.RF,
-				(((uint)encodedInstruction & 0xF) << 16) | LowerBits);
+				(((uint)UpperBits & 0xF) << 16) | LowerBits);
 		}
 
-        private Instruction CreateNEGInstruction(ushort encodedInstruction)
+        private Instruction CreateNEGInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new negImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new negRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateXORInstruction(ushort encodedInstruction)
+        private Instruction CreateXORInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new xorImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new xorRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
-        private Instruction CreateSUBInstruction(ushort encodedInstruction)
+        private Instruction CreateSUBInstruction(uint encodedInstruction)
         {
-			ushort LowerBits = fetcher.Fetch();
-			if (immediateBitSet(encodedInstruction))
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
 				return new subImmediate(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					LowerBits,
 					registers.FLAG,
 					alu);
 			else
 				return new subRegister(
-					registers[(int)(((uint)(encodedInstruction & ArithDestRegMask)) >> 4)],
-					registers[(encodedInstruction & Arith1RegOP)],
+					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
+					registers[(UpperBits & Arith1RegOP)],
 					registers[(LowerBits & RegOP2)],
 					registers.FLAG,
 					alu);
 		}
 
 
-        private ushort ExtractInstruction(ushort EncodedInstruction)
+        private ushort ExtractOpCode(uint EncodedInstruction)
         {
 			//I am using ASL due to c#, bitwise & produces int. Cast applies after all operations, so ASL should act as LSL
-			return (ushort)((uint)(EncodedInstruction & OpCodeMask) >> 9);
+			return (ushort)((uint)(EncodedInstruction & OpCodeMask) >> 25);
 
         }
 
@@ -666,6 +708,15 @@ namespace Simulator
 			return Convert.ToBoolean(EncodedInstruction & ImmediateIdentifierMask);
         }
 
+		private ushort getLowerBits(uint encodedInstruction)
+		{
+			return (ushort) (encodedInstruction & 0x0000FFFF);
+		}
+
+		private ushort getUpperBits(uint encodedInstruction)
+        {
+			return (ushort)(((uint)(encodedInstruction & 0xFFFF0000)) >> 16);
+		}
 	}
 
 	/// <summary>
