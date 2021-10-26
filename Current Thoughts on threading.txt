@@ -7,7 +7,19 @@ Instructions
 	Instructions need to be updated to be 32 bits
 		**** Update Encoder
 		**** Update Decoder
-	Atomics
+		
+	DSB (Data Synchronization Barrier)
+		Will stall the pipeline until the memory and write back stage have completed and are Bubbling
+		Ensures that all operations before the barrier are observed before any operation after the barrier
+	
+	Exclusive Memory
+		LDREX - Load Exclusive. Load from a spot in memory and watch the address. Lock is broken if a store occurs at the address from an unexclusive stor or different process wrote to the address
+		STREX - Store Exclusive. Store a value into a spot in memory if the lock is still there. Returns success or failure
+		CLREX - Clear the exclusive lock on a memory address
+		* Only a single memory address can have a lock at a time
+		
+	Atomics - Will stall the pipeline until the writeback phase has been completed for an instruction
+		- Atomic operations are macros!!!!!! We have use for macros
 		Store
 		Load
 		FetchAdd
@@ -17,6 +29,16 @@ Instructions
 		FetchXor
 		Exchange
 		CompareExchange
+		
+	How an atomic operation genneraly work
+		DSB		- Data Barrier
+		LDREX		- Load the value exclusively
+		OPERATION	- Perform the operation
+		STREX		- Attempt to store it
+		CMP 0		- Was the storage successful
+		JNE		- Try again if it failed
+		DSB		- Data Barrier
+		
 	Core Instructions
 		Yield - Set a bit in the signal register
 		WaitForSignal - Waits for a specific mask to be meet
