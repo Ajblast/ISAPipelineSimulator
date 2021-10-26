@@ -13,6 +13,7 @@ Instructions
 		Ensures that all operations before the barrier are observed before any operation after the barrier
 	
 	Exclusive Memory
+		The load and store to memory will be atomic for the exclusive memory.
 		LDREX - Load Exclusive. Load from a spot in memory and watch the address. Lock is broken if a store occurs at the address from an unexclusive stor or different process wrote to the address
 		STREX - Store Exclusive. Store a value into a spot in memory if the lock is still there. Returns success or failure
 		CLREX - Clear the exclusive lock on a memory address
