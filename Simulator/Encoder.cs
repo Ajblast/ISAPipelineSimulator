@@ -21,6 +21,9 @@ namespace Simulator
         Dictionary<string, byte> inDicCode;             //This is a dictionary that uses the name of an instruction as a key, the value is the code for that command
                                                         //in the form of a byte
 
+        Dictionary<string, int> inDicSize;              //This is a dictionary that will uses the name of an instruction as a key, the value is the size of that command
+                                                        //0 is used as a size placeholder for hybrid commands
+
         Dictionary<string, byte> regDicCode;            //This is a dictionary that uses the name of a register as a key, the value is the code for that register in 
                                                         //the form of a byte
 
@@ -58,6 +61,43 @@ namespace Simulator
             labels = new List<string>();
             labelPositions = new List<int>();
             inLengths = new List<int>();
+
+            inDicSize = new Dictionary<string, int>();
+            inDicSize.Add("nop", 16);
+            inDicSize.Add("add", 32);
+            inDicSize.Add("addc", 32);
+            inDicSize.Add("subb", 32);
+            inDicSize.Add("and", 32);
+            inDicSize.Add("or", 32);
+            inDicSize.Add("nor", 32);
+            inDicSize.Add("shl", 32);
+            inDicSize.Add("shr", 32);
+            inDicSize.Add("shar", 32);
+            inDicSize.Add("ror", 32);
+            inDicSize.Add("rol", 32);
+            inDicSize.Add("rorc", 32);
+            inDicSize.Add("rolc", 32);
+            inDicSize.Add("load", 32);
+            inDicSize.Add("stor", 32);
+            inDicSize.Add("mov", 0);
+            inDicSize.Add("push", 0);
+            inDicSize.Add("pop", 16);
+            inDicSize.Add("cmp", 16);
+            inDicSize.Add("jz", 16);
+            inDicSize.Add("jnz", 16);
+            inDicSize.Add("jg", 16);
+            inDicSize.Add("jge", 16);
+            inDicSize.Add("jl", 16);
+            inDicSize.Add("jle", 16);
+            inDicSize.Add("ja", 16);
+            inDicSize.Add("jae", 16);
+            inDicSize.Add("jb", 16);
+            inDicSize.Add("jbe", 16);
+            inDicSize.Add("lda", 32);
+            inDicSize.Add("neg", 32);
+            inDicSize.Add("xor", 32);
+            inDicSize.Add("sub", 32);
+            inDicSize.Add("halt", 16);
 
             inDicCode = new Dictionary<string, byte>();
             sr = new StreamReader(infoFilePath);
@@ -164,7 +204,7 @@ namespace Simulator
             {
                 arr = input.Split(' ');
                 int x;                                  //This int will hold the size of a command
-                if (inDicCode.ContainsKey(arr[0]))
+                if (inDicSize.TryGetValue(arr[0], out x))
                 {
                     
                     if (x == 0)                          //This if block will deal with any of the placeholder 0's that represent hybrid commands
