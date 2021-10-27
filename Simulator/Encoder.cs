@@ -18,9 +18,6 @@ namespace Simulator
     /// </summary>
     public class Encoder
     {
-        Dictionary<string, int> inDicSize;              //This is a dictionary that will uses the name of an instruction as a key, the value is the size of that command
-                                                        //0 is used as a size placeholder for hybrid commands
-
         Dictionary<string, byte> inDicCode;             //This is a dictionary that uses the name of an instruction as a key, the value is the code for that command
                                                         //in the form of a byte
 
@@ -31,6 +28,7 @@ namespace Simulator
         private string remixFilePath;                   //Holds the path to the edited version of the original file, certain changes are made, such as extending macros, eliminating
                                                         //commas, and removing comments
         private string binFilePath;                     //Holds the path to the binary file that holds the encoded version of the original file
+        private string infoFilePath;
 
         private StreamWriter sw;
         private StreamReader sr;
@@ -40,115 +38,45 @@ namespace Simulator
                                                         //list holds the address of the label
         List<int> labelPositions;                       //This holds all of the positions of labels that are initialized in the remix file, the string in the same position in the
                                                         //labels list holds the corresponding label.
-        public List<int> inLengths;                            //This list holds the length of every line (instruction or not) in the remix file in bits. If a line holds a label, the corresponding
+        public List<int> inLengths;                     //This list holds the length of every line (instruction or not) in the remix file in bits. If a line holds a label, the corresponding
                                                         //value in inLengths will be -1
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Encoder"/> class.
         /// </summary>
         /// <param name="filePath">The file path to the instruction file.</param>
+        /// <param name-"infoFile">The file path to the info file</param>
         /// <param name="outputPath">The file path the binary file will go.</param>
         public Encoder(string filePath)
         {
             txtFilePath = filePath;
             remixFilePath = filePath.Replace(".txt", ".remix");
-            binFilePath = filePath.Replace(".txt", ".bin"); ;
+            binFilePath = filePath.Replace(".txt", ".bin");
+            infoFilePath = System.IO.Path.GetFullPath("ISAInput.txt");
 
             labels = new List<string>();
             labelPositions = new List<int>();
             inLengths = new List<int>();
 
-            inDicSize = new Dictionary<string, int>();
-            inDicSize.Add("nop", 16);
-            inDicSize.Add("add", 32);
-            inDicSize.Add("addc", 32);
-            inDicSize.Add("subb", 32);
-            inDicSize.Add("and", 32);
-            inDicSize.Add("or", 32);
-            inDicSize.Add("nor", 32);
-            inDicSize.Add("shl", 32);
-            inDicSize.Add("shr", 32);
-            inDicSize.Add("shar", 32);
-            inDicSize.Add("ror", 32);
-            inDicSize.Add("rol", 32);
-            inDicSize.Add("rorc", 32);
-            inDicSize.Add("rolc", 32);
-            inDicSize.Add("load", 32);
-            inDicSize.Add("stor", 32);
-            inDicSize.Add("mov", 0);
-            inDicSize.Add("push", 0);
-            inDicSize.Add("pop", 16);
-            inDicSize.Add("cmp", 16);
-            inDicSize.Add("jz", 16);
-            inDicSize.Add("jnz", 16);
-            inDicSize.Add("jg", 16);
-            inDicSize.Add("jge", 16);
-            inDicSize.Add("jl", 16);
-            inDicSize.Add("jle", 16);
-            inDicSize.Add("ja", 16);
-            inDicSize.Add("jae", 16);
-            inDicSize.Add("jb", 16);
-            inDicSize.Add("jbe", 16);
-            inDicSize.Add("lda", 32);
-            inDicSize.Add("neg", 32);
-            inDicSize.Add("xor", 32);
-            inDicSize.Add("sub", 32);
-            inDicSize.Add("halt", 16);
-
             inDicCode = new Dictionary<string, byte>();
-            inDicCode.Add("nop", 0);
-            inDicCode.Add("add", 1);
-            inDicCode.Add("addc", 2);
-            inDicCode.Add("subb", 3);
-            inDicCode.Add("and", 4);
-            inDicCode.Add("or", 5);
-            inDicCode.Add("nor", 6);
-            inDicCode.Add("shl", 7);
-            inDicCode.Add("shr", 8);
-            inDicCode.Add("shar", 9);
-            inDicCode.Add("ror", 10);
-            inDicCode.Add("rol", 11);
-            inDicCode.Add("rorc", 12);
-            inDicCode.Add("rolc", 13);
-            inDicCode.Add("load", 14);
-            inDicCode.Add("stor", 15);
-            inDicCode.Add("mov", 16);
-            inDicCode.Add("push", 17);
-            inDicCode.Add("pop", 18);
-            inDicCode.Add("cmp", 19);
-            inDicCode.Add("jz", 20);
-            inDicCode.Add("jnz", 21);
-            inDicCode.Add("jg", 22);
-            inDicCode.Add("jge", 23);
-            inDicCode.Add("jl", 24);
-            inDicCode.Add("jle", 25);
-            inDicCode.Add("ja", 26);
-            inDicCode.Add("jae", 27);
-            inDicCode.Add("jb", 28);
-            inDicCode.Add("jbe", 29);
-            inDicCode.Add("lda", 30);
-            inDicCode.Add("neg", 31);
-            inDicCode.Add("xor", 32);
-            inDicCode.Add("sub", 33);
-            inDicCode.Add("halt", 127);
+            sr = new StreamReader(infoFilePath);
+            string temp;
+            string[] tempArr;
+            for (int i = 0; i < 35; i++)
+            {
+                temp = sr.ReadLine();
+                tempArr = temp.Split(' ');
+                inDicCode.Add(tempArr[0], tempArr[1]);
+            }
 
             regDicCode = new Dictionary<string, byte>();
-            regDicCode.Add("rA", 0);
-            regDicCode.Add("rB", 1);
-            regDicCode.Add("rC", 2);
-            regDicCode.Add("rD", 3);
-            regDicCode.Add("rE", 4);
-            regDicCode.Add("rF", 5);
-            regDicCode.Add("rG", 6);
-            regDicCode.Add("rH", 7);
-            regDicCode.Add("rI", 8);
-            regDicCode.Add("rJ", 9);
-            regDicCode.Add("rK", 10);
-            regDicCode.Add("PC1", 11);
-            regDicCode.Add("PC2", 12);
-            regDicCode.Add("SP1", 13);
-            regDicCode.Add("SP2", 14);
-            regDicCode.Add("FLAG", 15);
+            for (int i = 0; i < 16; i++)
+            {
+                temp = sr.ReadLine();
+                tempArr = temp.Split(' ');
+                inDicCode.Add(tempArr[0], tempArr[1]);
+            }
+            sr.Close();
         }
 
         /// <summary>
@@ -235,8 +163,11 @@ namespace Simulator
             {
                 arr = input.Split(' ');
                 int x;                                  //This int will hold the size of a command
-                if (inDicSize.TryGetValue(arr[0], out x))
+                if (inDicCode.ContainsKey(arr[0]))
                 {
+                    inLengths.Add(32);
+
+                    /* Didn't want to just delete this in case we want to go back to hybrid instruction length in the future
                     if (x == 0)                          //This if block will deal with any of the placeholder 0's that represent hybrid commands
                     {                                   //Since there are only 2 hybrid commands, there's only 2 cases
                         if (arr.Length == 2)             //if the command has 1 operand (push)
@@ -266,6 +197,8 @@ namespace Simulator
                     {
                         inLengths.Add(x);
                     }
+                    */
+
                 }
                 else                                                                //If we reach this else statement, 1 of 2 things has occurred
                 {
@@ -330,9 +263,11 @@ namespace Simulator
                 }
                 else if (inLengths[i] == 16)
                 {
-                    ushort temp = Build16BitIn(input);
-                    bw.Write((byte)((temp & 0xFF00) >> 8));
-                    bw.Write((byte)((temp & 0x00FF)));
+                    uint temp = Build16BitIn(input);
+                    bw.Write((byte)((temp & 0xFF000000) >> 24));
+                    bw.Write((byte)((temp & 0x00FF0000) >> 16));
+                    bw.Write((byte)((temp & 0x0000FF00) >> 8));
+                    bw.Write((byte)((temp & 0x000000FF)));
                 }
             }
             sr.Close();
@@ -341,21 +276,22 @@ namespace Simulator
 
         /// <summary>
         /// Encodes a 16 bit command from our ISA into binary
+        /// The ISA has changed to a fixed length instruction format inwhich each instruction is 32 bits long, thus 16 bits will containing 0 will be appended to the end of these instructions
         /// </summary>
         /// <param name="input">The instruction to be encoded.</param>
         /// <returns>code - an unsigned 16 bit integer containing the binary version of the instruction</returns>
         /// <exception cref="Exception">Something went wrong in BuildByteArray2</exception>
-        private ushort Build16BitIn(string input)
+        private uint Build16BitIn(string input)
         {
             string[] arr = input.Split();
             byte Op1;
             byte Op2;
             byte immediate;
             byte opcode;
-            ushort code = 0;
+            uint code = 0;
             if (inDicCode.TryGetValue(arr[0], out opcode))
             {
-                code |= (ushort)((opcode & 0x7F) << 9);
+                code |= (ushort)((opcode & 0x7F) << 25);
                 switch (arr.Length)
                 {
                     case 3:                                         //for cmp and mov reg
@@ -363,23 +299,24 @@ namespace Simulator
                         immediate = 0;
                         Op1 = regDicCode[arr[1]];
                         Op2 = regDicCode[arr[2]];
-                        code |= (ushort)((immediate & 0x1) << 8);
-                        code |= (ushort)((Op1 & 0xF) << 4);
-                        code |= (ushort)(Op2 & 0xF);
+                        code |= (uint)((immediate & 0x1) << 24);
+                        code |= (uint)((Op1 & 0xF) << 20);
+                        code |= (uint)((Op2 & 0xF) << 16);
                         break;
                     case 2:                                         //for pop and push reg
                         immediate = 0;
                         Op1 = regDicCode[arr[1]];
-                        code |= (ushort)((immediate & 0x1) << 8);
-                        code |= (ushort)((Op1 & 0xF) << 4);
-                        code |= (ushort)(0x00 & 0xF);
+                        code |= (uint)((immediate & 0x1) << 24);
+                        code |= (uint)((Op1 & 0xF) << 20);
+                        code |= (uint)((0x00 & 0xF) << 16);
                         break;
                     case 1:                                          //for all jumps, nop, and halt
                         immediate = 0;
-                        code |= (ushort)((immediate & 0x1) << 8);
-                        code |= (ushort)(0x00 & 0xFF);
+                        code |= (uint)((immediate & 0x1) << 24);
+                        code |= (uint)((0x00 & 0xFF) << 16);
                         break;
                 }
+                code |= (uint)(0x0000000000000000 & 0xFFFF);
                 return code;
             }
             else
