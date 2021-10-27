@@ -38,6 +38,7 @@ namespace Simulator
                                                         //list holds the address of the label
         List<int> labelPositions;                       //This holds all of the positions of labels that are initialized in the remix file, the string in the same position in the
                                                         //labels list holds the corresponding label.
+        List<bool> SixteenBit;
         public List<int> inLengths;                     //This list holds the length of every line (instruction or not) in the remix file in bits. If a line holds a label, the corresponding
                                                         //value in inLengths will be -1
 
@@ -165,9 +166,7 @@ namespace Simulator
                 int x;                                  //This int will hold the size of a command
                 if (inDicCode.ContainsKey(arr[0]))
                 {
-                    inLengths.Add(32);
-
-                    /* Didn't want to just delete this in case we want to go back to hybrid instruction length in the future
+                    
                     if (x == 0)                          //This if block will deal with any of the placeholder 0's that represent hybrid commands
                     {                                   //Since there are only 2 hybrid commands, there's only 2 cases
                         if (arr.Length == 2)             //if the command has 1 operand (push)
@@ -175,10 +174,13 @@ namespace Simulator
                             if (arr[1].Contains("#"))    //if the operand is an immediate
                             {
                                 inLengths.Add(32);
+                                SixteenBit.Add(false);
                             }
                             else
                             {
-                                inLengths.Add(16);
+                                //inLengths.Add(16);
+                                inLengths.Add(32);
+                                SixteenBit.Add(true);
                             }
                         }
                         else                             //(mov)
@@ -186,19 +188,30 @@ namespace Simulator
                             if (arr[2].Contains("#"))
                             {
                                 inLengths.Add(32);
+                                SixteenBit.Add(false);
                             }
                             else
                             {
-                                inLengths.Add(16);
+                                //inLengths.Add(16);
+                                inLengths.Add(32);
+                                SixteenBit.Add(true);
                             }
                         }
                     }
                     else                                                            //The length is known for the rest of the commands so we don't need to worry about granularity
                     {
-                        inLengths.Add(x);
+                        if(x == 16)
+                        {
+                            inLengths.Add(32);
+                            SixteenBit.Add(true);
+                        }
+                        else
+                        {
+                            inLengths.Add(32);
+                            SixteenBit.Add(false);
+                        }
                     }
-                    */
-
+                    
                 }
                 else                                                                //If we reach this else statement, 1 of 2 things has occurred
                 {
@@ -253,7 +266,7 @@ namespace Simulator
             for (int i = 0; i < inLengths.Count; i++)
             {
                 input = sr.ReadLine();
-                if (inLengths[i] == 32)
+                if (SixteenBit[i] == false)
                 {
                     uint temp = Build32BitIn(input);
                     bw.Write((byte)((temp & 0xFF000000) >> 24));
@@ -261,7 +274,7 @@ namespace Simulator
                     bw.Write((byte)((temp & 0x0000FF00) >> 8));
                     bw.Write((byte)((temp & 0x000000FF)));
                 }
-                else if (inLengths[i] == 16)
+                else if (SixteenBit[i] == true)
                 {
                     uint temp = Build16BitIn(input);
                     bw.Write((byte)((temp & 0xFF000000) >> 24));
