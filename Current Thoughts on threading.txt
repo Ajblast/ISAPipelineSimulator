@@ -41,6 +41,10 @@ Instructions
 		JNE		- Try again if it failed
 		DSB		- Data Barrier
 		
+	Status
+		Instructions that update the status register cannot use the status register as a destination
+		Move is allowed to use the status register as a destination
+		
 	Core Instructions
 		Yield - Set a bit in the signal register
 		WaitForSignal - Waits for a specific mask to be meet
