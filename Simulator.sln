@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsaGui", "IsaGui\IsaGui.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulator", "Simulator\Simulator.csproj", "{8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiplineSimulator", "PiplineSimulator\PiplineSimulator.csproj", "{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
