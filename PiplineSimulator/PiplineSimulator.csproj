@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Decoder.cs" />
     <Compile Include="Project2Simulator\Address.cs" />
     <Compile Include="Project2Simulator\Core.cs" />
     <Compile Include="Project2Simulator\CoreID.cs" />

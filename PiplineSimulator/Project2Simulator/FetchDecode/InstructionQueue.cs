@@ -1,3 +1,4 @@
+/* Author: Seth Bowden */
 using Project2Simulator.ReservationStations;
 using Project2Simulator.ReorderBuffers;
 using Project2Simulator.Instructions;
@@ -25,7 +26,10 @@ namespace Project2Simulator.FetchDecode
 
 		public void IssueInstruction()
 		{
-
+			/*
+			 * Issue instruction asks for reorder buffer slot
+			 * gives instruction to selected reservatation station and also reorder buffer slot ID
+			 */
 		}
 
 	}

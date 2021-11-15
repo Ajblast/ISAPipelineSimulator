@@ -32,7 +32,12 @@ namespace Project2Simulator.ReorderBuffers
 		{
             if (bufferSlots[CommitIndex].ValidValue == true)
 			{
-				registerFile[bufferSlots[CommitIndex].DestRegId.ID].Value = bufferSlots[CommitIndex].Value;
+                if (bufferSlots[CommitIndex].UpdatesStatusReg)
+					registerFile.FLAG.Value = bufferSlots[CommitIndex].StatusRegValue;
+
+                if (bufferSlots[CommitIndex].DestRegId != null)
+					registerFile[bufferSlots[CommitIndex].DestRegId.ID].Value = bufferSlots[CommitIndex].Value;
+
 				registerFile[bufferSlots[CommitIndex].DestRegId.ID].Busy = false;
 				registerFile[bufferSlots[CommitIndex].DestRegId.ID].ReorderId = null;
 

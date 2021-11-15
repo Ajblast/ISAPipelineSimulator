@@ -1,23 +1,14 @@
 /* Author: Seth Bowden */
-using Simulator;
-using Simulator.Instructions;
-using Simulator.Instructions.arithmetic;
-using Simulator.Instructions.control;
-using Simulator.Instructions.logical;
-using Simulator.Instructions.storage;
+using Project2Simulator.Instructions;
 
 using System;
 
-namespace Simulator
+namespace Project2Simulator
 {
 	// An instruction decoder
-	public class Decoder
+	public static class Decoder
 	{
 		
-		private Registers registers;
-		private Memory memory;
-		private ALU alu;
-		private Register halt;
 		private const ushort OpCodeMask = 0xFE00;
 		private const ushort DestRegMask = 0x00F0;
 		private const ushort ImmediateIdentifierMask = 0x0100;
@@ -28,23 +19,17 @@ namespace Simulator
 		private const ushort RegOP2 = 0x000F; //used for any instruction format where 2nd op is 4 LSB of 32-bit LBSs
 
 		// Create the decoder with the fetcher, registers, and memory
-		public Decoder(Registers registers, Memory memory, ALU alu, Register halt)
-		{
-			this.registers = registers;
-			this.memory = memory;
-			this.alu = alu;
-			this.halt = halt;
-		}
+
 
 		// Decode an instruction
-		public Instruction Decode(uint EncodedInstruction)
+		public static Instruction Decode(uint EncodedInstruction)
 		{
-			ushort OpCode = ExtractOpCode(EncodedInstruction);
+			ushort opCode = ExtractOpCode(EncodedInstruction);
 			Instruction CreatedInstruction;
-			switch (OpCode)
+			switch (opCode)
 			{
 				case (ushort)Opcode.NOP:
-					CreatedInstruction = new Instructions.control.nop();
+					CreatedInstruction = new Instruction(Opcode.NOP, null, null, null, null);
 					break;
 				case (ushort)Opcode.ADD:
 					CreatedInstruction = CreateADDInstruction(EncodedInstruction);
@@ -155,17 +140,17 @@ namespace Simulator
 			return CreatedInstruction;
 		}
 
-        private Instruction CreateADDInstruction(uint encodedInstruction)
+        private static Instruction CreateArithmeticInstruction(Opcode opcode, uint encodedInstruction)
         {
 			ushort UpperBits = getUpperBits(encodedInstruction);
 			ushort LowerBits = getLowerBits(encodedInstruction);
  			if (immediateBitSet(UpperBits))
-				return new addImmediate(
-					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
-					registers[(UpperBits & Arith1RegOP)],
-					LowerBits,
-					registers.FLAG,
-					alu);
+				return new Instruction(
+					opcode,
+					(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4),
+					new Registers.RegisterID(UpperBits & Arith1RegOP),
+					new Registers.RegisterID(LowerBits),
+					);
 			else
 				return new addRegister(
 					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
@@ -698,71 +683,28 @@ namespace Simulator
 		}
 
 
-        private ushort ExtractOpCode(uint EncodedInstruction)
+        private static ushort ExtractOpCode(uint EncodedInstruction)
         {
 			//I am using ASL due to c#, bitwise & produces int. Cast applies after all operations, so ASL should act as LSL
 			return (ushort)((uint)(EncodedInstruction & OpCodeMask) >> 25);
 
         }
 
-		private bool immediateBitSet(ushort EncodedInstruction)
+		private static bool immediateBitSet(ushort EncodedInstruction)
         {
 			return Convert.ToBoolean(EncodedInstruction & ImmediateIdentifierMask);
         }
 
-		private ushort getLowerBits(uint encodedInstruction)
+		private static ushort getLowerBits(uint encodedInstruction)
 		{
 			return (ushort) (encodedInstruction & 0x0000FFFF);
 		}
 
-		private ushort getUpperBits(uint encodedInstruction)
+		private static ushort getUpperBits(uint encodedInstruction)
         {
 			return (ushort)(((uint)(encodedInstruction & 0xFFFF0000)) >> 16);
 		}
 	}
-
-	/// <summary>
-	/// Improves readability and maintainability in case Op codes change
-	/// </summary>
-	enum Opcode :ushort
-    {
-		NOP = 0b0000000,
-		ADD = 0b0000001,
-		ADDC = 0b0000010,
-		SUBB = 0b0000011,
-		AND = 0b0000100,
-		OR = 0b0000101,
-		NOR = 0b0000110,
-		SHL = 0b0000111,
-		SHR = 0b0001000,
-		SHAR = 0b0001001,
-		ROR = 0b0001010,
-		ROL = 0b0001011,
-		RORC = 0b0001100,
-		ROLC = 0b0001101,
-		LOAD = 0b0001110,
-		STOR = 0b0001111,
-		MOV = 0b0010000,
-		PUSH = 0b0010001,
-		POP = 0b0010010,
-		CMP = 0b0010011,
-		JZ = 0b0010100,
-		JNZ = 0b0010101,
-		JG = 0b0010110,
-		JGE = 0b0010111,
-		JL = 0b0011000,
-		JLE = 0b0011001,
-		JA = 0b0011010,
-		JAE = 0b0011011,
-		JB = 0b0011100,
-		JBE = 0b0011101,
-		LDA = 0b0011110,
-		NEG = 0b0011111,
-		XOR = 0b0100000,
-		SUB = 0b0100001,
-		HALT = 0b1111111
-	}
-
 
 }
 
