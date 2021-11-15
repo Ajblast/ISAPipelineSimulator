@@ -1,21 +1,23 @@
+/* Author: Austin Kincer */
+
 using Project2Simulator.FunctionalUnits;
+using System;
 
 namespace Project2Simulator.FunctionalUnits
 {
-	public class FunctionalFactory
-	{
-		private MemoryUnit memoryUnit;
+	public static class FunctionalFactory
+    {
+        private static THECommonDataBus bus;
 
-		private FloatingAdder floatingAdder;
+        public static void Initialize(THECommonDataBus bus)
+        {
+            FunctionalFactory.bus = bus;
+        }
 
-		private IntegerAdder integerAdder;
-
-		private IntegerMultiplier integerMultiplier;
-
-		private FloatingMultiplier floatingMultiplier;
-
-		private MovementUnit movementUnit;
-
+		public static FunctionalUnit CreateUnit(FunctionalUnitType type, CoreID id)
+        {
+            throw new NotImplementedException();
+        }
 	}
 
 }
