@@ -9,6 +9,10 @@ namespace Project2Simulator.ReorderBuffers
         {
             BufferID = bufferID;
         }
+        public ReorderBufferID(ReorderBufferID other)
+        {
+            BufferID = other.BufferID;
+        }
 
         public override bool Equals(object obj)
         {
