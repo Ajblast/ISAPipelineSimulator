@@ -19,11 +19,11 @@ namespace Project2Simulator.Instructions
 
 		public RegisterID Op2Reg;
 
-		private FunctionalUnitType functionalUnitType;
+		public FunctionalUnitType FunctionalUnitType;
 
-		private RegisterValue registerValue;
+		public RegisterValue RegisterValue;
 
-		private Address address;
+		public Address Address;
 
         public Instruction(Opcode opcode, RegisterID dest, RegisterID op1Reg, RegisterID op2Reg, FunctionalUnitType type)
         {
@@ -31,11 +31,11 @@ namespace Project2Simulator.Instructions
 			Destination = dest;
 			Op1Reg = op1Reg;
 			Op2Reg = op2Reg;
-			functionalUnitType = type;
+			FunctionalUnitType = type;
 			Op1 = null;
 			Op2 = null;
-			registerValue = null;
-			address = null;
+			RegisterValue = null;
+			Address = null;
         }
 
 
@@ -45,11 +45,11 @@ namespace Project2Simulator.Instructions
 			Destination = dest;
 			Op1Reg = op1Reg;
 			Op2Reg = null;
-			functionalUnitType = type;
+			FunctionalUnitType = type;
 			Op1 = null;
 			Op2 = immediate;
-			registerValue = null;
-			address = null;
+			RegisterValue = null;
+			Address = null;
 		}
 	}
 
