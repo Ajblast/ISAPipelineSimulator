@@ -1,5 +1,7 @@
-using Project2Simulator.FunctionalUnits;
-using Project2Simulator;
+/* Author: Austin Kincer */
+
+using Project2Simulator.ReorderBuffers;
+using System;
 
 namespace Project2Simulator.FunctionalUnits
 {
@@ -7,28 +9,30 @@ namespace Project2Simulator.FunctionalUnits
 	{
 		public FunctionalUnitType Type;
 
-		private THECommonDataBus tHECommonDataBus;
+		private THECommonDataBus bus;
+		private CoreID core;
 
-		private FunctionalUnitType functionalUnitType;
 
-		public FunctionalUnit(CoreID core)
+		public FunctionalUnit(FunctionalUnitType type, THECommonDataBus bus, CoreID core)
 		{
-
+			Type = type;
+			this.bus = bus;
+			this.core = core;
 		}
 
 		public bool Cycle()
 		{
-			return false;
+			throw new NotImplementedException();
 		}
 
 		public void Flush()
 		{
-
+			throw new NotImplementedException();
 		}
 
-		public void Commit()
+		public void Commit(ReorderBufferID id)
 		{
-
+			throw new NotImplementedException();
 		}
 
 	}
