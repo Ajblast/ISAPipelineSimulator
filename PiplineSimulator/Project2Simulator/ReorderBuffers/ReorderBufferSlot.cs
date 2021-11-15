@@ -20,17 +20,11 @@ namespace Project2Simulator.ReorderBuffers
 
 		public bool UpdatesStatusReg;
 
-		private ReorderBufferID reorderBufferID;
-
-		private RegisterValue registerValue;
-
-		private ReservationStation reservationStation;
-
-		private RegisterID registerID;
+		public ReorderBufferID ReorderBufferID;
 
         public ReorderBufferSlot(int reorderBufferID)
         {
-			this.reorderBufferID = new ReorderBufferID(reorderBufferID);
+			ReorderBufferID = new ReorderBufferID(reorderBufferID);
         }
 
 	}
