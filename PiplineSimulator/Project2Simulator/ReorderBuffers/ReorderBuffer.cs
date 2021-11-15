@@ -28,6 +28,19 @@ namespace Project2Simulator.ReorderBuffers
             }
 		}
 
+		public void CheckDataBus()
+		{
+			// Can't steal data off the buss if it isn't valid
+			if (THECommonDataBus.Valid == false)
+				return;
+
+			// TODO: Allow the reorder buffer to read from the common data bus so it gains information for commit stage
+
+			throw new System.NotImplementedException();
+
+		}
+
+
 		public void CommitHead()
 		{
             if (bufferSlots[CommitIndex].ValidValue == true)
