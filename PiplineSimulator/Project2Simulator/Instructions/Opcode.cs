@@ -1,4 +1,6 @@
 /* Author: Seth Bowden */
+using Project2Simulator.FunctionalUnits;
+
 namespace Project2Simulator.Instructions
 {
 	public enum Opcode : ushort
@@ -56,5 +58,100 @@ namespace Project2Simulator.Instructions
 		FLAG = 0b1111
 	}
 
+	/* Author: Austin Kincer */
+	public static class OpcodeHelper
+    {
+		public static bool TouchesFlags(Opcode opcode)
+        {
+			bool retValue = false;
+
+            switch (opcode)
+            {
+				case Opcode.ADD:
+				case Opcode.ADDC:
+				case Opcode.SUB:
+				case Opcode.SUBB:
+				case Opcode.AND:
+				case Opcode.OR:
+				case Opcode.NOR:
+				case Opcode.NEG:
+				case Opcode.XOR:
+				case Opcode.SHL:
+				case Opcode.SHR:
+				case Opcode.SHAR:
+				case Opcode.ROR:
+				case Opcode.ROL:
+				case Opcode.RORC:
+				case Opcode.ROLC:
+				case Opcode.CMP:
+					retValue = true;
+					break;
+				default:
+					break;
+            }
+
+			return retValue;
+        }
+
+		public static FunctionalUnitType GetFunctionalUnitType(Opcode opcode)
+		{
+			FunctionalUnitType functionalUnitType;
+			switch (opcode)
+			{
+				case Opcode.NOP:
+					functionalUnitType = FunctionalUnitType.NULL;
+					break;
+				case Opcode.ADD:
+				case Opcode.ADDC:
+				case Opcode.SUB:
+				case Opcode.SUBB:
+				case Opcode.AND:
+				case Opcode.OR:
+				case Opcode.NOR:
+				case Opcode.NEG:
+				case Opcode.XOR:
+				case Opcode.SHL:
+				case Opcode.SHR:
+				case Opcode.SHAR:
+				case Opcode.ROR:
+				case Opcode.ROL:
+				case Opcode.RORC:
+				case Opcode.ROLC:
+				case Opcode.CMP:
+					functionalUnitType = FunctionalUnitType.INTEGER_ADDER;
+					break;
+				case Opcode.PUSH:
+				case Opcode.POP:
+				case Opcode.LOAD:
+				case Opcode.SOTR:
+					functionalUnitType = FunctionalUnitType.MEMORY_UNIT;
+					break;
+				case Opcode.MOV:
+					functionalUnitType = FunctionalUnitType.MOVEMENT_UNIT;
+					break;
+				case Opcode.JZ:
+				case Opcode.JNZ:
+				case Opcode.JG:
+				case Opcode.JGE:
+				case Opcode.JL:
+				case Opcode.JLE:
+				case Opcode.JA:
+				case Opcode.JAE:
+				case Opcode.JB:
+				case Opcode.JBE:
+				case Opcode.LDA:
+					functionalUnitType = FunctionalUnitType.BRANCH_UNIT;
+					break;
+				case Opcode.HALT:
+					functionalUnitType = FunctionalUnitType.NULL;
+					break;
+				default:
+					functionalUnitType = FunctionalUnitType.ILLEGAL;
+					break;
+			}
+
+			return functionalUnitType;
+		}
+	}
 }
 

@@ -90,15 +90,22 @@ namespace Project2Simulator.ReservationStations
 			// If the destination is valid, set it as used
 			if (instruction.Destination != null)
 			{
-				Register destRegister = registerFile[instruction.Destination.ID];
-
 				Values.Dest = new ReorderBufferID(id);
-				destRegister.ReorderId = new ReorderBufferID(id);
+				registerFile[instruction.Destination.ID].ReorderId = new ReorderBufferID(id);
 			}
+
+			// If the instruction touches the flags register, set it as used
+			if (OpcodeHelper.TouchesFlags(instruction.Opcode))
+				registerFile.FLAG.ReorderId = new ReorderBufferID(id);
+
+			Busy = true;
         }
 
 		public void CheckDataBus()
         {
+			if (Busy == false)
+				return;
+
 			if (Values.Op1 == null && bus.ReorderID.Equals(Values.Op1Src))
 			{
 				Values.Op1 = bus.Value;
@@ -112,6 +119,9 @@ namespace Project2Simulator.ReservationStations
 		}
 		public void Cycle()
 		{
+			if (Busy == false)
+				return;
+
 			// Check if this station is currently waiting to commit or not
 			if (AskedForCommit && dataBusControlUnit.RequestAccess(StationID))
 				Commit();
