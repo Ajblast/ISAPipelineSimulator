@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>bc733d69-a3c7-40cd-8ce2-a4cce5892794</ProjectGuid>
+    <ProjectGuid>{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PiplineSimulator</RootNamespace>
@@ -31,24 +31,54 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Project2Simulator\Address.cs" />
+    <Compile Include="Project2Simulator\Core.cs" />
+    <Compile Include="Project2Simulator\CoreID.cs" />
+    <Compile Include="Project2Simulator\CPU.cs" />
+    <Compile Include="Project2Simulator\FetchDecode\InstructionQueue.cs" />
+    <Compile Include="Project2Simulator\FetchDecode\InstructionUnit.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\AdderUnit.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\FloatingAdder.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\FloatingMultiplier.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\FunctionalFactory.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\FunctionalUnit.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\FunctionalUnitType.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\IntegerAdder.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\IntegerMultiplier.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\MemoryAccessUnit.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\MemoryUnit.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\MovementUnit.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\MultiplierUnit.cs" />
+    <Compile Include="Project2Simulator\Instructions\Instruction.cs" />
+    <Compile Include="Project2Simulator\Instructions\Opcode.cs" />
+    <Compile Include="Project2Simulator\Memory\MagicPerfectStupidCache.cs" />
+    <Compile Include="Project2Simulator\Memory\MainMemory.cs" />
+    <Compile Include="Project2Simulator\Memory\MMU.cs" />
+    <Compile Include="Project2Simulator\Registers\Register.cs" />
+    <Compile Include="Project2Simulator\Registers\RegisterFile.cs" />
+    <Compile Include="Project2Simulator\Registers\RegisterID.cs" />
+    <Compile Include="Project2Simulator\Registers\RegisterValue.cs" />
+    <Compile Include="Project2Simulator\ReorderBuffers\ReorderBuffer.cs" />
+    <Compile Include="Project2Simulator\ReorderBuffers\ReorderBufferID.cs" />
+    <Compile Include="Project2Simulator\ReorderBuffers\ReorderBufferSlot.cs" />
+    <Compile Include="Project2Simulator\ReservationStations\DataBusControlUnit.cs" />
+    <Compile Include="Project2Simulator\ReservationStations\ReservationStation.cs" />
+    <Compile Include="Project2Simulator\ReservationStations\ReservationStationCounts.cs" />
+    <Compile Include="Project2Simulator\ReservationStations\Stations.cs" />
+    <Compile Include="Project2Simulator\ReservationStations\StationID.cs" />
+    <Compile Include="Project2Simulator\ReservationStations\StationValues.cs" />
+    <Compile Include="Project2Simulator\THECommonDataBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
- </Project>
+</Project>
