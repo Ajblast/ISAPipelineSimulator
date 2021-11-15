@@ -28,6 +28,11 @@ namespace Project2Simulator.ReorderBuffers
 
 		private RegisterID registerID;
 
+        public ReorderBufferSlot(int reorderBufferID)
+        {
+			this.reorderBufferID = new ReorderBufferID(reorderBufferID);
+        }
+
 	}
 
 }
