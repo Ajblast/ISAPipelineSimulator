@@ -14,6 +14,10 @@ namespace Project2Simulator.Registers
         {
             Value = value;
         }
+        public RegisterValue(RegisterValue other)
+        {
+            Value = other.Value;
+        }
     }
 
 }

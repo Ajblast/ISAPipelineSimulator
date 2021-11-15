@@ -1,6 +1,5 @@
 /* Author: Austin Kincer */
 
-using Project2Simulator.Registers;
 using Project2Simulator.ReorderBuffers;
 
 namespace Project2Simulator.Registers
