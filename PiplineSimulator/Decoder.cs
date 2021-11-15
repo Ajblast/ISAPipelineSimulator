@@ -1,4 +1,5 @@
 /* Author: Seth Bowden */
+using Project2Simulator.FunctionalUnits;
 using Project2Simulator.Instructions;
 
 using System;
@@ -147,17 +148,19 @@ namespace Project2Simulator
  			if (immediateBitSet(UpperBits))
 				return new Instruction(
 					opcode,
-					(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4),
+					new Registers.RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
 					new Registers.RegisterID(UpperBits & Arith1RegOP),
-					new Registers.RegisterID(LowerBits),
+					new Registers.RegisterValue(LowerBits), //This doesn't work. This is a register ID, not an immediate value
+					getFunctionalUnitType(opcode)
 					);
 			else
-				return new addRegister(
-					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
-					registers[(UpperBits & Arith1RegOP)],
-					registers[(LowerBits & RegOP2)],
-					registers.FLAG,
-					alu);
+				return new Instruction(
+					opcode,
+					new Registers.RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new Registers.RegisterID(UpperBits & Arith1RegOP),
+					new Registers.RegisterID((LowerBits & RegOP2)),
+					getFunctionalUnitType(opcode)
+					);
 		}
 
         private Instruction CreateADDCInstruction(uint encodedInstruction)
@@ -704,6 +707,67 @@ namespace Project2Simulator
         {
 			return (ushort)(((uint)(encodedInstruction & 0xFFFF0000)) >> 16);
 		}
+		
+		private static FunctionalUnitType getFunctionalUnitType(Opcode opcode)
+        {
+			FunctionalUnitType functionalUnitType;
+            switch (opcode)
+            {
+                case Opcode.NOP:
+					functionalUnitType = FunctionalUnitType.NULL;
+                    break;
+                case Opcode.ADD:
+                case Opcode.ADDC:
+                case Opcode.SUB:
+                case Opcode.SUBB:
+                case Opcode.AND:
+                case Opcode.OR:
+                case Opcode.NOR:
+				case Opcode.NEG:
+				case Opcode.XOR:
+                case Opcode.SHL:
+                case Opcode.SHR:
+                case Opcode.SHAR:
+                case Opcode.ROR:
+                case Opcode.ROL:
+                case Opcode.RORC:
+                case Opcode.ROLC:
+				case Opcode.CMP:
+					functionalUnitType = FunctionalUnitType.INTEGER_ADDER;
+					break;
+                case Opcode.PUSH:
+                case Opcode.POP:
+				case Opcode.LOAD:
+				case Opcode.SOTR:
+					functionalUnitType = FunctionalUnitType.MEMORY_UNIT;
+					break;
+				case Opcode.MOV:
+					functionalUnitType = FunctionalUnitType.MOVEMENT_UNIT;
+					break;
+				case Opcode.JZ:
+                case Opcode.JNZ:
+                case Opcode.JG:
+                case Opcode.JGE:
+                case Opcode.JL:
+                case Opcode.JLE:
+                case Opcode.JA:
+                case Opcode.JAE:
+                case Opcode.JB:
+                case Opcode.JBE:
+                case Opcode.LDA:
+					functionalUnitType = FunctionalUnitType.BRANCH_UNIT;
+                    break;
+                case Opcode.HALT:
+					functionalUnitType = FunctionalUnitType.NULL;
+                    break;
+                default:
+					functionalUnitType = FunctionalUnitType.ILLEGAL;
+                    break;
+            }
+
+			return functionalUnitType;
+        }
+
 	}
 
 }
