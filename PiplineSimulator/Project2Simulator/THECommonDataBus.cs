@@ -13,8 +13,6 @@ namespace Project2Simulator
 
 		public bool StatusRegUpdated;
 
-		private RegisterValue registerValue;
-
 		public void Write(ReorderBufferID id, RegisterValue value)
 		{
 
