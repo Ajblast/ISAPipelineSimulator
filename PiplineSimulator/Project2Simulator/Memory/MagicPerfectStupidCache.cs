@@ -11,6 +11,13 @@ namespace Project2Simulator.Memory
 		private List<Tuple<Address, RegisterValue>> StoreQueue;
 		private MainMemory memory;
 
+
+		public MagicPerfectStupidCache(MainMemory memory)
+        {
+			StoreQueue = new List<Tuple<Address, RegisterValue>>();
+			this.memory = memory;
+        }
+
 		public RegisterValue Load(Address addr)
 		{
 			// Get the last version of the address

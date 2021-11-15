@@ -8,6 +8,10 @@ namespace Project2Simulator.Memory
 	{
 		private Dictionary<Address, CoreID> AtomicAddresses;
 
+		public MMU()
+        {
+			AtomicAddresses = new Dictionary<Address, CoreID>();
+        }
 		public bool RequestMemory(CoreID id, Address address, bool atomic)
 		{
 			// Give memory access if the access isn't atomic. Don't care
