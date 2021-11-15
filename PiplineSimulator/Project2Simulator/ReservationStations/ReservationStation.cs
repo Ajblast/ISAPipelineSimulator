@@ -106,6 +106,10 @@ namespace Project2Simulator.ReservationStations
 			if (Busy == false)
 				return;
 
+			// Can't steal data off the buss if it isn't valid
+			if (bus.Valid == false)
+				return;
+
 			if (Values.Op1 == null && bus.ReorderID.Equals(Values.Op1Src))
 			{
 				Values.Op1 = bus.Value;
