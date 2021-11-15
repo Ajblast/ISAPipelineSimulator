@@ -1,4 +1,4 @@
-using Project2Simulator.Registers;
+/* Author: Austin Kincer */
 
 namespace Project2Simulator.Memory
 {
