@@ -25,7 +25,7 @@ namespace Project2Simulator.Instructions
 
 		public Address Address;
 
-        public Instruction(Opcode opcode, RegisterID dest, RegisterID op1Reg, RegisterID op2Reg, RegisterValue op1Val, RegisterValue op2Val, FunctionalUnitType type)
+        public Instruction(Opcode opcode, RegisterID dest, RegisterID op1Reg, RegisterID op2Reg, RegisterValue op1Val, RegisterValue op2Val, Address addr, FunctionalUnitType type)
         {
 			Opcode = opcode;
 			Destination = dest;
@@ -35,7 +35,7 @@ namespace Project2Simulator.Instructions
 			Op1 = op1Val;
 			Op2 = op2Val;
 			RegisterValue = null;
-			Address = null;
+			Address = addr;
         }
 
 	}

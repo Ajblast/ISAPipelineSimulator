@@ -1,7 +1,7 @@
 /* Author: Seth Bowden */
 using Project2Simulator.FunctionalUnits;
 using Project2Simulator.Instructions;
-
+using Project2Simulator.Registers;
 using System;
 
 namespace Project2Simulator
@@ -30,7 +30,7 @@ namespace Project2Simulator
 			switch (opCode)
 			{
 				case (ushort)Opcode.NOP:
-					CreatedInstruction = new Instruction(Opcode.NOP, null, null, null, null, null, FunctionalUnitType.NULL);
+					CreatedInstruction = new Instruction(Opcode.NOP, null, null, null, null, null, null, FunctionalUnitType.NULL);
 					break;
 				case (ushort)Opcode.ADD:
 					CreatedInstruction = CreateArithmeticInstruction(Opcode.ADD, EncodedInstruction);
@@ -153,6 +153,7 @@ namespace Project2Simulator
 					null,
 					null,
 					new Registers.RegisterValue(LowerBits),
+					null,
 					OpcodeHelper.GetFunctionalUnitType(opcode)
 					);
 			else
@@ -163,46 +164,38 @@ namespace Project2Simulator
 					new Registers.RegisterID((LowerBits & RegOP2)),
 					null,
 					null,
+					null,
 					OpcodeHelper.GetFunctionalUnitType(opcode)
 					);
 		}
 
 
-        private Instruction CreateLOADInstruction(uint encodedInstruction)
+        private static Instruction CreateMemInstruction(Opcode opcode, uint encodedInstruction)
         {
 			ushort UpperBits = getUpperBits(encodedInstruction);
 			ushort LowerBits = getLowerBits(encodedInstruction);
 			if (immediateBitSet(UpperBits))
-				return new loadImmediate(
-					memory,
-					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
-					(((uint)UpperBits & 0xF) << 16) | LowerBits);
+				return new Instruction(
+					opcode,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					null,
+					null,
+					null,
+					null,
+					new Address((int)(((uint)UpperBits & 0xF) << 16) | LowerBits),
+					OpcodeHelper.GetFunctionalUnitType(opcode));
 			else
-				return new loadRegister(
-					memory,
-					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
-					registers[(UpperBits & Arith1RegOP)],
-					registers[(LowerBits & RegOP2)]
-					);
+				return new Instruction(
+					opcode,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new RegisterID(UpperBits & Arith1RegOP),
+					new RegisterID(LowerBits & RegOP2),
+					null,
+					null,
+					null,
+					OpcodeHelper.GetFunctionalUnitType(opcode));
 		}
 
-        private Instruction CreateSTORInstruction(uint encodedInstruction)
-        {
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
-			if (immediateBitSet(UpperBits))
-				return new storImmediate(
-					memory,
-					(((uint)UpperBits & 0xF) << 16) | LowerBits,
-					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)]);
-			else
-				return new storRegister(
-					memory,
-					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
-					registers[(UpperBits & Arith1RegOP)],
-					registers[(LowerBits & RegOP2)]
-					);
-		}
 
         private Instruction CreateMOVInstruction(uint encodedInstruction)
         {
