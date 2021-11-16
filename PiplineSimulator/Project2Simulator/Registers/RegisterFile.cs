@@ -11,12 +11,14 @@ namespace Project2Simulator.Registers
 		{
 			for (int i = 0; i < 16; i++)
 			{
-				regs[i] = new Register();
-				regs[i].ID = new RegisterID(i);
-				regs[i].Value = new RegisterValue();
-				regs[i].ReorderId = null;
-				regs[i].Busy = false;
-			}
+                regs[i] = new Register
+                {
+                    ID = new RegisterID(i),
+                    Value = new RegisterValue(),
+                    ReorderId = null,
+                    Busy = false
+                };
+            }
 		}
 
 		// Get a register
