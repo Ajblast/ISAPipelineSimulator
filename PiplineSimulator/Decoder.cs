@@ -7,9 +7,10 @@ using System;
 namespace Project2Simulator
 {
 	// An instruction decoder
-	public static class Decoder
+	public class Decoder
 	{
-		
+		RegisterFile RegFile;
+
 		private const ushort OpCodeMask = 0xFE00;
 		private const ushort DestRegMask = 0x00F0;
 		private const ushort ImmediateIdentifierMask = 0x0100;
@@ -18,6 +19,12 @@ namespace Project2Simulator
 		private const ushort ArithDestRegMask = 0x00F0;
 		private const ushort Arith1RegOP = 0x000F;
 		private const ushort RegOP2 = 0x000F; //used for any instruction format where 2nd op is 4 LSB of 32-bit LBSs
+
+
+        public Decoder(RegisterFile regFile)
+        {
+			RegFile = regFile;
+        }
 
 		// Create the decoder with the fetcher, registers, and memory
 
@@ -151,7 +158,7 @@ namespace Project2Simulator
 					new Registers.RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
 					new Registers.RegisterID(UpperBits & Arith1RegOP),
 					null,
-					null,
+					new RegisterValue(0),
 					new Registers.RegisterValue(LowerBits),
 					null,
 					OpcodeHelper.GetFunctionalUnitType(opcode)
@@ -162,8 +169,8 @@ namespace Project2Simulator
 					new Registers.RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
 					new Registers.RegisterID(UpperBits & Arith1RegOP),
 					new Registers.RegisterID((LowerBits & RegOP2)),
-					null,
-					null,
+					new RegisterValue(0),
+					new RegisterValue(0),
 					null,
 					OpcodeHelper.GetFunctionalUnitType(opcode)
 					);
@@ -183,7 +190,8 @@ namespace Project2Simulator
 					null,
 					null,
 					new Address((int)(((uint)UpperBits & 0xF) << 16) | LowerBits),
-					OpcodeHelper.GetFunctionalUnitType(opcode));
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
 			else
 				return new Instruction(
 					opcode,
@@ -193,41 +201,55 @@ namespace Project2Simulator
 					null,
 					null,
 					null,
-					OpcodeHelper.GetFunctionalUnitType(opcode));
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
 		}
 
 
-        private Instruction CreateMOVInstruction(uint encodedInstruction)
-        {
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
-			if (immediateBitSet(UpperBits))
-            {
-				return new moveImmediate(
-					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
-					LowerBits);
-			}				
-			else
-				return new moveRegister(
-					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
-					registers[(UpperBits & Arith1RegOP)]);
-		}
-
-        private Instruction CreatePUSHInstruction(uint encodedInstruction)
+        private static Instruction CreateMOVInstruction(Opcode opcode, uint encodedInstruction)
         {
 			ushort UpperBits = getUpperBits(encodedInstruction);
 			ushort LowerBits = getLowerBits(encodedInstruction);
 			if (immediateBitSet(UpperBits))
 			{
-				return new pushImmediate(
-					memory,
-					LowerBits,
-					registers.SP1,
-					registers.SP2);
+				return new Instruction(
+					opcode,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					null,
+					null,
+					new RegisterValue(0),
+					new RegisterValue(LowerBits),
+					null,
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
 			}
 			else
+				return new Instruction(
+					opcode,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new RegisterID((UpperBits & Arith1RegOP)),
+					null,
+					new RegisterValue(0),
+					new RegisterValue(0),
+					null,
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
+		}
+
+        private static Instruction CreatePUSHInstruction(uint encodedInstruction)
+        {
+			ushort UpperBits = getUpperBits(encodedInstruction);
+			ushort LowerBits = getLowerBits(encodedInstruction);
+			if (immediateBitSet(UpperBits))
+			{							
+				return new Instruction(				
+					LowerBits,			
+					registers.SP1,		
+					registers.SP2);		
+			}							
+			else						
 				return new pushRegister(
-					memory,
+					memory,				
 					registers[(int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)],
 					registers.SP1,
 					registers.SP2);
