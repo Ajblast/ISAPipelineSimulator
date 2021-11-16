@@ -242,7 +242,10 @@ namespace Project2Simulator
 			ushort LowerBits = getLowerBits(encodedInstruction);
 			if (immediateBitSet(UpperBits))
 			{							
-				return new Instruction(				
+				return new Instruction(	
+					opcode,
+					RegFile.SP,
+
 					LowerBits,			
 					registers.SP1,		
 					registers.SP2);		
