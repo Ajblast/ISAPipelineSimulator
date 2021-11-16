@@ -39,7 +39,7 @@ namespace Project2Simulator.Instructions
 			Op2 = op2Val;
 			Op3 = op3Val;
 			RegisterValue = null;
-			Address = null;
+			Address = addr;
         }
 
 	}
