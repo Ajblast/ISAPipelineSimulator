@@ -56,6 +56,14 @@ namespace Project2Simulator.Registers
 			}
 		}
 
+		public Register RK
+        {
+            get
+            {
+				return this[10];
+            }
+        }
+
 		// Get the flag register
 		public Register FLAG
 		{

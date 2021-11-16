@@ -22,7 +22,7 @@ namespace Project2Simulator.Instructions
 		RORC = 0b0001110,
 		ROLC = 0b0001111,
 		LOAD = 0b0010000,
-		SOTR = 0b0010001,
+		STOR = 0b0010001,
 		MOV = 0b0010010,
 		PUSH = 0b0010011,
 		POP = 0b0010100,
@@ -123,7 +123,7 @@ namespace Project2Simulator.Instructions
 				case Opcode.PUSH:
 				case Opcode.POP:
 				case Opcode.LOAD:
-				case Opcode.SOTR:
+				case Opcode.STOR:
 					functionalUnitType = FunctionalUnitType.MEMORY_UNIT;
 					break;
 				case Opcode.MOV:
