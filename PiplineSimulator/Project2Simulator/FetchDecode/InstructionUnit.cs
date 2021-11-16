@@ -22,7 +22,7 @@ namespace Project2Simulator.FetchDecode
 
 		public void FetchDecode()
 		{
-			int index = ((registerFile.PC1.Value.Value & 0x000F) << 16) | registerFile.PC2.Value.Value;
+			int index = registerFile.PC.Value.Value;
 
 			ushort instruction = memory[index];
 
