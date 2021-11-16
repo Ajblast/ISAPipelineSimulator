@@ -37,46 +37,25 @@ namespace Project2Simulator.Registers
 			}
 
 		}
-		// Get rF register
-		public Register RF
-		{
-			get
-			{
-				return this[5];
-			}
-		}
+
 		// Get the program counter
-		public Register PC1
-		{
-			get
-			{
-				return this[11];
-			}
-		}
-		// Get the program counter
-		public Register PC2
-		{
-			get
-			{
-				return this[12];
-			}
-		}
-		// Get the upper order stack pointer bits
-		public Register SP1
+		public Register PC
 		{
 			get
 			{
 				return this[13];
 			}
 		}
-		// Get the lower order stack pointer bits
-		public Register SP2
+
+		// Get the upper order stack pointer bits
+		public Register SP
 		{
 			get
 			{
 				return this[14];
 			}
 		}
+
 		// Get the flag register
 		public Register FLAG
 		{
