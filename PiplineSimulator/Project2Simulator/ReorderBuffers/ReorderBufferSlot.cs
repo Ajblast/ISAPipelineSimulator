@@ -6,21 +6,17 @@ namespace Project2Simulator.ReorderBuffers
 {
 	public class ReorderBufferSlot
 	{
-		public RegisterID DestRegId;
-
+		public ReorderBufferID ReorderBufferID;
+		public ReservationStation Instruction;
 		public bool Ocupodo;
 
+		public RegisterID DestRegId;
 		public RegisterValue Value;
-
 		public bool ValidValue;
 
-		public ReservationStation Instruction;
-
-		public RegisterValue StatusRegValue;
-
-		public bool UpdatesStatusReg;
-
-		public ReorderBufferID ReorderBufferID;
+		public RegisterID DestRegId2;
+		public RegisterValue Value2;
+		public bool ValidValue2;
 
         public ReorderBufferSlot(int reorderBufferID)
         {

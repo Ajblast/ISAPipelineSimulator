@@ -7,25 +7,28 @@ namespace Project2Simulator.ReorderBuffers
 {
 	public class ReorderBuffer
 	{
-
 		private RegisterFile registerFile;
 
 		private THECommonDataBus THECommonDataBus;
 
 		private ReorderBufferSlot[] bufferSlots;
 
-		private int CommitIndex;
+		private int Head;
+		private int Tail;
+		private readonly int bufferSize;
 
 		public ReorderBuffer(RegisterFile regs, THECommonDataBus bus, int bufferSize)
 		{
 			registerFile = regs;
 			THECommonDataBus = bus;
-			CommitIndex = 0;
 			bufferSlots = new ReorderBufferSlot[bufferSize];
             for (int i = 0; i < bufferSize; i++)
-            {
 				bufferSlots[i] = new ReorderBufferSlot(i);
-            }
+
+			Head = 0;
+			Tail = 0;
+
+			this.bufferSize = bufferSize;
 		}
 
 		public void CheckDataBus()
@@ -34,68 +37,68 @@ namespace Project2Simulator.ReorderBuffers
 			if (THECommonDataBus.Valid == false)
 				return;
 
-			// TODO: Allow the reorder buffer to read from the common data bus so it gains information for commit stage
+			bufferSlots[THECommonDataBus.ReorderID.BufferID].Value = THECommonDataBus.Value;
+			bufferSlots[THECommonDataBus.ReorderID.BufferID].ValidValue = true;
+			
+			if (THECommonDataBus.ValidValue2)
+			{
+				bufferSlots[THECommonDataBus.ReorderID.BufferID].Value2 = THECommonDataBus.Value2;
+				bufferSlots[THECommonDataBus.ReorderID.BufferID].ValidValue2 = true;
+			}
 
-			throw new System.NotImplementedException();
-
+			bufferSlots[THECommonDataBus.ReorderID.BufferID].Ocupodo = false;
 		}
 
 
 		public void CommitHead()
 		{
-            if (bufferSlots[CommitIndex].ValidValue == true)
+			// TODO: Change from valid value to the speculative execution tracker
+            if (bufferSlots[Head].Ocupodo == false && bufferSlots[Head].ValidValue == true)
 			{
-                if (bufferSlots[CommitIndex].UpdatesStatusReg)
-					registerFile.FLAG.Value = bufferSlots[CommitIndex].StatusRegValue;
+                if (bufferSlots[Head].DestRegId != null && bufferSlots[Head].ValidValue)
+                {
+					registerFile[bufferSlots[Head].DestRegId.ID].Value = bufferSlots[Head].Value;
+					registerFile[bufferSlots[Head].DestRegId.ID].Busy = false;
+					registerFile[bufferSlots[Head].DestRegId.ID].ReorderId = null;
+				}
 
-                if (bufferSlots[CommitIndex].DestRegId != null)
-					registerFile[bufferSlots[CommitIndex].DestRegId.ID].Value = bufferSlots[CommitIndex].Value;
+                if (bufferSlots[Head].DestRegId2 != null && bufferSlots[Head].ValidValue2)
+                {
+					registerFile[bufferSlots[Head].DestRegId2.ID].Value = bufferSlots[Head].Value2;
+					registerFile[bufferSlots[Head].DestRegId2.ID].Busy = false;
+					registerFile[bufferSlots[Head].DestRegId2.ID].ReorderId = null;
+				}
 
-				registerFile[bufferSlots[CommitIndex].DestRegId.ID].Busy = false;
-				registerFile[bufferSlots[CommitIndex].DestRegId.ID].ReorderId = null;
+				bufferSlots[Head].ValidValue = false;
+				bufferSlots[Head].ValidValue2 = false;
 
-				bufferSlots[CommitIndex].Ocupodo = false;
-				bufferSlots[CommitIndex].ValidValue = false;
+				// Increment the head
+				Head = (Head + 1) % bufferSize;
 			}
 
 		}
 
 		public ReorderBufferSlot FreeSlot()
 		{
-			int curCommitIndex = CommitIndex;
-			do
-			{
-				if (bufferSlots[CommitIndex].Ocupodo == false)
-				{
-					return bufferSlots[CommitIndex];
-				}
-				IncrementIndex();
-			}
-			while (CommitIndex != curCommitIndex);
+			int nextSlot = (Tail + 1) % bufferSize;
 
-			return null;
+			if (bufferSlots[nextSlot].Ocupodo == true)
+            {
+				// Tail caught up to head. Structural Hazard
+				return null;
+            }
+
+			// Set new tail
+			Tail = nextSlot;
+
+			return bufferSlots[Tail];
 		}
 
 		public void Flush()
 		{
 			throw new System.NotImplementedException("No speculative execution capabilities yet");
 		}
-
-		private void IncrementIndex()
-        {
-			if (CommitIndex == (bufferSlots.Length - 1))
-			{
-				CommitIndex = 0;
-			}
-            else
-            {
-				CommitIndex++;
-            }
-
-
-        }
-
-	}
+    }
 
 }
 
