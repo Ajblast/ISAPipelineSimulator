@@ -37,7 +37,7 @@ namespace Project2Simulator
 			switch (opCode)
 			{
 				case (ushort)Opcode.NOP:
-					CreatedInstruction = new Instruction(Opcode.NOP, null, null, null, null, null, null, FunctionalUnitType.NULL);
+					CreatedInstruction = new Instruction(Opcode.NOP, null, null, null, null, null, null, null, null, null, FunctionalUnitType.NULL);
 					break;
 				case (ushort)Opcode.ADD:
 					CreatedInstruction = CreateArithmeticInstruction(Opcode.ADD, EncodedInstruction);
@@ -121,7 +121,7 @@ namespace Project2Simulator
 					CreatedInstruction = CreateArithmeticInstruction(Opcode.SUB, EncodedInstruction);
 					break;
 				case (ushort)Opcode.HALT:
-					CreatedInstruction = new Instruction(Opcode.HALT, null, null, null, new RegisterValue(0), new RegisterValue(0), null, FunctionalUnitType.NULL);
+					CreatedInstruction = new Instruction(Opcode.HALT, null, null, null, null, null, new RegisterValue(0), new RegisterValue(0), new RegisterValue(0), null, FunctionalUnitType.NULL);
 					break;
 				default:
 					throw new Exception("Invalid Instruction OP code Dedcoded");
@@ -130,27 +130,33 @@ namespace Project2Simulator
 			return CreatedInstruction;
 		}
 
-        private static Instruction CreateArithmeticInstruction(Opcode opcode, uint encodedInstruction)
+        private Instruction CreateArithmeticInstruction(Opcode opcode, uint encodedInstruction)
         {
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
- 			if (immediateBitSet(UpperBits))
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+ 			if (ImmediateBitSet(UpperBits))
 				return new Instruction(
 					opcode,
-					new Registers.RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
-					new Registers.RegisterID(UpperBits & Arith1RegOP),
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new RegisterID(UpperBits & Arith1RegOP),
+					new RegisterID(RegFile.FLAG.ID),
 					null,
+					new RegisterID(RegFile.FLAG.ID),
 					new RegisterValue(0),
-					new Registers.RegisterValue(LowerBits),
+					new RegisterValue(LowerBits),
+					new RegisterValue(0),
 					null,
 					OpcodeHelper.GetFunctionalUnitType(opcode)
 					);
 			else
 				return new Instruction(
 					opcode,
-					new Registers.RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
-					new Registers.RegisterID(UpperBits & Arith1RegOP),
-					new Registers.RegisterID((LowerBits & RegOP2)),
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new RegisterID(UpperBits & Arith1RegOP),
+					new RegisterID(RegFile.FLAG.ID),
+					new RegisterID(LowerBits & RegOP2),
+					null,
+					new RegisterValue(0),
 					new RegisterValue(0),
 					new RegisterValue(0),
 					null,
@@ -158,11 +164,11 @@ namespace Project2Simulator
 					);
 		}
 
-        private static Instruction CreateMemInstruction(Opcode opcode, uint encodedInstruction)
+        private Instruction CreateMemInstruction(Opcode opcode, uint encodedInstruction)
         {
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
-			if (immediateBitSet(UpperBits))
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			if (ImmediateBitSet(UpperBits))
 				return new Instruction(
 					opcode,
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
@@ -186,11 +192,11 @@ namespace Project2Simulator
 					);
 		}
 
-        private static Instruction CreateMOVInstruction(uint encodedInstruction)
+        private Instruction CreateMOVInstruction(uint encodedInstruction)
         {
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
-			if (immediateBitSet(UpperBits))
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			if (ImmediateBitSet(UpperBits))
 			{
 				return new Instruction(
 					Opcode.MOV,
@@ -218,9 +224,9 @@ namespace Project2Simulator
 
         private Instruction CreatePUSHInstruction(uint encodedInstruction)
         {
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
-			if (immediateBitSet(UpperBits))
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			if (ImmediateBitSet(UpperBits))
 			{
 				return new Instruction(
 					Opcode.PUSH,
@@ -248,8 +254,8 @@ namespace Project2Simulator
 
         private Instruction CreatePOPInstruction(uint encodedInstruction)
         {
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
 			return new Instruction(
 				Opcode.POP,
 				new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
@@ -264,8 +270,8 @@ namespace Project2Simulator
 
         private Instruction CreateCMPInstruction(uint encodedInstruction)
         {
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
 			return new Instruction(
 				Opcode.CMP,
 				new RegisterID(RegFile.RK.ID.ID),
@@ -280,8 +286,8 @@ namespace Project2Simulator
 
         private Instruction CreateBranchInstruction(Opcode opcode, uint encodedInstruction)
         {
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
 			return new Instruction(
 				opcode,
 				null,
@@ -297,8 +303,8 @@ namespace Project2Simulator
         private Instruction CreateLDAInstruction(uint encodedInstruction)
         {
 
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
 			return new Instruction(
 				Opcode.LDA,
 				new RegisterID(RegFile.RE.ID.ID),
@@ -313,9 +319,9 @@ namespace Project2Simulator
 
         private Instruction CreateNEGInstruction(uint encodedInstruction)
         {
-			ushort UpperBits = getUpperBits(encodedInstruction);
-			ushort LowerBits = getLowerBits(encodedInstruction);
-			if (immediateBitSet(UpperBits))
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			if (ImmediateBitSet(UpperBits))
 				return new Instruction(
 					Opcode.NEG,
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
@@ -348,17 +354,17 @@ namespace Project2Simulator
 
         }
 
-		private static bool immediateBitSet(ushort EncodedInstruction)
+		private static bool ImmediateBitSet(ushort EncodedInstruction)
         {
 			return Convert.ToBoolean(EncodedInstruction & ImmediateIdentifierMask);
         }
 
-		private static ushort getLowerBits(uint encodedInstruction)
+		private static ushort GetLowerBits(uint encodedInstruction)
 		{
 			return (ushort) (encodedInstruction & 0x0000FFFF);
 		}
 
-		private static ushort getUpperBits(uint encodedInstruction)
+		private static ushort GetUpperBits(uint encodedInstruction)
         {
 			return (ushort)(((uint)(encodedInstruction & 0xFFFF0000)) >> 16);
 		}
