@@ -77,7 +77,7 @@ namespace Decoder
 			return sb.ToString();
 		}
 		// Decode an instruction
-		private string Decode(ushort EncodedInstruction)
+		private string Decode(uint EncodedInstruction)
 		{
 			ushort OpCode = ExtractInstruction(EncodedInstruction);
 			string CreatedInstruction;
@@ -195,286 +195,260 @@ namespace Decoder
 			return CreatedInstruction;
 		}
 
-		private string CreateADDInstruction(ushort encodedInstruction)
+		private string CreateADDInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "add " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			addInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateADDCInstruction(ushort encodedInstruction)
+		private string CreateADDCInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "addc " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			addcInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateSUBBInstruction(ushort encodedInstruction)
+		private string CreateSUBBInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "subb " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			subbInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateANDInstruction(ushort encodedInstruction)
+		private string CreateANDInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "and " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			andInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateORInstruction(ushort encodedInstruction)
+		private string CreateORInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "or " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			orInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateNORInstruction(ushort encodedInstruction)
+		private string CreateNORInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "nor " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			norInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateSHLInstruction(ushort encodedInstruction)
+		private string CreateSHLInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "shl " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			shlInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateSHRInstruction(ushort encodedInstruction)
+		private string CreateSHRInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "shr " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			shrInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateSHARInstruction(ushort encodedInstruction)
+		private string CreateSHARInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "shar " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			sharInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateRORInstruction(ushort encodedInstruction)
+		private string CreateRORInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "ror " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			rorInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateROLInstruction(ushort encodedInstruction)
+		private string CreateROLInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "rol " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			rolInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateRORCInstruction(ushort encodedInstruction)
+		private string CreateRORCInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "rorc " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			rorcInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateROLCInstruction(ushort encodedInstruction)
+		private string CreateROLCInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "rolc " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			rolcInstructions++;
@@ -482,61 +456,55 @@ namespace Decoder
 			return retValue;
 		}
 
-		private string CreateLOADInstruction(ushort encodedInstruction)
+		private string CreateLOADInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "load " + returnRegister(destination);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + ((short)(op1 << 16 | temp));
+				retValue += "#" + ((short)(op1 << 16 | (short)(encodedInstruction & 0x0000FFFF)));
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister(op1) + returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister(op1);
 				registerInstructions++;
 			}
 			loadInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateSTORInstruction(ushort encodedInstruction)
+		private string CreateSTORInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "stor " + returnRegister(destination);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + ((short)(op1 << 16 | temp));
+				retValue += "#" + ((short)(op1 << 16 | (short)(encodedInstruction & 0x0000FFFF)));
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister(op1) + returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister(op1);
 				registerInstructions++;
 			}
 			storInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateMOVInstruction(ushort encodedInstruction)
+		private string CreateMOVInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "mov " + returnRegister(destination);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
@@ -548,16 +516,14 @@ namespace Decoder
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreatePUSHInstruction(ushort encodedInstruction)
+		private string CreatePUSHInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "push ";
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
@@ -569,29 +535,31 @@ namespace Decoder
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreatePOPInstruction(ushort encodedInstruction)
+		private string CreatePOPInstruction(uint encodedInstruction)
 		{
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
 
 			string retValue = "pop " + returnRegister(destination);
 			popInstructions++;
 			totalInstructions++;
 			controlInstructions++;
+			registerInstructions++;
 			return retValue;
 		}
 
-		private string CreateCMPInstruction(ushort encodedInstruction)
+		private string CreateCMPInstruction(uint encodedInstruction)
 		{
-			byte op1 = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op2 = (byte)(encodedInstruction & 0x000F);
+			byte op1 = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op2 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "cmp " + returnRegister(op1) + returnRegister(op2);
 			cmpInstructions++;
 			totalInstructions++;
 			controlInstructions++;
+			registerInstructions++;
 			return retValue;
 		}
-		private string CreateJZInstruction(ushort encodedInstruction)
+		private string CreateJZInstruction(uint encodedInstruction)
 		{
 			jumpInstructions++;
 			totalInstructions++;
@@ -599,7 +567,7 @@ namespace Decoder
 			string retValue = "jz ";
 			return retValue;
 		}
-		private string CreateJNZInstruction(ushort encodedInstruction)
+		private string CreateJNZInstruction(uint encodedInstruction)
 		{
 			jumpInstructions++;
 			totalInstructions++;
@@ -607,7 +575,7 @@ namespace Decoder
 			string retValue = "jnz ";
 			return retValue;
 		}
-		private string CreateJGInstruction(ushort encodedInstruction)
+		private string CreateJGInstruction(uint encodedInstruction)
 		{
 			jumpInstructions++;
 			totalInstructions++;
@@ -615,7 +583,7 @@ namespace Decoder
 			string retValue = "jg ";
 			return retValue;
 		}
-		private string CreateJGEInstruction(ushort encodedInstruction)
+		private string CreateJGEInstruction(uint encodedInstruction)
 		{
 			jumpInstructions++;
 			controlInstructions++;
@@ -623,7 +591,7 @@ namespace Decoder
 			string retValue = "jge ";
 			return retValue;
 		}
-		private string CreateJLInstruction(ushort encodedInstruction)
+		private string CreateJLInstruction(uint encodedInstruction)
 		{
 			jumpInstructions++;
 			totalInstructions++;
@@ -631,7 +599,7 @@ namespace Decoder
 			string retValue = "jl ";
 			return retValue;
 		}
-		private string CreateJLEInstruction(ushort encodedInstruction)
+		private string CreateJLEInstruction(uint encodedInstruction)
 		{
 			jumpInstructions++;
 			totalInstructions++;
@@ -639,7 +607,7 @@ namespace Decoder
 			string retValue = "jle ";
 			return retValue;
 		}
-		private string CreateJAInstruction(ushort encodedInstruction)
+		private string CreateJAInstruction(uint encodedInstruction)
 		{
 			jumpInstructions++;
 			totalInstructions++;
@@ -647,7 +615,7 @@ namespace Decoder
 			string retValue = "ja ";
 			return retValue;
 		}
-		private string CreateJAEInstruction(ushort encodedInstruction)
+		private string CreateJAEInstruction(uint encodedInstruction)
 		{
 			jumpInstructions++;
 			totalInstructions++;
@@ -655,7 +623,7 @@ namespace Decoder
 			string retValue = "jae ";
 			return retValue;
 		}
-		private string CreateJBInstruction(ushort encodedInstruction)
+		private string CreateJBInstruction(uint encodedInstruction)
 		{
 			jumpInstructions++;
 			totalInstructions++;
@@ -663,7 +631,7 @@ namespace Decoder
 			string retValue = "jb ";
 			return retValue;
 		}
-		private string CreateJBEInstruction(ushort encodedInstruction)
+		private string CreateJBEInstruction(uint encodedInstruction)
 		{
 			jumpInstructions++;
 			totalInstructions++;
@@ -672,30 +640,26 @@ namespace Decoder
 			return retValue;
 		}
 
-		private string CreateLDAInstruction(ushort encodedInstruction)
+		private string CreateLDAInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte immediate20 = (byte)(encodedInstruction & 0x000F);
+			byte immediate20 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "lda ";
-			retValue += "#" + ((int)(immediate20 << 16 | temp));
+			retValue += "#" + ((int)(immediate20 << 16 | (short)(encodedInstruction & 0x0000FFFF)));
 			ldaInstructions++;
 			totalInstructions++;
 			immediateInstructions++;
 			return retValue;
 		}
-		private string CreateNEGInstruction(ushort encodedInstruction)
+		private string CreateNEGInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "neg " + returnRegister(destination);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
@@ -707,51 +671,47 @@ namespace Decoder
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateXORInstruction(ushort encodedInstruction)
+		private string CreateXORInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "xor " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			xorInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateSUBInstruction(ushort encodedInstruction)
+		private string CreateSUBInstruction(uint encodedInstruction)
 		{
-			byte[] bytes = br.ReadBytes(2);
-			ushort temp = (ushort)(bytes[0] << 8 | bytes[1]);
-			byte destination = (byte)((uint)(encodedInstruction & 0x00F0) >> 4);
-			byte op1 = (byte)(encodedInstruction & 0x000F);
+			byte destination = (byte)((uint)(encodedInstruction & 0x00F00000) >> 20);
+			byte op1 = (byte)(encodedInstruction & 0x000F0000) >> 16;
 
 			string retValue = "sub " + returnRegister(destination) + returnRegister(op1);
 			if (immediateBitSet(encodedInstruction))
 			{
-				retValue += "#" + (short)temp;
+				retValue += "#" + (short)(encodedInstruction & 0x0000FFFF);
 				immediateInstructions++;
 			}
 			else
 			{
-				retValue += returnRegister((byte)(temp & 0x000F));
+				retValue += returnRegister((byte)(encodedInstruction & 0x0000000F););
 				registerInstructions++;
 			}
 			subInstructions++;
 			totalInstructions++;
 			return retValue;
 		}
-		private string CreateNOPInstruction(ushort encodedInstruction)
+		private string CreateNOPInstruction(uint encodedInstruction)
 		{
 			string retValue = "nop ";
 			nopInstructions++;
@@ -759,7 +719,7 @@ namespace Decoder
 			controlInstructions++;
 			return retValue;
 		}
-		private string CreateHALTInstruction(ushort encodedInstruction)
+		private string CreateHALTInstruction(uint encodedInstruction)
 		{
 			string retValue = "halt ";
 			haltInstructions++;
@@ -768,14 +728,14 @@ namespace Decoder
 			return retValue;
 		}
 
-		private ushort ExtractInstruction(ushort EncodedInstruction)
+		private ushort ExtractInstruction(uint EncodedInstruction)
 		{
 			//I am using ASL due to c#, bitwise & produces int. Cast applies after all operations, so ASL should act as LSL
 			return (ushort)((uint)(EncodedInstruction & OpCodeMask) >> 9);
 
 		}
 
-		private bool immediateBitSet(ushort EncodedInstruction)
+		private bool immediateBitSet(uint EncodedInstruction)
 		{
 			return Convert.ToBoolean(EncodedInstruction & ImmediateIdentifierMask);
 		}
