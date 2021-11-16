@@ -4,13 +4,14 @@ namespace Project2Simulator.Registers
 {
 	public class RegisterValue
 	{
-        public ushort Value { get; set; }
+        public uint Value { get; set; }
+        public const uint DataSize = 32;
 
         public RegisterValue()
         {
             Value = 0;
         }
-        public RegisterValue(ushort value)
+        public RegisterValue(uint value)
         {
             Value = value;
         }

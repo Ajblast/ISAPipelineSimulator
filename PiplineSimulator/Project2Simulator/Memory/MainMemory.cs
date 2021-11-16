@@ -1,5 +1,7 @@
 /* Author: Austin Kincer */
 
+using Project2Simulator.Registers;
+
 namespace Project2Simulator.Memory
 {
 	// The memory of the simulator
@@ -18,15 +20,19 @@ namespace Project2Simulator.Memory
         }
 
 		// Index into the whole nine yards
-		public ushort this[int index]
+		public RegisterValue this[int index]
 		{
 			get
 			{
 				// Return a short
 				if (bigEndian)
-					return (ushort)((TheWholeNineYards[index] << 8) | TheWholeNineYards[index + 1]);
+					return new RegisterValue((uint)(
+						(TheWholeNineYards[index] << 24) | TheWholeNineYards[index + 1] << 16 | (TheWholeNineYards[index + 2] << 8) | (TheWholeNineYards[index + 3]))
+						);
 				else
-					return (ushort)((TheWholeNineYards[index + 1] << 8) | TheWholeNineYards[index]);
+					return new RegisterValue((uint)(
+						(TheWholeNineYards[index + 3] << 24) | (TheWholeNineYards[index + 2] << 16) |(TheWholeNineYards[index + 1] << 8) | TheWholeNineYards[index]
+						));
 
 			}
 			set
@@ -34,13 +40,17 @@ namespace Project2Simulator.Memory
 				// Set the individual bytes
 				if (bigEndian)
 				{
-					TheWholeNineYards[index] = (byte)((value & 0xFF00) >> 8);
-					TheWholeNineYards[index + 1] = (byte)(value & 0x00FF);
+					TheWholeNineYards[index + 0] = (byte)((value.Value & 0xFF000000) >> 24);
+					TheWholeNineYards[index + 1] = (byte)((value.Value & 0x00FF0000) >> 16);
+					TheWholeNineYards[index + 2] = (byte)((value.Value & 0x0000FF00) >> 8);
+					TheWholeNineYards[index + 3] = (byte)((value.Value & 0x000000FF) >> 0);
 				}
 				else
                 {
-					TheWholeNineYards[index + 1] = (byte)((value & 0xFF00) >> 8);
-					TheWholeNineYards[index] = (byte)(value & 0x00FF);
+					TheWholeNineYards[index + 3] = (byte)((value.Value & 0xFF000000) >> 24);
+					TheWholeNineYards[index + 2] = (byte)((value.Value & 0x00FF0000) >> 16);
+					TheWholeNineYards[index + 1] = (byte)((value.Value & 0x0000FF00) >> 8);
+					TheWholeNineYards[index + 0] = (byte)((value.Value & 0x000000FF) >> 0);
                 }
             }
 		}

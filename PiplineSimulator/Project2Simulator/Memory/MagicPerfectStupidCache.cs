@@ -39,7 +39,7 @@ namespace Project2Simulator.Memory
 		public void Cycle()
 		{
             foreach (var pair in StoreQueue)
-				memory[pair.Item1.Value] = pair.Item2.Value;
+				memory[pair.Item1.Value].Value = pair.Item2.Value;
 
 			StoreQueue.Clear();
 		}
