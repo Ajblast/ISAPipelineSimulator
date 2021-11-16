@@ -5,7 +5,7 @@ namespace Project2Simulator.Registers
 	public class RegisterValue
 	{
         public uint Value { get; set; }
-        public const uint DataSize = 32;
+        public const byte DataSize = 32;
 
         public RegisterValue()
         {
