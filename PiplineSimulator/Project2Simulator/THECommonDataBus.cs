@@ -9,18 +9,17 @@ namespace Project2Simulator
 	{
 		public ReorderBufferID ReorderID;
 		public RegisterValue Value;
-
-		public RegisterValue StatusRegValue;
-		public bool StatusRegUpdated;
+		public RegisterValue Value2;
+		public bool ValidValue2;
 
 		public bool Valid;
 
-		public void Write(ReorderBufferID id, RegisterValue value, RegisterValue status, bool statusUpdated)
+		public void Write(ReorderBufferID id, RegisterValue value, RegisterValue value2, bool validValue2)
 		{
 			ReorderID = id;
 			Value = value;
-			StatusRegValue = status;
-			StatusRegUpdated = statusUpdated;
+			Value2 = value2;
+			ValidValue2 = validValue2;
 
 			Valid = true;
 		}

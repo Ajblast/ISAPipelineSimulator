@@ -84,6 +84,28 @@ namespace Project2Simulator.ReservationStations
 				Values.Op2Src = null;
             }
 
+			// Check if Op3 uses the register file
+			if (instruction.Op3Reg != null)
+			{
+				// Check the register file busy flag
+				ReorderBufferID Op3ID = registerFile[instruction.Op3Reg.ID].ReorderId;
+				if (Op3ID == null)
+                {
+					Values.Op3 = new RegisterValue(registerFile[instruction.Op3Reg.ID].Value);
+					Values.Op3Src = null;
+                }
+				else
+                {
+					Values.Op3 = null;
+					Values.Op3Src = new ReorderBufferID(Op3ID);
+                }
+			}
+			else
+            {
+				Values.Op3 = instruction.Op3;
+				Values.Op3Src = null;
+            }
+
 			// Get the address from the instruction
 			Values.Addr = instruction.Address;
 
@@ -93,10 +115,6 @@ namespace Project2Simulator.ReservationStations
 				Values.Dest = new ReorderBufferID(id);
 				registerFile[instruction.Destination.ID].ReorderId = new ReorderBufferID(id);
 			}
-
-			// If the instruction touches the flags register, set it as used
-			if (OpcodeHelper.TouchesFlags(instruction.Opcode))
-				registerFile.FLAG.ReorderId = new ReorderBufferID(id);
 
 			Busy = true;
         }
@@ -120,6 +138,11 @@ namespace Project2Simulator.ReservationStations
 				Values.Op2 = bus.Value;
 				Values.Op2Src = null;
 			}
+			if (Values.Op3 == null && bus.ReorderID.Equals(Values.Op3Src))
+			{
+				Values.Op3 = bus.Value;
+				Values.Op3Src = null;
+			}
 		}
 		public void Cycle()
 		{
@@ -132,8 +155,11 @@ namespace Project2Simulator.ReservationStations
 			else
 			{
 				// Do nothing if the values are not present in the reservation station
-				if (Values.Op1 == null || Values.Op2 == null)
+				if (Values.Op1 == null || Values.Op2 == null || Values.Op3 == null)
 					return;
+
+				if (FunctionalUnit.Executing == false)
+					FunctionalUnit.StartExecution(Values.Opcode, Values.Op1, Values.Op2, Values.Op3);
 
 				// Cycle the functional unit
 				if (FunctionalUnit.Cycle())
