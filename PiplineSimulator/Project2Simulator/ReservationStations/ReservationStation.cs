@@ -27,7 +27,7 @@ namespace Project2Simulator.ReservationStations
 			dataBusControlUnit = control;
 			this.bus = bus;
 
-			FunctionalUnit = FunctionalFactory.CreateUnit(type, core);
+			FunctionalUnit = FunctionalFactory.CreateUnit(bus, type, core);
 			StationID = id;
 			Values = new StationValues();
 

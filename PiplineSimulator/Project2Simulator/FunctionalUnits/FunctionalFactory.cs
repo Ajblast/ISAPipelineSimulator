@@ -1,20 +1,20 @@
 /* Author: Austin Kincer */
 
-using Project2Simulator.FunctionalUnits;
+using Project2Simulator.Memory;
 using System;
 
 namespace Project2Simulator.FunctionalUnits
 {
 	public static class FunctionalFactory
     {
-        private static THECommonDataBus bus;
+        private static MMU mmu;
 
-        public static void Initialize(THECommonDataBus bus)
+        public static void Initialize(MMU mmu)
         {
-            FunctionalFactory.bus = bus;
+            FunctionalFactory.mmu = mmu;
         }
 
-		public static FunctionalUnit CreateUnit(FunctionalUnitType type, CoreID id)
+		public static FunctionalUnit CreateUnit(THECommonDataBus bus, FunctionalUnitType type, CoreID id)
         {
             throw new NotImplementedException();
         }

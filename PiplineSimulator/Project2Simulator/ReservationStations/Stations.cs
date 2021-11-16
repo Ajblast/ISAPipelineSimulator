@@ -11,8 +11,6 @@ namespace Project2Simulator.ReservationStations
 
 		public Stations(RegisterFile regs, ReservationStationCounts counts, THECommonDataBus bus, DataBusControlUnit control, CoreID core)
 		{
-			FunctionalFactory.Initialize(bus);
-
 			reservationStations = new ReservationStation[counts.Total()];
 
 			// Create all reservation stations
@@ -37,7 +35,10 @@ namespace Project2Simulator.ReservationStations
 		{
             foreach (var station in reservationStations)
 				station.Cycle();
-            foreach (var station in reservationStations)
+		}
+		public void CheckDataBus()
+        {
+			foreach (var station in reservationStations)
 				station.CheckDataBus();
 		}
 
