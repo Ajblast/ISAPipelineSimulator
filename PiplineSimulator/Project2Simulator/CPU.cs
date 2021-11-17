@@ -23,7 +23,7 @@ namespace Project2Simulator
 			memory= new MainMemory(0x100000, true);
 			magicPerfectStupidCache = new MagicPerfectStupidCache(memory);
 
-			FunctionalFactory.Initialize(THEMMU);
+			FunctionalFactory.Initialize(THEMMU, magicPerfectStupidCache);
         }
 		public void Cycle()
 		{

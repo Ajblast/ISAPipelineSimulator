@@ -1,18 +1,17 @@
-using Project2Simulator.FunctionalUnits;
+/* Author: Austin Kincer */
+
 using Project2Simulator.Memory;
 
 namespace Project2Simulator.FunctionalUnits
 {
 	public abstract class MemoryAccessUnit : FunctionalUnit
 	{
-		private MMU MMU;
+		protected MMU MMU;
+		protected MagicPerfectStupidCache magicPerfectStupidCache;
 
-		private MainMemory memory;
-
-		private MagicPerfectStupidCache magicPerfectStupidCache;
-
-        protected MemoryAccessUnit(CoreID core) : base(core)
+        protected MemoryAccessUnit(MMU mmu, MagicPerfectStupidCache cache, THECommonDataBus bus, CoreID core) : base(FunctionalUnitType.MEMORY_UNIT, bus, core)
         {
+            MMU = mmu;
         }
     }
 

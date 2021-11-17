@@ -49,6 +49,7 @@
     <Compile Include="Project2Simulator\FetchDecode\InstructionQueue.cs" />
     <Compile Include="Project2Simulator\FetchDecode\InstructionUnit.cs" />
     <Compile Include="Project2Simulator\FunctionalUnits\AdderUnit.cs" />
+    <Compile Include="Project2Simulator\FunctionalUnits\BranchUnit.cs" />
     <Compile Include="Project2Simulator\FunctionalUnits\FloatingAdder.cs" />
     <Compile Include="Project2Simulator\FunctionalUnits\FloatingMultiplier.cs" />
     <Compile Include="Project2Simulator\FunctionalUnits\FunctionalFactory.cs" />
