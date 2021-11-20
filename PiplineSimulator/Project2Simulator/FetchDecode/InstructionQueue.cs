@@ -14,7 +14,9 @@ namespace Project2Simulator.FetchDecode
 
 		private ReorderBuffer reorderBuffer;
 
-		public InstructionQueue(Stations stations, ReorderBuffer buffer)
+		private int Capacity;
+
+		public InstructionQueue(Stations stations, ReorderBuffer buffer, int Capacity)
 		{
 
 		}
@@ -31,6 +33,11 @@ namespace Project2Simulator.FetchDecode
 			 * gives instruction to selected reservatation station and also reorder buffer slot ID
 			 */
 		}
+
+		public bool IsFull()
+        {
+			return Instructions.Count >= Capacity;
+        }
 
 	}
 

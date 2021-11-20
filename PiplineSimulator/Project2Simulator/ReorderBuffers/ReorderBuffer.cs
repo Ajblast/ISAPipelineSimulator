@@ -98,6 +98,12 @@ namespace Project2Simulator.ReorderBuffers
 		{
 			throw new System.NotImplementedException("No speculative execution capabilities yet");
 		}
+
+		public bool TailIsBranchInstruction()
+        {
+			return bufferSlots[Tail].Instruction.FunctionalUnit.Type == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT;
+
+		}
     }
 
 }
