@@ -4,7 +4,7 @@ namespace Project2Simulator.FunctionalUnits
 {
     public abstract class MultiplierUnit : FunctionalUnit
     {
-        protected MultiplierUnit(CoreID core) : base(core)
+        protected MultiplierUnit(FunctionalUnitType type, THECommonDataBus bus, CoreID core) : base(type, bus, core)
         {
         }
     }

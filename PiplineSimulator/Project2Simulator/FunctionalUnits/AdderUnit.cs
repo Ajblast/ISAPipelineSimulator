@@ -6,7 +6,7 @@ namespace Project2Simulator.FunctionalUnits
 {
     public abstract class AdderUnit : FunctionalUnit
     {
-        protected AdderUnit(THECommonDataBus bus, CoreID core) : base(FunctionalUnitType.INTEGER_ADDER, bus, core)
+        protected AdderUnit(FunctionalUnitType type, THECommonDataBus bus, CoreID core) : base(type, bus, core)
         {
         }
     }
