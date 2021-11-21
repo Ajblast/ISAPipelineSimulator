@@ -42,6 +42,10 @@ namespace Project2Simulator.ReservationStations
 				station.CheckDataBus();
 		}
 
+		public ReservationStation GetStation(FunctionalUnitType type)
+        {
+
+        }
 	}
 
 }

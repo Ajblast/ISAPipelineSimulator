@@ -40,8 +40,8 @@ namespace Project2Simulator
 			//counts.MovementUnit = 1;
 			reservationStations = new Stations(registerFile, counts, bus, dataBusControlUnit, coreID);
 
-			instructionQueue = new InstructionQueue(reservationStations, reorderBuffer);
-			instructionUnit = new InstructionUnit(instructionQueue, registerFile, memory);
+			instructionQueue = new InstructionQueue(reservationStations, reorderBuffer, 8);
+			instructionUnit = new InstructionUnit(instructionQueue, registerFile, memory, reorderBuffer);
         }
 
 		public void Cycle()

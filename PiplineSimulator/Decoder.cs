@@ -43,10 +43,10 @@ namespace Project2Simulator
 					CreatedInstruction = CreateArithmeticInstruction(Opcode.ADD, EncodedInstruction);
 					break;
 				case (ushort)Opcode.ADDC:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.ADDC, EncodedInstruction);
+					CreatedInstruction = CreateArithmeticInstructionFlags(Opcode.ADDC, EncodedInstruction);
 					break;
 				case (ushort)Opcode.SUBB:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.SUBB, EncodedInstruction);
+					CreatedInstruction = CreateArithmeticInstructionFlags(Opcode.SUBB, EncodedInstruction);
 					break;
 				case (ushort)Opcode.AND:
 					CreatedInstruction = CreateArithmeticInstruction(Opcode.AND, EncodedInstruction);
@@ -73,10 +73,10 @@ namespace Project2Simulator
 					CreatedInstruction = CreateArithmeticInstruction(Opcode.ROL, EncodedInstruction);
 					break;
 				case (ushort)Opcode.RORC:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.RORC, EncodedInstruction);
+					CreatedInstruction = CreateArithmeticInstructionFlags(Opcode.RORC, EncodedInstruction);
 					break;
 				case (ushort)Opcode.ROLC:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.ROLC, EncodedInstruction);
+					CreatedInstruction = CreateArithmeticInstructionFlags(Opcode.ROLC, EncodedInstruction);
 					break;
 				case (ushort)Opcode.LOAD:
 					CreatedInstruction = CreateMemInstruction(Opcode.LOAD, EncodedInstruction);
@@ -138,8 +138,42 @@ namespace Project2Simulator
 				return new Instruction(
 					opcode,
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
-					new RegisterID(UpperBits & Arith1RegOP),
 					new RegisterID(RegFile.FLAG.ID),
+					new RegisterID(UpperBits & Arith1RegOP),
+					null,
+					null,
+					new RegisterValue(0),
+					new RegisterValue(LowerBits),
+					new RegisterValue(0),
+					null,
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
+			else
+				return new Instruction(
+					opcode,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new RegisterID(RegFile.FLAG.ID),
+					new RegisterID(UpperBits & Arith1RegOP),
+					new RegisterID(LowerBits & RegOP2),
+					null,				
+					new RegisterValue(0),
+					new RegisterValue(0),
+					new RegisterValue(0),
+					null,
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
+		}
+
+		private Instruction CreateArithmeticInstructionFlags(Opcode opcode, uint encodedInstruction)
+		{
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			if (ImmediateBitSet(UpperBits))
+				return new Instruction(
+					opcode,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new RegisterID(RegFile.FLAG.ID),
+					new RegisterID(UpperBits & Arith1RegOP),
 					null,
 					new RegisterID(RegFile.FLAG.ID),
 					new RegisterValue(0),
@@ -152,10 +186,10 @@ namespace Project2Simulator
 				return new Instruction(
 					opcode,
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
-					new RegisterID(UpperBits & Arith1RegOP),
 					new RegisterID(RegFile.FLAG.ID),
+					new RegisterID(UpperBits & Arith1RegOP),
 					new RegisterID(LowerBits & RegOP2),
-					null,
+					new RegisterID(RegFile.FLAG.ID),
 					new RegisterValue(0),
 					new RegisterValue(0),
 					new RegisterValue(0),
@@ -164,7 +198,7 @@ namespace Project2Simulator
 					);
 		}
 
-        private Instruction CreateMemInstruction(Opcode opcode, uint encodedInstruction)
+		private Instruction CreateMemInstruction(Opcode opcode, uint encodedInstruction)
         {
 			ushort UpperBits = GetUpperBits(encodedInstruction);
 			ushort LowerBits = GetLowerBits(encodedInstruction);
@@ -174,6 +208,9 @@ namespace Project2Simulator
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
 					null,
 					null,
+					null,
+					null,
+					new RegisterValue(0),
 					new RegisterValue(0),
 					new RegisterValue(0),
 					new Address((int)(((uint)UpperBits & 0xF) << 16) | LowerBits),
@@ -183,8 +220,11 @@ namespace Project2Simulator
 				return new Instruction(
 					opcode,
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					null,
 					new RegisterID(UpperBits & Arith1RegOP),
 					null,
+					null,
+					new RegisterValue(0),
 					new RegisterValue(0),
 					new RegisterValue(0),
 					null,
@@ -203,8 +243,11 @@ namespace Project2Simulator
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
 					null,
 					null,
+					null,
+					null,
 					new RegisterValue(0),
 					new RegisterValue(LowerBits),
+					new RegisterValue(0),
 					null,
 					OpcodeHelper.GetFunctionalUnitType(Opcode.MOV)
 					);
@@ -213,8 +256,11 @@ namespace Project2Simulator
 				return new Instruction(
 					Opcode.MOV,
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					null,
 					new RegisterID((UpperBits & Arith1RegOP)),
 					null,
+					null,
+					new RegisterValue(0),
 					new RegisterValue(0),
 					new RegisterValue(0),
 					null,
@@ -230,11 +276,14 @@ namespace Project2Simulator
 			{
 				return new Instruction(
 					Opcode.PUSH,
-					new RegisterID(RegFile.SP.ID.ID),
-					new RegisterID(RegFile.SP.ID.ID),
+					new RegisterID(RegFile.SP.ID),
+					null,
+					new RegisterID(RegFile.SP.ID),
+					null,
 					null,
 					new RegisterValue(0),
 					new RegisterValue(LowerBits),
+					new RegisterValue(0),
 					null,
 					OpcodeHelper.GetFunctionalUnitType(Opcode.PUSH)
 					);
@@ -242,9 +291,12 @@ namespace Project2Simulator
 			else
 				return new Instruction(
 					Opcode.PUSH,
-					new RegisterID(RegFile.SP.ID.ID),
-					new RegisterID(RegFile.SP.ID.ID),
+					new RegisterID(RegFile.SP.ID),
+					null,
+					new RegisterID(RegFile.SP.ID),
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					null,
+					new RegisterValue(0),
 					new RegisterValue(0),
 					new RegisterValue(0),
 					null,
@@ -259,8 +311,11 @@ namespace Project2Simulator
 			return new Instruction(
 				Opcode.POP,
 				new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
-				new RegisterID(RegFile.SP.ID.ID),
+				new RegisterID(RegFile.SP.ID),
+				new RegisterID(RegFile.SP.ID),
 				null,
+				null,
+				new RegisterValue(0),
 				new RegisterValue(0),
 				new RegisterValue(0),
 				null,
@@ -274,9 +329,12 @@ namespace Project2Simulator
 			ushort LowerBits = GetLowerBits(encodedInstruction);
 			return new Instruction(
 				Opcode.CMP,
-				new RegisterID(RegFile.RK.ID.ID),
+				new RegisterID(RegFile.RK.ID),
+				new RegisterID(RegFile.FLAG.ID),
 				new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
 				new RegisterID((int)((uint)(UpperBits & Arith1RegOP))),
+				null,
+				new RegisterValue(0),
 				new RegisterValue(0),
 				new RegisterValue(0),
 				null,
@@ -290,9 +348,12 @@ namespace Project2Simulator
 			ushort LowerBits = GetLowerBits(encodedInstruction);
 			return new Instruction(
 				opcode,
-				null,
+				new RegisterID(RegFile.PC.ID),
+				new RegisterID(RegFile.FLAG.ID.ID),
 				new RegisterID(RegFile.FLAG.ID.ID),
 				null,
+				null,
+				new RegisterValue(0),
 				new RegisterValue(0),
 				new RegisterValue(0),
 				null,
@@ -307,9 +368,12 @@ namespace Project2Simulator
 			ushort LowerBits = GetLowerBits(encodedInstruction);
 			return new Instruction(
 				Opcode.LDA,
-				new RegisterID(RegFile.RE.ID.ID),
+				new RegisterID(RegFile.RE.ID),
 				null,
 				null,
+				null,
+				null,
+				new RegisterValue(0),
 				new RegisterValue(0),
 				new RegisterValue(0),
 				new Address((int)(((uint)UpperBits & 0xF) << 16) | LowerBits),
@@ -325,10 +389,13 @@ namespace Project2Simulator
 				return new Instruction(
 					Opcode.NEG,
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new RegisterID(RegFile.FLAG.ID),
+					null,
 					null,
 					null,
 					new RegisterValue(0),
 					new RegisterValue(LowerBits),
+					new RegisterValue(0),
 					null,
 					OpcodeHelper.GetFunctionalUnitType(Opcode.NEG)
 					);
@@ -336,8 +403,11 @@ namespace Project2Simulator
 				return new Instruction(
 					Opcode.NEG,
 					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new RegisterID(RegFile.FLAG.ID),
 					new RegisterID((UpperBits & Arith1RegOP)),
 					null,
+					null,
+					new RegisterValue(0),
 					new RegisterValue(0),
 					new RegisterValue(0),
 					null,

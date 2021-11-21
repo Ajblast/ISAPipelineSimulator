@@ -21,6 +21,11 @@ namespace Project2Simulator.ReorderBuffers
         public ReorderBufferSlot(int reorderBufferID)
         {
 			ReorderBufferID = new ReorderBufferID(reorderBufferID);
+			Value = new RegisterValue();
+			Value2 = new RegisterValue();
+			ValidValue = false;
+			ValidValue2 = false;
+
         }
 
 	}
