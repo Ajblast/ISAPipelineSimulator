@@ -42,9 +42,17 @@ namespace Project2Simulator.ReservationStations
 				station.CheckDataBus();
 		}
 
-		public ReservationStation GetStation(FunctionalUnitType type)
+		public ReservationStation GetFreeStation(FunctionalUnitType type)
         {
+            for (int i = 0; i < reservationStations.Length; i++)
+            {
+                if (reservationStations[i].FunctionalUnit.Type.Equals(type) && reservationStations[i].Busy == false)
+                {
+					return reservationStations[i];
+                }
+            }
 
+			return null;
         }
 	}
 

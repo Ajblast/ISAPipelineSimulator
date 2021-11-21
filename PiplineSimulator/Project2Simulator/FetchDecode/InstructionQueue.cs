@@ -36,18 +36,25 @@ namespace Project2Simulator.FetchDecode
 			 * Issue instruction asks for reorder buffer slot
 			 * gives instruction to selected reservatation station and also reorder buffer slot ID
 			 */
+			if (Instructions.Count < 1)
+				return;
+			Instruction newInstruction = Instructions.Peek();
+
 			ReorderBufferSlot newSlot = reorderBuffer.FreeSlot();
-			if (newSlot == null || Instructions.Count > 0)
+			ReservationStation newStation = reservationStations.GetFreeStation(newInstruction.FunctionalUnitType);
+			if (newSlot == null || newStation == null)
 				return;
 
-			//Check for structural hazard, populate reservation station first
+			Instructions.Dequeue();
 
-			Instruction newInstruction = Instructions.Dequeue();
 			newSlot.Ocupodo = true;
 			newSlot.DestRegId = newInstruction.Destination;
 			newSlot.DestRegId2 = newInstruction.Destination2;
 			newSlot.ValidValue = false;
 			newSlot.ValidValue2 = false;
+
+			newStation.Issue(newInstruction, newSlot.ReorderBufferID);
+
 		}
 
 		public bool IsFull()
