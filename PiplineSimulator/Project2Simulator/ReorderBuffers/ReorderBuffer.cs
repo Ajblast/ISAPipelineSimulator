@@ -99,10 +99,9 @@ namespace Project2Simulator.ReorderBuffers
 			throw new System.NotImplementedException("No speculative execution capabilities yet");
 		}
 
-		public bool TailIsBranchInstruction()
+		public bool IsUncommittedBranchInstruction()
         {
-			return bufferSlots[Tail].Instruction.FunctionalUnit.Type == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT;
-
+			return (bufferSlots[Tail].Instruction.FunctionalUnit.Type == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT && bufferSlots[Tail].Ocupodo == true);
 		}
     }
 

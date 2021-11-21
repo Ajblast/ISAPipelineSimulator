@@ -16,27 +16,29 @@ namespace Project2Simulator.FetchDecode
 
 		private int Capacity;
 
+		private int numBranchInstructions;
+
 		public InstructionQueue(Stations stations, ReorderBuffer buffer, int capacity)
 		{
 			Instructions = new Queue<Instruction>();
 			reservationStations = stations;
 			reorderBuffer = buffer;
 			Capacity = capacity;
+			numBranchInstructions = 0;
 		}
 
 		//Precondition: Instructions.Count >= Capacity
 		public void QueueInstruction(Instruction instruction)
 		{
+			if (instruction.FunctionalUnitType == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT)
+				numBranchInstructions++;
 			Instructions.Enqueue(instruction);
 		}
 
 		public void IssueInstruction()
 		{
-			/*
-			 * Issue instruction asks for reorder buffer slot
-			 * gives instruction to selected reservatation station and also reorder buffer slot ID
-			 */
-			if (Instructions.Count < 1)
+
+			if (Instructions.Count < 1 || reorderBuffer.IsUncommittedBranchInstruction())
 				return;
 			Instruction newInstruction = Instructions.Peek();
 
@@ -46,7 +48,8 @@ namespace Project2Simulator.FetchDecode
 				return;
 
 			Instructions.Dequeue();
-
+			if (newInstruction.FunctionalUnitType == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT)
+				numBranchInstructions--;
 			newSlot.Ocupodo = true;
 			newSlot.DestRegId = newInstruction.Destination;
 			newSlot.DestRegId2 = newInstruction.Destination2;
@@ -60,6 +63,11 @@ namespace Project2Simulator.FetchDecode
 		public bool IsFull()
         {
 			return Instructions.Count >= Capacity;
+        }
+
+		public bool HasBranchInstruction()
+        {
+			return numBranchInstructions > 0;
         }
 
 	}

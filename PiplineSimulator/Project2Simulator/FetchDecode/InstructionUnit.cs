@@ -30,7 +30,7 @@ namespace Project2Simulator.FetchDecode
 
 		public void FetchDecode()
 		{
-			if (reorderBuffer.TailIsBranchInstruction() || instructionQueue.IsFull())
+			if (reorderBuffer.IsUncommittedBranchInstruction() || instructionQueue.HasBranchInstruction() || instructionQueue.IsFull())
 				return;
 
 			uint index = registerFile.PC.Value.Value;
@@ -42,6 +42,7 @@ namespace Project2Simulator.FetchDecode
 			instructionQueue.QueueInstruction(instruciton);
 
 			registerFile.PC.Value.Value += 4;
+			//TODO: Austin needs to ruin this with branch prediction :)
 		}
 
 	}
