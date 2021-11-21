@@ -416,6 +416,8 @@ namespace Project2Simulator
 		}
 
 
+		// TODO: Add decoding for atomic instructions
+
 
         private static ushort ExtractOpCode(uint EncodedInstruction)
         {

@@ -39,6 +39,18 @@ namespace Project2Simulator.Instructions
 		JB = 0b0011111,
 		JBE = 0b0100000,
 		LDA = 0b0100001,
+
+		/* Atomic */
+		FETCH	= 0b0100010,	// Fetch a value atomically
+		ADDA	= 0b0100011,
+		SUBA	= 0b0100100,
+		ANDA	= 0b0100101,
+		ORA		= 0b0100110,
+		XORA	= 0b0100111,
+		CMPSW	= 0b0101000,	// Compare and Swap	// MEM Reg, CMP Reg, Value Reg
+		SWAP	= 0b0101001,	// Swap				// MEM Reg, Value Reg
+
+
 		HALT = 0b1111111,
 		rA = 0b0000,
 		rB = 0b0001,
@@ -124,6 +136,15 @@ namespace Project2Simulator.Instructions
 				case Opcode.POP:
 				case Opcode.LOAD:
 				case Opcode.STOR:
+				/* Atomic */
+				case Opcode.FETCH:
+				case Opcode.ADDA:
+				case Opcode.SUBA:
+				case Opcode.ANDA:
+				case Opcode.ORA:
+				case Opcode.XORA:
+				case Opcode.CMPSW:
+				case Opcode.SWAP:
 					functionalUnitType = FunctionalUnitType.MEMORY_UNIT;
 					break;
 				case Opcode.MOV:
