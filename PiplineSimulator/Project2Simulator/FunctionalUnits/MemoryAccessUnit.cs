@@ -12,6 +12,7 @@ namespace Project2Simulator.FunctionalUnits
         protected MemoryAccessUnit(MMU mmu, MagicPerfectStupidCache cache, THECommonDataBus bus, CoreID core) : base(FunctionalUnitType.MEMORY_UNIT, bus, core)
         {
             MMU = mmu;
+            magicPerfectStupidCache = cache;
         }
     }
 
