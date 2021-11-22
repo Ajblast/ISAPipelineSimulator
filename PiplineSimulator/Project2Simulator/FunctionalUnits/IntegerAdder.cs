@@ -7,7 +7,7 @@ namespace Project2Simulator.FunctionalUnits
     {
         private readonly uint overflowMask = 0x80000000;
 
-        public IntegerAdder(THECommonDataBus bus, CoreID core) : base(bus, core)
+        public IntegerAdder(THECommonDataBus bus, CoreID core) : base(FunctionalUnitType.INTEGER_ADDER, bus, core)
         {
         }
 

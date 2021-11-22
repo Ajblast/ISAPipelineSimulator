@@ -40,7 +40,7 @@ namespace Project2Simulator.FunctionalUnits
 
 		}
 
-		public void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3)
+		public virtual void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3)
         {
 			this.opcode = opcode;
 			this.op1 = op1;
