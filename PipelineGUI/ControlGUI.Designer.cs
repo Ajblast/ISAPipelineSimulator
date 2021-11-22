@@ -114,6 +114,7 @@ namespace PipelineGUI
             this.LookupButton.TabIndex = 4;
             this.LookupButton.Text = "Lookup";
             this.LookupButton.UseVisualStyleBackColor = true;
+            this.LookupButton.Click += new System.EventHandler(this.LookupButton_Click);
             // 
             // Lookup1Input
             // 

@@ -148,5 +148,38 @@ namespace PipelineGUI
             Stop = true;
             IsRunning = false;
         }
+
+        private void LookupButton_Click(object sender, EventArgs e)
+        {
+            Lookup1Output.Text = String.Empty;
+            Lookup2Output.Text = String.Empty;
+            Lookup3Output.Text = String.Empty;
+
+            int Lookup1Addr;
+            if(Lookup1Input.Text != String.Empty && Int32.TryParse(Lookup1Input.Text, out Lookup1Addr))
+            {
+                Lookup1Output.Text = ToHexString(Cpu.memory[Lookup1Addr].Value);
+            }
+
+            int Lookup2Addr;
+            if (Lookup2Input.Text != String.Empty && Int32.TryParse(Lookup2Input.Text, out Lookup2Addr))
+            {
+                Lookup2Output.Text = ToHexString(Cpu.memory[Lookup2Addr].Value);
+            }
+
+            int Lookup3Addr;
+            if (Lookup3Input.Text != String.Empty && Int32.TryParse(Lookup3Input.Text, out Lookup3Addr))
+            {
+                Lookup2Output.Text = ToHexString(Cpu.memory[Lookup3Addr].Value);
+            }
+
+        }
+
+
+
+        private string ToHexString(uint val)
+        {
+            return Convert.ToString(val, 16);
+        }
     }
 }
