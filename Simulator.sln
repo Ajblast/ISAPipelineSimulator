@@ -14,6 +14,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulator", "Simulator\Simu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiplineSimulator", "PiplineSimulator\PiplineSimulator.csproj", "{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipelineGUI", "PipelineGUI\PipelineGUI.csproj", "{2E78D4EA-5EF9-410E-9478-55E9734B1CB8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794} = {BC733D69-A3C7-40CD-8CE2-A4CCE5892794}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +41,10 @@ Global
 		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E78D4EA-5EF9-410E-9478-55E9734B1CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E78D4EA-5EF9-410E-9478-55E9734B1CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E78D4EA-5EF9-410E-9478-55E9734B1CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E78D4EA-5EF9-410E-9478-55E9734B1CB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

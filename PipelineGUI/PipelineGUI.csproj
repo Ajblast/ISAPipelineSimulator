@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PiplineSimulator\PiplineSimulator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CoreGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CoreGUI.Designer.cs">
+      <DependentUpon>CoreGUI.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Decoder
+namespace PipelineGUI
 {
 	// An instruction decoder
 	public class Decoder

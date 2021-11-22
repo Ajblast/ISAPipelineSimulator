@@ -2,6 +2,7 @@
 
 using Project2Simulator.Memory;
 using Project2Simulator.FunctionalUnits;
+using System.Collections.Generic;
 
 namespace Project2Simulator
 {
@@ -32,6 +33,16 @@ namespace Project2Simulator
             foreach (var core in cores)
 				core.Cycle();
 		}
+
+		public int GetCoreCount()
+        {
+			return coreCount;
+        }
+
+		public Core[] GetCores()
+        {
+			return cores;
+        }
 
 	}
 

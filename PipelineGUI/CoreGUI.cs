@@ -8,22 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Simulator;
+using Project2Simulator;
 
-namespace IsaGui
+namespace CoreGui
 {
-    public partial class Form1 : Form
+    public partial class CoreGUI : Form
     {
-        private Memory simMemory;
-        private CPU simCpu;
-        private string assemblyFilePath;
-        private string binaryInFilePath;
-        private Simulator.Encoder binaryEncoder = new Simulator.Encoder("");
-        private Dictionary<int, int> InstructionMemAddrToGUIIndex = new Dictionary<int,int>();
-        private Decoder.Decoder textDecoder;
+        Core FormCore;
 
-        public Form1()
+        public CoreGUI(Core core)
         {
+            FormCore = core;
             InitializeComponent();
             remakeCPU();
         }
@@ -238,5 +233,6 @@ namespace IsaGui
         {
             MessageBox.Show(textDecoder.DecodedStats());
         }
+
     }
 }
