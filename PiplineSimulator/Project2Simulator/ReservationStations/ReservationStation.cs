@@ -196,7 +196,21 @@ namespace Project2Simulator.ReservationStations
 			AskedForCommit = false;
 		}
 
-	}
+        public override string ToString()
+        {
+			return string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-10}{5,-10}{6,-10}{7,-10}{8,-10}{9}", 
+				Busy, 
+				Values.Opcode.ToString(),
+				Values.Dest.BufferID,
+				Values.Op2.Value,
+				Values.Op3.Value,
+				Values.Op1Src.BufferID,
+				Values.Op2Src.BufferID,
+				Values.Op3Src.BufferID,
+				Values.Addr.Value
+				);
+        }
+    }
 
 }
 

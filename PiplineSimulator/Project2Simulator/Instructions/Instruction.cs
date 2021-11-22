@@ -46,7 +46,25 @@ namespace Project2Simulator.Instructions
 			Address = addr;
         }
 
-	}
+        public override string ToString()
+        {
+			//TODO: Addresss and all OpRegs can be set to null. Override ToString to prevent crash?
+			return string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-10}{5,-10}{6,-10}{7,-10}{8}",
+				Opcode.ToString(),
+				Destination.ID,
+				Destination2.ID,
+				Op1Reg.ID,
+				Op1.Value,
+				Op2Reg.ID,
+				Op2.Value,
+				Op3Reg.ID,
+				Op3.Value,
+				Address,
+				FunctionalUnitType.ToString()
+				);
+		}
+
+    }
 
 }
 

@@ -11,7 +11,7 @@ namespace Project2Simulator.ReorderBuffers
 
 		private THECommonDataBus THECommonDataBus;
 
-		private ReorderBufferSlot[] bufferSlots;
+		public ReorderBufferSlot[] bufferSlots;
 
 		private int Head;
 		private int Tail;

@@ -9,235 +9,111 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Project2Simulator;
+using Project2Simulator.ReorderBuffers;
+using Project2Simulator.ReservationStations;
 
 namespace CoreGui
 {
     public partial class CoreGUI : Form
     {
-        Core FormCore;
+        public Core FormCore;
 
         public CoreGUI(Core core)
         {
             FormCore = core;
             InitializeComponent();
-            remakeCPU();
         }
 
-        private void StepButton_Click(object sender, EventArgs e)
+        public void UpdateValues()
         {
-            if (simCpu.halt.Value != 0)
-                return;
-            simCpu.RunClockCycle();
-            updateRegisters();
-            if (InstructionMemAddrToGUIIndex.ContainsKey(((simCpu.registers.PC1.Value & 0xF) << 16) | simCpu.registers.PC2.Value) == false)
+            ClearForm();
+            UpdateRegisters();
+            makeReservationEntries();
+            UpdateReorderBuffer();
+            UpdateInstructionQueue();
+            //Update Reservation Stations
+
+        }
+
+        private void UpdateInstructionQueue()
+        {
+            foreach ( item in collection)
             {
-                MessageBox.Show("Trying to execute instruction outside of known instructions. Halting", "The OS is mad", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                simCpu.halt.Value = 1;
-                return;
-            }
 
-            if (InstructionMemAddrToGUIIndex.Count != 0)
-                assemblyBox.SelectedIndex = InstructionMemAddrToGUIIndex[((simCpu.registers.PC1.Value & 0xF) << 16) | simCpu.registers.PC2.Value];
-        }
-
-        public void updateValues()
-        {
-            ALU1Box.Text = Convert.ToString(simCpu.alu.dest.Value, 2);
-            ALU2Box.Text = Convert.ToString(simCpu.alu.op1.Value, 2);
-            ALU3Box.Text = Convert.ToString(simCpu.alu.op2.Value, 2);
-
-            PCBox.Text = Convert.ToString(simCpu.registers.PC.Value, 2);
-           
-            rLBox.Text = Convert.ToString(simCpu.registers.SP2.Value, 2);
-
-            rABox.Text = Convert.ToString(simCpu.registers[0].Value, 2);
-            rBBox.Text = Convert.ToString(simCpu.registers[1].Value, 2);
-            rCBox.Text = Convert.ToString(simCpu.registers[2].Value, 2);
-            rDBox.Text = Convert.ToString(simCpu.registers[3].Value, 2);
-            rEBox.Text = Convert.ToString(simCpu.registers[4].Value, 2);
-            rFBox.Text = Convert.ToString(simCpu.registers[5].Value, 2);
-            rGBox.Text = Convert.ToString(simCpu.registers[6].Value, 2);
-            rHBox.Text = Convert.ToString(simCpu.registers[7].Value, 2);
-            rIBox.Text = Convert.ToString(simCpu.registers[8].Value, 2);
-            rJBox.Text = Convert.ToString(simCpu.registers[9].Value, 2);
-            rKBox.Text = Convert.ToString(simCpu.registers[10].Value, 2);
-            rLBox.Text = Convert.ToString(simCpu.registers[11].Value, 2);
-            rMBox.Text = Convert.ToString(simCpu.registers[12].Value, 2);
-
-            sBox.Text = Convert.ToString((((uint)simCpu.registers.FLAG.Value & 0x0010) >> 4), 2);
-            oBox.Text = Convert.ToString((((uint)simCpu.registers.FLAG.Value & 0x0008) >> 3), 2);
-            eqBox.Text = Convert.ToString((((uint)simCpu.registers.FLAG.Value & 0x0004) >> 2), 2);
-            zBox.Text = Convert.ToString((((uint)simCpu.registers.FLAG.Value & 0x0002) >> 1), 2);
-            cBox.Text = Convert.ToString(((uint)simCpu.registers.FLAG.Value & 0x0001), 2);
-        }
-
-        private void openBinaryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            string CombinedPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "..");
-            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(CombinedPath);
-            if (openFileDialog.ShowDialog() != DialogResult.OK)
-                return;
-
-            remakeCPU();
-            ResetGUI();
-
-            binaryInFilePath = openFileDialog.FileName;
-            textDecoder = new Decoder.Decoder(binaryInFilePath);
-            string assemblyText = textDecoder.DecodedFile();
-
-            StreamWriter sw = new StreamWriter(binaryInFilePath.Replace(".bin", ".sht"));
-            sw.Write(assemblyText);
-            sw.Close();
-
-            assemblyFilePath = binaryInFilePath.Replace(".bin", ".txt");
-            binaryEncoder.ChangeFiles(assemblyFilePath);
-            binaryEncoder.EncodeFile();
-
-            FeedInAssembly();
-
-            InstallBinaryAndFixGUI();
-            statsButton.Enabled = true;
-        }
-
-        internal void UpdateValues()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void openAssemblyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            assemblyBox.Items.Clear();
-            InstructionMemAddrToGUIIndex.Clear();
-            binaryInFilePath = null;
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            string CombinedPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "..");
-            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(CombinedPath);
-            if (openFileDialog.ShowDialog() != DialogResult.OK)
-                return;
-
-            remakeCPU();
-            ResetGUI();
-
-            //Load into assembly list box
-            assemblyFilePath = openFileDialog.FileName;
-
-            binaryEncoder.ChangeFiles(assemblyFilePath);
-            binaryInFilePath = binaryEncoder.EncodeFile();
-            textDecoder = new Decoder.Decoder(binaryInFilePath);
-
-            FeedInAssembly();
-
-            InstallBinaryAndFixGUI();
-            statsButton.Enabled = true;
-        }
-
-        private void ResetGUI()
-        {
-            assemblyBox.Items.Clear();
-            InstructionMemAddrToGUIIndex.Clear();
-            assemblyFilePath = null;
-
-        }
-        private void FeedInAssembly()
-        {
-            var fileStream = File.OpenRead(assemblyFilePath.Replace(".txt", ".remix"));
-            var streamReader = new StreamReader(fileStream);
-            string pulledLine;
-            while ((pulledLine = streamReader.ReadLine()) != null)
-            {
-                if (string.IsNullOrEmpty(pulledLine) == false && pulledLine[0] != '/')
-                    assemblyBox.Items.Add(pulledLine);
-            }
-
-            assemblyBox.EndUpdate();
-            fileStream.Close();
-        }
-
-
-        private void InstallBinaryAndFixGUI()
-        {
-            InstallBinary(assemblyFilePath.Replace(".txt", ".bin"));
-            simCpu.halt.Value = 0;
-            fixMemAddrToGUIIndex();
-            if (InstructionMemAddrToGUIIndex.Count != 0)
-                assemblyBox.SelectedIndex = InstructionMemAddrToGUIIndex[((simCpu.registers.PC1.Value & 0xF) << 16) | simCpu.registers.PC2.Value];
-        }
-
-        private void InstallBinary(string binaryInFilePath)
-        {
-            byte[] array = File.ReadAllBytes(binaryInFilePath);
-            
-            for (int i = 0; i < array.Length - 1; i = i + 2)
-            {
-                ushort pulledShort = (ushort)(array[i] << 8 | array[i + 1]);
-                simMemory[i] = pulledShort;
-            }
-
-            string hexString = BitConverter.ToString(array);
-            hexString = hexString.Replace("-", "");
-
-            int j = 4;
-            while (j < hexString.Length)
-            {
-                hexString = hexString.Insert(j, " ");
-                j += 5;
-            }
-
-            BinaryTextBox.Text = hexString;
-        }
-
-        private void fixMemAddrToGUIIndex()
-        {
-            InstructionMemAddrToGUIIndex.Clear();
-            int curMemAddress = 0;
-            //InstructionMemAddrToGUIIndex
-            for (int i = 0; i < binaryEncoder.inLengths.Count; i++)
-            {
-                if (binaryEncoder.inLengths[i] == -1)
-                    continue;
-
-                InstructionMemAddrToGUIIndex.Add(curMemAddress, i);
-                curMemAddress += binaryEncoder.inLengths[i] / 8;
             }
         }
 
-        private void remakeCPU()
+        private void UpdateReorderBuffer()
         {
-            simMemory = new Memory(0x100000, true);
-            simCpu = new CPU(simMemory);
-            simCpu.registers.SP1.Value = 0xF;
-            simCpu.registers.SP2.Value = 0xFFFE;
-            updateRegisters();
-        }
-
-        private void RunButton_Click(object sender, EventArgs e)
-        {
-            while (simCpu.halt.Value == 0)
+            foreach (ReorderBufferSlot slot in FormCore.reorderBuffer.bufferSlots)
             {
-                simCpu.RunClockCycle();
-                if (InstructionMemAddrToGUIIndex.ContainsKey(((simCpu.registers.PC1.Value & 0xF) << 16) | simCpu.registers.PC2.Value) == false)
-                {
-                    MessageBox.Show("Trying to execute instruction outside of known instructions. Halting", "The OS is mad", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    simCpu.halt.Value = 1;
-                    continue;
-                }
-
-                if (InstructionMemAddrToGUIIndex.Count != 0)
-                    assemblyBox.SelectedIndex = InstructionMemAddrToGUIIndex[((simCpu.registers.PC1.Value & 0xF) << 16) | simCpu.registers.PC2.Value];
+                ReorderBufferList.Items.Add(slot.ToString());
             }
-            updateRegisters();
         }
 
-        private void StopButton_Click(object sender, EventArgs e)
+        private void UpdateRegisters()
         {
-            simCpu.halt.Value = 1;
+            PCBox.Text = Convert.ToString(FormCore.registerFile.PC.Value.Value, 16);
+            SPBox.Text = Convert.ToString(FormCore.registerFile.SP.Value.Value, 16);
+
+            rABox.Text = Convert.ToString(FormCore.registerFile[0].Value.Value, 16);
+            rBBox.Text = Convert.ToString(FormCore.registerFile[1].Value.Value, 16);
+            rCBox.Text = Convert.ToString(FormCore.registerFile[2].Value.Value, 16);
+            rDBox.Text = Convert.ToString(FormCore.registerFile[3].Value.Value, 16);
+            rEBox.Text = Convert.ToString(FormCore.registerFile[4].Value.Value, 16);
+            rFBox.Text = Convert.ToString(FormCore.registerFile[5].Value.Value, 16);
+            rGBox.Text = Convert.ToString(FormCore.registerFile[6].Value.Value, 16);
+            rHBox.Text = Convert.ToString(FormCore.registerFile[7].Value.Value, 16);
+            rIBox.Text = Convert.ToString(FormCore.registerFile[8].Value.Value, 16);
+            rJBox.Text = Convert.ToString(FormCore.registerFile[9].Value.Value, 16);
+            rKBox.Text = Convert.ToString(FormCore.registerFile[10].Value.Value, 16);
+            rLBox.Text = Convert.ToString(FormCore.registerFile[11].Value.Value, 16);
+            rMBox.Text = Convert.ToString(FormCore.registerFile[12].Value.Value, 16);
+
+            sBox.Text = Convert.ToString((((uint)FormCore.registerFile.FLAG.Value.Value & 0x0010) >> 4), 2);
+            oBox.Text = Convert.ToString((((uint)FormCore.registerFile.FLAG.Value.Value & 0x0008) >> 3), 2);
+            eqBox.Text = Convert.ToString((((uint)FormCore.registerFile.FLAG.Value.Value & 0x0004) >> 2), 2);
+            zBox.Text = Convert.ToString((((uint)FormCore.registerFile.FLAG.Value.Value & 0x0002) >> 1), 2);
+            cBox.Text = Convert.ToString(((uint)FormCore.registerFile.FLAG.Value.Value & 0x0001), 2);
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void makeReservationEntries()
         {
-            MessageBox.Show(textDecoder.DecodedStats());
+            var MemoryRes = Array.FindAll(FormCore.reservationStations.reservationStations, (t => t.FunctionalUnit.Type == Project2Simulator.FunctionalUnits.FunctionalUnitType.MEMORY_UNIT));
+            var BranchRes = Array.FindAll(FormCore.reservationStations.reservationStations, (t => t.FunctionalUnit.Type == Project2Simulator.FunctionalUnits.FunctionalUnitType.BRANCH_UNIT));
+            var IntAddRes = Array.FindAll(FormCore.reservationStations.reservationStations, (t => t.FunctionalUnit.Type == Project2Simulator.FunctionalUnits.FunctionalUnitType.INTEGER_ADDER));
+            var MovRes = Array.FindAll(FormCore.reservationStations.reservationStations, (t => t.FunctionalUnit.Type == Project2Simulator.FunctionalUnits.FunctionalUnitType.MEMORY_UNIT));
+
+            foreach (ReservationStation station in MemoryRes)
+            {
+                MemoryResList.Items.Add(station.ToString());
+            }
+
+            foreach (ReservationStation station in BranchRes)
+            {
+                BranchResList.Items.Add(station.ToString());
+            }
+
+            foreach (ReservationStation station in IntAddRes)
+            {
+                IntergerAdderResList.Items.Add(station.ToString());
+            }
+
+            foreach (ReservationStation station in MovRes)
+            {
+                MovUnitResList.Items.Add(station.ToString());
+            }
         }
 
+        private void ClearForm()
+        {
+            InstructionQueueList.Items.Clear();
+            ReorderBufferList.Items.Clear();
+            MemoryResList.Items.Clear();
+            BranchResList.Items.Clear();
+            IntergerAdderResList.Items.Clear();
+            MovUnitResList.Items.Clear();
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace Project2Simulator.ReservationStations
 {
 	public class Stations
 	{
-		private ReservationStation[] reservationStations;
+		public ReservationStation[] reservationStations;
 
 		public Stations(RegisterFile regs, ReservationStationCounts counts, THECommonDataBus bus, DataBusControlUnit control, CoreID core)
 		{

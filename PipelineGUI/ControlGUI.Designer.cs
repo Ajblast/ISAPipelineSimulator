@@ -127,6 +127,7 @@ namespace PipelineGUI
             // 
             this.Lookup1Output.Location = new System.Drawing.Point(212, 119);
             this.Lookup1Output.Name = "Lookup1Output";
+            this.Lookup1Output.ReadOnly = true;
             this.Lookup1Output.Size = new System.Drawing.Size(161, 23);
             this.Lookup1Output.TabIndex = 6;
             // 
@@ -141,6 +142,7 @@ namespace PipelineGUI
             // 
             this.Lookup2Output.Location = new System.Drawing.Point(212, 174);
             this.Lookup2Output.Name = "Lookup2Output";
+            this.Lookup2Output.ReadOnly = true;
             this.Lookup2Output.Size = new System.Drawing.Size(161, 23);
             this.Lookup2Output.TabIndex = 8;
             // 
@@ -155,6 +157,7 @@ namespace PipelineGUI
             // 
             this.Lookup3Output.Location = new System.Drawing.Point(212, 226);
             this.Lookup3Output.Name = "Lookup3Output";
+            this.Lookup3Output.ReadOnly = true;
             this.Lookup3Output.Size = new System.Drawing.Size(161, 23);
             this.Lookup3Output.TabIndex = 10;
             // 

@@ -28,7 +28,22 @@ namespace Project2Simulator.ReorderBuffers
 
         }
 
-	}
+        public override string ToString()
+        {
+            return string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-10}{5,-10}{6,-10}{7,-10}{8}",
+				ReorderBufferID,
+				Instruction.StationID,
+				Ocupodo,
+				DestRegId.ID,
+				Value,
+				ValidValue,
+				DestRegId2.ID,
+				Value2,
+				ValidValue2
+				);
+		}
+
+    }
 
 }
 

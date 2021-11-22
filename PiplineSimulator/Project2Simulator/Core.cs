@@ -13,20 +13,21 @@ namespace Project2Simulator
 		private InstructionUnit instructionUnit;
 		private InstructionQueue instructionQueue;
 
-		private ReorderBuffer reorderBuffer;
-		private Stations reservationStations;
+		public ReorderBuffer reorderBuffer;
+		public Stations reservationStations;
 
-		private RegisterFile registerFile;
+		public RegisterFile registerFile;
 		private THECommonDataBus bus;
 		private DataBusControlUnit dataBusControlUnit;
 
 		private CoreID coreID;
 
 		private const int reorderBufferSize = 8;
-
+		public ReservationStationCounts ResCounts;
 		public Core(CoreID id, MainMemory memory, ReservationStationCounts counts)
         {
 			coreID = id;
+			ResCounts = counts;
 
 			bus = new THECommonDataBus();
 			dataBusControlUnit = new DataBusControlUnit();
