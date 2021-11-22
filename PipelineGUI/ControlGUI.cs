@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreGui;
@@ -23,6 +24,10 @@ namespace PipelineGUI
 
         public CPU Cpu;
         public CoreGUI[] CoreGUIs;
+        public AtomicGUI AtomicGui;
+
+        public bool IsRunning = false;
+        public bool Stop = false;
         public ControlGUI()
         {
             Cpu = new CPU();
@@ -36,7 +41,8 @@ namespace PipelineGUI
             {
                 coreGui.Show();
             }
-
+            AtomicGui = new AtomicGUI();
+            AtomicGui.Show();
         }
 
         private void importAssemblyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -55,7 +61,6 @@ namespace PipelineGUI
 
             binaryEncoder.ChangeFiles(assemblyFilePath);
             binaryInFilePath = binaryEncoder.EncodeFile();
-            textDecoder = new Decoder(binaryInFilePath);
 
             InstallBinary(assemblyFilePath.Replace(".txt", ".bin"));
         }
@@ -71,10 +76,9 @@ namespace PipelineGUI
                 return;
 
             remakeCPU();
-            ResetGUI();
 
             binaryInFilePath = openFileDialog.FileName;
-            textDecoder = new Decoder.Decoder(binaryInFilePath);
+            textDecoder = new Decoder(binaryInFilePath);
             string assemblyText = textDecoder.DecodedFile();
 
             StreamWriter sw = new StreamWriter(binaryInFilePath.Replace(".bin", ".sht"));
@@ -85,20 +89,17 @@ namespace PipelineGUI
             binaryEncoder.ChangeFiles(assemblyFilePath);
             binaryEncoder.EncodeFile();
 
-            FeedInAssembly();
-
-            InstallBinaryAndFixGUI();
-            statsButton.Enabled = true;
+            InstallBinary(assemblyFilePath.Replace(".txt", ".bin"));
         }
 
         private void InstallBinary(string binaryInFilePath)
         {
             byte[] array = File.ReadAllBytes(binaryInFilePath);
 
-            for (int i = 0; i < array.Length - 1; i = i + 2)
+            for (int i = 0; i < array.Length - 3; i = i + 4)
             {
-                ushort pulledShort = (ushort)(array[i] << 8 | array[i + 1]);
-                simMemory[i] = pulledShort;
+                uint pulledValue = (uint)(((ushort)(array[i] << 8 | array[i + 1]) << 16) | (ushort)(array[i + 2] << 8 | array[i + 3]));
+                Cpu.memory[i].Value = pulledValue;
             }
         }
 
@@ -109,7 +110,43 @@ namespace PipelineGUI
 
         private void remakeCPU()
         {
-            throw new NotImplementedException();
+            Cpu = new CPU();
+            for (int i = 0; i < Cpu.GetCoreCount(); i++)
+            {
+                CoreGUIs[i] = new CoreGUI(Cpu.GetCores()[i]);
+                CoreGUIs[i].UpdateValues();
+            }
+            AtomicGui.UpdateAtomics(Cpu.THEMMU);
+        }
+
+        private void RunButton_Click(object sender, EventArgs e)
+        {
+            if (IsRunning == true)
+                return;
+            Stop = false;
+            Thread t = new Thread(new ThreadStart(RunCores));
+        }
+        
+        private void RunCores()
+        {
+            while (Stop == false)
+            {
+                foreach (Core core in Cpu.GetCores())
+                {
+                    core.Cycle();
+                }
+                foreach (CoreGUI Gui in CoreGUIs)
+                {
+                    Gui.UpdateValues();
+                }
+                AtomicGui.UpdateAtomics(Cpu.THEMMU);
+            }
+        }
+
+        private void StopButton_Click(object sender, EventArgs e)
+        {
+            Stop = true;
+            IsRunning = false;
         }
     }
 }

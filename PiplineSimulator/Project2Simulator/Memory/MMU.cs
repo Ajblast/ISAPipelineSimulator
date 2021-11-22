@@ -6,7 +6,7 @@ namespace Project2Simulator.Memory
 {
 	public class MMU
 	{
-		private Dictionary<Address, CoreID> AtomicAddresses;
+		public Dictionary<Address, CoreID> AtomicAddresses;
 
 		public MMU()
         {

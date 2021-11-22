@@ -10,9 +10,9 @@ namespace Project2Simulator
 	{
 		private Core[] cores;
 
-		private MMU THEMMU;
+		public MMU THEMMU;
 		private MagicPerfectStupidCache magicPerfectStupidCache;
-		private MainMemory memory;
+		public MainMemory memory;
 
 		private const int coreCount = 2;
 

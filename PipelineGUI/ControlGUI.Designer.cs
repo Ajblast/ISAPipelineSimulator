@@ -35,7 +35,6 @@ namespace PipelineGUI
             this.importBinaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StepButton = new System.Windows.Forms.Button();
             this.RunButton = new System.Windows.Forms.Button();
-            this.MemoryListBox = new System.Windows.Forms.ListBox();
             this.LookupButton = new System.Windows.Forms.Button();
             this.Lookup1Input = new System.Windows.Forms.TextBox();
             this.Lookup1Output = new System.Windows.Forms.TextBox();
@@ -46,7 +45,7 @@ namespace PipelineGUI
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.StopButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +55,7 @@ namespace PipelineGUI
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(725, 29);
+            this.menuStrip1.Size = new System.Drawing.Size(385, 29);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -104,21 +103,12 @@ namespace PipelineGUI
             this.RunButton.TabIndex = 2;
             this.RunButton.Text = "Run";
             this.RunButton.UseVisualStyleBackColor = true;
-            // 
-            // MemoryListBox
-            // 
-            this.MemoryListBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.MemoryListBox.FormattingEnabled = true;
-            this.MemoryListBox.ItemHeight = 21;
-            this.MemoryListBox.Location = new System.Drawing.Point(13, 117);
-            this.MemoryListBox.Name = "MemoryListBox";
-            this.MemoryListBox.Size = new System.Drawing.Size(311, 172);
-            this.MemoryListBox.TabIndex = 3;
+            this.RunButton.Click += new System.EventHandler(this.RunButton_Click);
             // 
             // LookupButton
             // 
             this.LookupButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LookupButton.Location = new System.Drawing.Point(196, 39);
+            this.LookupButton.Location = new System.Drawing.Point(287, 39);
             this.LookupButton.Name = "LookupButton";
             this.LookupButton.Size = new System.Drawing.Size(86, 38);
             this.LookupButton.TabIndex = 4;
@@ -127,51 +117,51 @@ namespace PipelineGUI
             // 
             // Lookup1Input
             // 
-            this.Lookup1Input.Location = new System.Drawing.Point(363, 113);
+            this.Lookup1Input.Location = new System.Drawing.Point(10, 119);
             this.Lookup1Input.Name = "Lookup1Input";
             this.Lookup1Input.Size = new System.Drawing.Size(167, 23);
             this.Lookup1Input.TabIndex = 5;
             // 
             // Lookup1Output
             // 
-            this.Lookup1Output.Location = new System.Drawing.Point(564, 113);
+            this.Lookup1Output.Location = new System.Drawing.Point(212, 119);
             this.Lookup1Output.Name = "Lookup1Output";
-            this.Lookup1Output.Size = new System.Drawing.Size(138, 23);
+            this.Lookup1Output.Size = new System.Drawing.Size(161, 23);
             this.Lookup1Output.TabIndex = 6;
             // 
             // Lookup2Input
             // 
-            this.Lookup2Input.Location = new System.Drawing.Point(363, 168);
+            this.Lookup2Input.Location = new System.Drawing.Point(10, 174);
             this.Lookup2Input.Name = "Lookup2Input";
             this.Lookup2Input.Size = new System.Drawing.Size(167, 23);
             this.Lookup2Input.TabIndex = 7;
             // 
             // Lookup2Output
             // 
-            this.Lookup2Output.Location = new System.Drawing.Point(564, 168);
+            this.Lookup2Output.Location = new System.Drawing.Point(212, 174);
             this.Lookup2Output.Name = "Lookup2Output";
-            this.Lookup2Output.Size = new System.Drawing.Size(138, 23);
+            this.Lookup2Output.Size = new System.Drawing.Size(161, 23);
             this.Lookup2Output.TabIndex = 8;
             // 
             // Lookup3Input
             // 
-            this.Lookup3Input.Location = new System.Drawing.Point(363, 220);
+            this.Lookup3Input.Location = new System.Drawing.Point(10, 226);
             this.Lookup3Input.Name = "Lookup3Input";
             this.Lookup3Input.Size = new System.Drawing.Size(167, 23);
             this.Lookup3Input.TabIndex = 9;
             // 
             // Lookup3Output
             // 
-            this.Lookup3Output.Location = new System.Drawing.Point(564, 220);
+            this.Lookup3Output.Location = new System.Drawing.Point(212, 226);
             this.Lookup3Output.Name = "Lookup3Output";
-            this.Lookup3Output.Size = new System.Drawing.Size(138, 23);
+            this.Lookup3Output.Size = new System.Drawing.Size(161, 23);
             this.Lookup3Output.TabIndex = 10;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(363, 89);
+            this.label1.Location = new System.Drawing.Point(10, 95);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 21);
             this.label1.TabIndex = 11;
@@ -181,7 +171,7 @@ namespace PipelineGUI
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(363, 144);
+            this.label2.Location = new System.Drawing.Point(10, 150);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 21);
             this.label2.TabIndex = 12;
@@ -191,28 +181,29 @@ namespace PipelineGUI
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(363, 194);
+            this.label3.Location = new System.Drawing.Point(10, 200);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 21);
             this.label3.TabIndex = 13;
             this.label3.Text = "Lookup3";
             // 
-            // label4
+            // StopButton
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(13, 93);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(134, 21);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Atomic Addresses";
+            this.StopButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.StopButton.Location = new System.Drawing.Point(195, 39);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(86, 38);
+            this.StopButton.TabIndex = 14;
+            this.StopButton.Text = "Stop";
+            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
             // ControlGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(725, 299);
-            this.Controls.Add(this.label4);
+            this.ClientSize = new System.Drawing.Size(385, 274);
+            this.Controls.Add(this.StopButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -223,7 +214,6 @@ namespace PipelineGUI
             this.Controls.Add(this.Lookup1Output);
             this.Controls.Add(this.Lookup1Input);
             this.Controls.Add(this.LookupButton);
-            this.Controls.Add(this.MemoryListBox);
             this.Controls.Add(this.RunButton);
             this.Controls.Add(this.StepButton);
             this.Controls.Add(this.menuStrip1);
@@ -245,7 +235,6 @@ namespace PipelineGUI
         private System.Windows.Forms.ToolStripMenuItem importBinaryToolStripMenuItem;
         private System.Windows.Forms.Button StepButton;
         private System.Windows.Forms.Button RunButton;
-        private System.Windows.Forms.ListBox MemoryListBox;
         private System.Windows.Forms.Button LookupButton;
         private System.Windows.Forms.TextBox Lookup1Input;
         private System.Windows.Forms.TextBox Lookup1Output;
@@ -256,6 +245,6 @@ namespace PipelineGUI
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button StopButton;
     }
 }

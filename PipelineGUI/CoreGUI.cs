@@ -40,7 +40,7 @@ namespace CoreGui
                 assemblyBox.SelectedIndex = InstructionMemAddrToGUIIndex[((simCpu.registers.PC1.Value & 0xF) << 16) | simCpu.registers.PC2.Value];
         }
 
-        private void updateRegisters()
+        public void updateValues()
         {
             ALU1Box.Text = Convert.ToString(simCpu.alu.dest.Value, 2);
             ALU2Box.Text = Convert.ToString(simCpu.alu.op1.Value, 2);
@@ -98,6 +98,11 @@ namespace CoreGui
 
             InstallBinaryAndFixGUI();
             statsButton.Enabled = true;
+        }
+
+        internal void UpdateValues()
+        {
+            throw new NotImplementedException();
         }
 
         private void openAssemblyToolStripMenuItem_Click(object sender, EventArgs e)
