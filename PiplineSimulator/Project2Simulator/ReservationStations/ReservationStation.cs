@@ -30,6 +30,9 @@ namespace Project2Simulator.ReservationStations
 			FunctionalUnit = FunctionalFactory.CreateUnit(bus, type, core);
 			StationID = id;
 			Values = new StationValues();
+			Values.Op1 = new RegisterValue();
+			Values.Op2 = new RegisterValue();
+			Values.Op3 = new RegisterValue();
 
 			Busy = false;
 
@@ -202,6 +205,7 @@ namespace Project2Simulator.ReservationStations
 				Busy.ToString(), 
 				Values.Opcode.ToString(),
 				(Values.Dest == null) ? "X":Values.Dest.BufferID.ToString(),
+				Values.Op1.Value,
 				Values.Op2.Value,
 				Values.Op3.Value,
 				(Values.Op1Src == null) ? "X":Values.Op1Src.BufferID.ToString(),

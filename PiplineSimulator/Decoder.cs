@@ -37,7 +37,7 @@ namespace Project2Simulator
 			switch (opCode)
 			{
 				case (ushort)Opcode.NOP:
-					CreatedInstruction = new Instruction(Opcode.NOP, null, null, null, null, null, null, null, null, null, FunctionalUnitType.NULL);
+					CreatedInstruction = new Instruction(Opcode.NOP, null, null, null, null, null, new RegisterValue(0), new RegisterValue(0), new RegisterValue(0), null, FunctionalUnitType.NULL);
 					break;
 				case (ushort)Opcode.ADD:
 					CreatedInstruction = CreateArithmeticInstruction(Opcode.ADD, EncodedInstruction);
@@ -79,10 +79,10 @@ namespace Project2Simulator
 					CreatedInstruction = CreateArithmeticInstructionFlags(Opcode.ROLC, EncodedInstruction);
 					break;
 				case (ushort)Opcode.LOAD:
-					CreatedInstruction = CreateMemInstruction(Opcode.LOAD, EncodedInstruction);
+					CreatedInstruction = CreateLoadInstruction(Opcode.LOAD, EncodedInstruction);
 					break;
 				case (ushort)Opcode.STOR:
-					CreatedInstruction = CreateMemInstruction(Opcode.STOR, EncodedInstruction);
+					CreatedInstruction = CreateStorInstruction(Opcode.STOR, EncodedInstruction);
 					break;
 				case (ushort)Opcode.MOV:
 					CreatedInstruction = CreateMOVInstruction(EncodedInstruction);
@@ -198,7 +198,7 @@ namespace Project2Simulator
 					);
 		}
 
-		private Instruction CreateMemInstruction(Opcode opcode, uint encodedInstruction)
+		private Instruction CreateLoadInstruction(Opcode opcode, uint encodedInstruction)
         {
 			ushort UpperBits = GetUpperBits(encodedInstruction);
 			ushort LowerBits = GetLowerBits(encodedInstruction);
@@ -210,7 +210,7 @@ namespace Project2Simulator
 					null,
 					null,
 					null,
-					new RegisterValue(0),
+					new RegisterValue((uint)(((uint)UpperBits & 0xF) << 16) | LowerBits),
 					new RegisterValue(0),
 					new RegisterValue(0),
 					new Address((int)(((uint)UpperBits & 0xF) << 16) | LowerBits),
@@ -232,7 +232,41 @@ namespace Project2Simulator
 					);
 		}
 
-        private Instruction CreateMOVInstruction(uint encodedInstruction)
+		private Instruction CreateStorInstruction(Opcode opcode, uint encodedInstruction)
+		{
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			if (ImmediateBitSet(UpperBits))
+				return new Instruction(
+					opcode,
+					null,
+					null,
+					null,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					null,
+					new RegisterValue(0),
+					new RegisterValue(0),
+					new RegisterValue(0),
+					new Address((int)(((uint)UpperBits & 0xF) << 16) | LowerBits),
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
+			else
+				return new Instruction(
+					opcode,
+					null,
+					null,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new RegisterID(UpperBits & Arith1RegOP),
+					null,
+					new RegisterValue(0),
+					new RegisterValue(0),
+					new RegisterValue(0),
+					null,
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
+		}
+
+		private Instruction CreateMOVInstruction(uint encodedInstruction)
         {
 			ushort UpperBits = GetUpperBits(encodedInstruction);
 			ushort LowerBits = GetLowerBits(encodedInstruction);

@@ -113,7 +113,15 @@ namespace PipelineGUI
 
         private void StepButton_Click(object sender, EventArgs e)
         {
-            Cpu.Cycle();
+            foreach (Core core in Cpu.GetCores())
+            {
+                core.Cycle();
+            }
+            foreach (CoreGUI Gui in CoreGUIs)
+            {
+                Gui.UpdateValues();
+            }
+            AtomicGui.UpdateAtomics(Cpu.THEMMU);
         }
 
         private void remakeCPU()

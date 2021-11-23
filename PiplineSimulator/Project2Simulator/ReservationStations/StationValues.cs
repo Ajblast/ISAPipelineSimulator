@@ -21,6 +21,7 @@ namespace Project2Simulator.ReservationStations
 		public ReorderBufferID Op3Src;
 
 		public Address Addr;
+
 	}
 
 }
