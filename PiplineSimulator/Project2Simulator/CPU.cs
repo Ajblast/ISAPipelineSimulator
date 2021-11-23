@@ -18,7 +18,7 @@ namespace Project2Simulator
 
 		private const int coreCount = 2;
 
-		public CPU(ReservationStationCounts counts)
+		public CPU(ReservationStationCounts counts, MemoryCycleTimes memoryCycleTimes)
         {
 			THEMMU = new MMU();
 			memory = new MainMemory(0x100000, true);
@@ -30,7 +30,7 @@ namespace Project2Simulator
 				cores[i] = new Core(new CoreID(i), memory, counts);
             }
 
-			FunctionalFactory.Initialize(THEMMU, magicPerfectStupidCache);
+			FunctionalFactory.Initialize(THEMMU, magicPerfectStupidCache, memoryCycleTimes);
         }
 		public void Cycle()
 		{

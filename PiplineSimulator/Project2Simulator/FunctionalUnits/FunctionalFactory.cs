@@ -9,11 +9,13 @@ namespace Project2Simulator.FunctionalUnits
     {
         private static MMU mmu;
         private static MagicPerfectStupidCache cache;
+        private static MemoryCycleTimes memoryCycleTimes;
 
-        public static void Initialize(MMU mmu, MagicPerfectStupidCache cache)
+        public static void Initialize(MMU mmu, MagicPerfectStupidCache cache, MemoryCycleTimes memoryCycleTimes)
         {
             FunctionalFactory.mmu = mmu;
             FunctionalFactory.cache = cache;
+            FunctionalFactory.memoryCycleTimes = memoryCycleTimes;
         }
 
 		public static FunctionalUnit CreateUnit(THECommonDataBus bus, FunctionalUnitType type, CoreID id)
@@ -23,7 +25,7 @@ namespace Project2Simulator.FunctionalUnits
                 case FunctionalUnitType.NULL:
                     return null;
                 case FunctionalUnitType.MEMORY_UNIT:
-                    return new MemoryUnit(mmu, cache, bus, id);
+                    return new MemoryUnit(mmu, cache, bus, id, memoryCycleTimes);
                 case FunctionalUnitType.BRANCH_UNIT:
                     return new BranchUnit(bus, id);
                 case FunctionalUnitType.FLOATING_ADDER:
