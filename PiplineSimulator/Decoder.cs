@@ -15,10 +15,12 @@ namespace Project2Simulator
 		private const ushort DestRegMask = 0x00F0;
 		private const ushort ImmediateIdentifierMask = 0x0100;
 
+
 		//Arithmetic Masks
 		private const ushort ArithDestRegMask = 0x00F0;
 		private const ushort Arith1RegOP = 0x000F;
 		private const ushort RegOP2 = 0x000F; //used for any instruction format where 2nd op is 4 LSB of 32-bit LBSs
+		private const ushort RegOP3 = 0x00F0; //Used for atomics Compare and Swap
 
 
         public Decoder(RegisterFile regFile)
@@ -37,7 +39,7 @@ namespace Project2Simulator
 			switch (opCode)
 			{
 				case (ushort)Opcode.NOP:
-					CreatedInstruction = new Instruction(Opcode.NOP, null, null, null, null, null, null, null, null, null, FunctionalUnitType.NULL);
+					CreatedInstruction = new Instruction(Opcode.NOP, null, null, null, null, null, new RegisterValue(0), new RegisterValue(0), new RegisterValue(0), null, FunctionalUnitType.NULL);
 					break;
 				case (ushort)Opcode.ADD:
 					CreatedInstruction = CreateArithmeticInstruction(Opcode.ADD, EncodedInstruction);
@@ -79,10 +81,10 @@ namespace Project2Simulator
 					CreatedInstruction = CreateArithmeticInstructionFlags(Opcode.ROLC, EncodedInstruction);
 					break;
 				case (ushort)Opcode.LOAD:
-					CreatedInstruction = CreateMemInstruction(Opcode.LOAD, EncodedInstruction);
+					CreatedInstruction = CreateLoadInstruction(Opcode.LOAD, EncodedInstruction);
 					break;
 				case (ushort)Opcode.STOR:
-					CreatedInstruction = CreateMemInstruction(Opcode.STOR, EncodedInstruction);
+					CreatedInstruction = CreateStorInstruction(Opcode.STOR, EncodedInstruction);
 					break;
 				case (ushort)Opcode.MOV:
 					CreatedInstruction = CreateMOVInstruction(EncodedInstruction);
@@ -122,6 +124,19 @@ namespace Project2Simulator
 					break;
 				case (ushort)Opcode.HALT:
 					CreatedInstruction = new Instruction(Opcode.HALT, null, null, null, null, null, new RegisterValue(0), new RegisterValue(0), new RegisterValue(0), null, FunctionalUnitType.NULL);
+					break;
+				case (ushort)Opcode.ADDA:
+				case (ushort)Opcode.SUBA:
+				case (ushort)Opcode.ANDA:
+				case (ushort)Opcode.ORA:
+				case (ushort)Opcode.XORA:
+					CreatedInstruction = CreateArithmeticInstructionAtomic((Opcode)opCode, EncodedInstruction);
+					break;
+				case (ushort)Opcode.CMPSW:
+					CreatedInstruction = CreateCompareAndSwapAtomic(Opcode.CMPSW, EncodedInstruction);
+					break;
+				case (ushort)Opcode.SWAP:
+					CreatedInstruction = CreateSwapAtomic(Opcode.SWAP, EncodedInstruction);
 					break;
 				default:
 					throw new Exception("Invalid Instruction OP code Dedcoded");
@@ -198,7 +213,9 @@ namespace Project2Simulator
 					);
 		}
 
-		private Instruction CreateMemInstruction(Opcode opcode, uint encodedInstruction)
+
+		//Load is reusable for atomic fetch
+		private Instruction CreateLoadInstruction(Opcode opcode, uint encodedInstruction)
         {
 			ushort UpperBits = GetUpperBits(encodedInstruction);
 			ushort LowerBits = GetLowerBits(encodedInstruction);
@@ -210,7 +227,7 @@ namespace Project2Simulator
 					null,
 					null,
 					null,
-					new RegisterValue(0),
+					new RegisterValue((uint)(((uint)UpperBits & 0xF) << 16) | LowerBits),
 					new RegisterValue(0),
 					new RegisterValue(0),
 					new Address((int)(((uint)UpperBits & 0xF) << 16) | LowerBits),
@@ -232,7 +249,41 @@ namespace Project2Simulator
 					);
 		}
 
-        private Instruction CreateMOVInstruction(uint encodedInstruction)
+		private Instruction CreateStorInstruction(Opcode opcode, uint encodedInstruction)
+		{
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			if (ImmediateBitSet(UpperBits))
+				return new Instruction(
+					opcode,
+					null,
+					null,
+					null,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					null,
+					new RegisterValue(0),
+					new RegisterValue(0),
+					new RegisterValue(0),
+					new Address((int)(((uint)UpperBits & 0xF) << 16) | LowerBits),
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
+			else
+				return new Instruction(
+					opcode,
+					null,
+					null,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					new RegisterID(UpperBits & Arith1RegOP),
+					null,
+					new RegisterValue(0),
+					new RegisterValue(0),
+					new RegisterValue(0),
+					null,
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
+		}
+
+		private Instruction CreateMOVInstruction(uint encodedInstruction)
         {
 			ushort UpperBits = GetUpperBits(encodedInstruction);
 			ushort LowerBits = GetLowerBits(encodedInstruction);
@@ -415,11 +466,65 @@ namespace Project2Simulator
 					);
 		}
 
+		private Instruction CreateArithmeticInstructionAtomic(Opcode opcode, uint encodedInstruction)
+		{
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			return new Instruction(
+				opcode,
+				new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+				null,
+				new RegisterID(UpperBits & Arith1RegOP),
+				new RegisterID(LowerBits & RegOP2),
+				null,
+				new RegisterValue(0),
+				new RegisterValue(0),
+				new RegisterValue(0),
+				null,
+				OpcodeHelper.GetFunctionalUnitType(opcode)
+				);
+		}
 
-		// TODO: Add decoding for atomic instructions
+		
+		private Instruction CreateCompareAndSwapAtomic(Opcode opcode, uint encodedInstruction)
+		{
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			return new Instruction(
+				opcode,
+				new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+				null,
+				new RegisterID(UpperBits & Arith1RegOP),
+				new RegisterID(LowerBits & RegOP2),
+				new RegisterID(LowerBits & RegOP3),
+				new RegisterValue(0),
+				new RegisterValue(0),
+				new RegisterValue(0),
+				null,
+				OpcodeHelper.GetFunctionalUnitType(opcode)
+				);
+		}
 
+		private Instruction CreateSwapAtomic(Opcode opcode, uint encodedInstruction)
+		{
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			return new Instruction(
+				opcode,
+				new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+				null,
+				new RegisterID(UpperBits & Arith1RegOP),
+				new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+				null,
+				new RegisterValue(0),
+				new RegisterValue(0),
+				new RegisterValue(0),
+				null,
+				OpcodeHelper.GetFunctionalUnitType(opcode)
+				);
+		}
 
-        private static ushort ExtractOpCode(uint EncodedInstruction)
+		private static ushort ExtractOpCode(uint EncodedInstruction)
         {
 			//I am using ASL due to c#, bitwise & produces int. Cast applies after all operations, so ASL should act as LSL
 			return (ushort)((uint)(EncodedInstruction & OpCodeMask) >> 25);

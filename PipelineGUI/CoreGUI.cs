@@ -115,5 +115,10 @@ namespace CoreGui
             IntergerAdderResList.Items.Clear();
             MovUnitResList.Items.Clear();
         }
+
+        public void setCoreID(int coreID)
+        {
+            CoreIDLabel.Text = "Core ID: " + coreID.ToString();
+        }
     }
 }

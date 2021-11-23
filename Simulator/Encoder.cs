@@ -107,7 +107,7 @@ namespace Simulator
             {
                 temp = sr.ReadLine();
                 tempArr = temp.Split(' ');
-                inDicCode.Add(tempArr[0], tempArr[1]);
+                inDicCode.Add(tempArr[0], Convert.ToByte(tempArr[1]));
             }
 
             regDicCode = new Dictionary<string, byte>();
@@ -115,7 +115,7 @@ namespace Simulator
             {
                 temp = sr.ReadLine();
                 tempArr = temp.Split(' ');
-                inDicCode.Add(tempArr[0], tempArr[1]);
+                inDicCode.Add(tempArr[0], Convert.ToByte(tempArr[1]));
             }
             sr.Close();
         }

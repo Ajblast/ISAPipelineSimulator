@@ -101,7 +101,7 @@ namespace Project2Simulator.ReorderBuffers
 
 		public bool IsUncommittedBranchInstruction()
         {
-			return (bufferSlots[Tail].Instruction.FunctionalUnit.Type == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT && bufferSlots[Tail].Ocupodo == true);
+			return (bufferSlots[Tail].Ocupodo == true && bufferSlots[Tail].Instruction.FunctionalUnit.Type == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT);
 		}
     }
 

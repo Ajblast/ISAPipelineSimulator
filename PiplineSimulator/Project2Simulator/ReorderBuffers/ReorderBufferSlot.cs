@@ -32,7 +32,7 @@ namespace Project2Simulator.ReorderBuffers
         {
             return string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-10}{5,-10}{6,-10}{7,-10}{8}",
 				ReorderBufferID.BufferID,
-				Instruction.StationID.ID,
+				(Instruction == null) ? "X":Instruction.StationID.ID,
 				Ocupodo.ToString(),
 				(DestRegId == null) ? "X":DestRegId.ID.ToString(),
 				Value.Value,
