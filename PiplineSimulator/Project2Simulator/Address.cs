@@ -6,9 +6,21 @@ namespace Project2Simulator
 	{
 		public int Value;
 
+        public Address()
+        {
+            Value = 0;            
+        }
+        public Address(Address other)
+        {
+            this.Value = other.Value;
+        }
         public Address(int Value)
         {
             this.Value = Value;
+        }
+        public Address(uint Value)
+        {
+            this.Value = (int)Value;
         }
 
         public override bool Equals(object obj)
