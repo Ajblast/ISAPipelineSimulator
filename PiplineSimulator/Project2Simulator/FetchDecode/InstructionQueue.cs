@@ -55,6 +55,7 @@ namespace Project2Simulator.FetchDecode
 			newSlot.DestRegId2 = newInstruction.Destination2;
 			newSlot.ValidValue = false;
 			newSlot.ValidValue2 = false;
+			newSlot.Instruction = newStation;
 
 			newStation.Issue(newInstruction, newSlot.ReorderBufferID);
 

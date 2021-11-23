@@ -11,7 +11,7 @@ namespace Project2Simulator
 	public class Core
 	{
 		private InstructionUnit instructionUnit;
-		private InstructionQueue instructionQueue;
+		public InstructionQueue instructionQueue;
 
 		public ReorderBuffer reorderBuffer;
 		public Stations reservationStations;

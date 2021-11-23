@@ -37,9 +37,9 @@ namespace CoreGui
 
         private void UpdateInstructionQueue()
         {
-            foreach ( item in collection)
+            foreach (var instruction in FormCore.instructionQueue.Instructions)
             {
-
+                InstructionQueueList.Items.Add(instruction.ToString());
             }
         }
 

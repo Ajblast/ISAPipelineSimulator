@@ -199,15 +199,15 @@ namespace Project2Simulator.ReservationStations
         public override string ToString()
         {
 			return string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-10}{5,-10}{6,-10}{7,-10}{8,-10}{9}", 
-				Busy, 
+				Busy.ToString(), 
 				Values.Opcode.ToString(),
-				Values.Dest.BufferID,
+				(Values.Dest == null) ? "X":Values.Dest.BufferID.ToString(),
 				Values.Op2.Value,
 				Values.Op3.Value,
-				Values.Op1Src.BufferID,
-				Values.Op2Src.BufferID,
-				Values.Op3Src.BufferID,
-				Values.Addr.Value
+				(Values.Op1Src == null) ? "X":Values.Op1Src.BufferID.ToString(),
+				(Values.Op2Src == null) ? "X":Values.Op2Src.BufferID.ToString(),
+				(Values.Op3Src == null) ? "X":Values.Op3Src.BufferID.ToString(),
+				(Values.Addr == null) ? "X":Values.Addr.Value.ToString()
 				);
         }
     }
