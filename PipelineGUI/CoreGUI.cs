@@ -22,7 +22,7 @@ namespace CoreGui
         {
             FormCore = core;
             InitializeComponent();
-            CoreIDLabel.Text = "Core ID: " + core.coreID.ToString();
+            CoreIDLabel.Text = "Core ID: " + core.coreID.ID.ToString();
         }
 
         public void UpdateValues()

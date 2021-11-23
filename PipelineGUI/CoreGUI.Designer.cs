@@ -486,9 +486,9 @@ namespace CoreGui
             this.ReorderBufferList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ReorderBufferList.FormattingEnabled = true;
             this.ReorderBufferList.ItemHeight = 21;
-            this.ReorderBufferList.Location = new System.Drawing.Point(688, 86);
+            this.ReorderBufferList.Location = new System.Drawing.Point(728, 65);
             this.ReorderBufferList.Name = "ReorderBufferList";
-            this.ReorderBufferList.Size = new System.Drawing.Size(410, 130);
+            this.ReorderBufferList.Size = new System.Drawing.Size(580, 256);
             this.ReorderBufferList.TabIndex = 62;
             // 
             // InstructionQueueList
@@ -496,9 +496,9 @@ namespace CoreGui
             this.InstructionQueueList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.InstructionQueueList.FormattingEnabled = true;
             this.InstructionQueueList.ItemHeight = 21;
-            this.InstructionQueueList.Location = new System.Drawing.Point(131, 86);
+            this.InstructionQueueList.Location = new System.Drawing.Point(62, 65);
             this.InstructionQueueList.Name = "InstructionQueueList";
-            this.InstructionQueueList.Size = new System.Drawing.Size(410, 130);
+            this.InstructionQueueList.Size = new System.Drawing.Size(580, 256);
             this.InstructionQueueList.TabIndex = 63;
             // 
             // IntergerAdderResList
@@ -506,7 +506,7 @@ namespace CoreGui
             this.IntergerAdderResList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.IntergerAdderResList.FormattingEnabled = true;
             this.IntergerAdderResList.ItemHeight = 21;
-            this.IntergerAdderResList.Location = new System.Drawing.Point(688, 281);
+            this.IntergerAdderResList.Location = new System.Drawing.Point(688, 396);
             this.IntergerAdderResList.Name = "IntergerAdderResList";
             this.IntergerAdderResList.Size = new System.Drawing.Size(325, 88);
             this.IntergerAdderResList.TabIndex = 67;
@@ -516,7 +516,7 @@ namespace CoreGui
             this.MovUnitResList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MovUnitResList.FormattingEnabled = true;
             this.MovUnitResList.ItemHeight = 21;
-            this.MovUnitResList.Location = new System.Drawing.Point(1032, 281);
+            this.MovUnitResList.Location = new System.Drawing.Point(1032, 396);
             this.MovUnitResList.Name = "MovUnitResList";
             this.MovUnitResList.Size = new System.Drawing.Size(325, 88);
             this.MovUnitResList.TabIndex = 69;
@@ -525,7 +525,7 @@ namespace CoreGui
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(109, 247);
+            this.label1.Location = new System.Drawing.Point(109, 362);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(121, 21);
             this.label1.TabIndex = 71;
@@ -535,7 +535,7 @@ namespace CoreGui
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label25.Location = new System.Drawing.Point(455, 247);
+            this.label25.Location = new System.Drawing.Point(455, 362);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(110, 21);
             this.label25.TabIndex = 73;
@@ -545,7 +545,7 @@ namespace CoreGui
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label26.Location = new System.Drawing.Point(784, 247);
+            this.label26.Location = new System.Drawing.Point(784, 362);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(133, 21);
             this.label26.TabIndex = 75;
@@ -555,7 +555,7 @@ namespace CoreGui
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label27.Location = new System.Drawing.Point(1140, 247);
+            this.label27.Location = new System.Drawing.Point(1140, 362);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(108, 21);
             this.label27.TabIndex = 76;
@@ -565,7 +565,7 @@ namespace CoreGui
             // 
             this.FlushLabel.AutoSize = true;
             this.FlushLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FlushLabel.Location = new System.Drawing.Point(1046, 62);
+            this.FlushLabel.Location = new System.Drawing.Point(1086, 41);
             this.FlushLabel.Name = "FlushLabel";
             this.FlushLabel.Size = new System.Drawing.Size(52, 21);
             this.FlushLabel.TabIndex = 77;
@@ -575,7 +575,7 @@ namespace CoreGui
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(49, 393);
+            this.textBox1.Location = new System.Drawing.Point(49, 508);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(240, 29);
             this.textBox1.TabIndex = 79;
@@ -585,7 +585,7 @@ namespace CoreGui
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox2.Location = new System.Drawing.Point(730, 393);
+            this.textBox2.Location = new System.Drawing.Point(730, 508);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(240, 29);
             this.textBox2.TabIndex = 80;
@@ -595,7 +595,7 @@ namespace CoreGui
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox3.Location = new System.Drawing.Point(1074, 393);
+            this.textBox3.Location = new System.Drawing.Point(1074, 508);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(240, 29);
             this.textBox3.TabIndex = 81;
@@ -605,7 +605,7 @@ namespace CoreGui
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox4.Location = new System.Drawing.Point(390, 393);
+            this.textBox4.Location = new System.Drawing.Point(390, 508);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(240, 29);
             this.textBox4.TabIndex = 82;
@@ -617,7 +617,7 @@ namespace CoreGui
             this.MemoryResList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MemoryResList.FormattingEnabled = true;
             this.MemoryResList.ItemHeight = 21;
-            this.MemoryResList.Location = new System.Drawing.Point(7, 281);
+            this.MemoryResList.Location = new System.Drawing.Point(7, 396);
             this.MemoryResList.Name = "MemoryResList";
             this.MemoryResList.Size = new System.Drawing.Size(325, 88);
             this.MemoryResList.TabIndex = 84;
@@ -626,7 +626,7 @@ namespace CoreGui
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label28.Location = new System.Drawing.Point(131, 62);
+            this.label28.Location = new System.Drawing.Point(62, 44);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(134, 21);
             this.label28.TabIndex = 85;
@@ -636,7 +636,7 @@ namespace CoreGui
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label29.Location = new System.Drawing.Point(688, 62);
+            this.label29.Location = new System.Drawing.Point(728, 41);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(112, 21);
             this.label29.TabIndex = 86;
@@ -647,7 +647,7 @@ namespace CoreGui
             this.BranchResList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BranchResList.FormattingEnabled = true;
             this.BranchResList.ItemHeight = 21;
-            this.BranchResList.Location = new System.Drawing.Point(348, 281);
+            this.BranchResList.Location = new System.Drawing.Point(348, 396);
             this.BranchResList.Name = "BranchResList";
             this.BranchResList.Size = new System.Drawing.Size(325, 88);
             this.BranchResList.TabIndex = 87;
