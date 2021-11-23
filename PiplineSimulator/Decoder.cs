@@ -400,9 +400,9 @@ namespace Project2Simulator
 			return new Instruction(
 				opcode,
 				new RegisterID(RegFile.PC.ID),
-				new RegisterID(RegFile.FLAG.ID.ID),
-				new RegisterID(RegFile.FLAG.ID.ID),
 				null,
+				new RegisterID(RegFile.FLAG.ID.ID),
+				new RegisterID(RegFile.RE.ID),
 				null,
 				new RegisterValue(0),
 				new RegisterValue(0),
