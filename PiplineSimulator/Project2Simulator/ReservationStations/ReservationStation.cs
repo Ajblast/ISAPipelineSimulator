@@ -165,7 +165,7 @@ namespace Project2Simulator.ReservationStations
 					return;
 
 				if (FunctionalUnit.Executing == false)
-					FunctionalUnit.StartExecution(Values.Opcode, Values.Op1, Values.Op2, Values.Op3);
+					FunctionalUnit.StartExecution(Values.Opcode, Values.Op1, Values.Op2, Values.Op3, Values.Addr);
 
 				// Cycle the functional unit
 				if (FunctionalUnit.Cycle())

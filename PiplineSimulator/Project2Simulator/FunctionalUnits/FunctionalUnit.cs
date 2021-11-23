@@ -17,12 +17,16 @@ namespace Project2Simulator.FunctionalUnits
 
 		protected Opcode opcode;
 		protected RegisterValue op1;
-		protected RegisterValue op2;
+		protected RegisterValue op2;	// Immediate values are stored here
 		protected RegisterValue op3;
 
 		protected RegisterValue dest1;
 		protected RegisterValue dest2;
 		protected bool dest2Valid;
+
+		protected Address address;
+
+		public int CurrentCycle;
 
 		public FunctionalUnit(FunctionalUnitType type, THECommonDataBus bus, CoreID core)
 		{
@@ -38,9 +42,12 @@ namespace Project2Simulator.FunctionalUnits
 			dest2 = new RegisterValue();
 			dest2Valid = false;
 
+			address = new Address(0);
+
+			CurrentCycle = 0;
 		}
 
-		public virtual void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3)
+		public virtual void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3, Address addr)
         {
 			this.opcode = opcode;
 			this.op1 = op1;
@@ -50,6 +57,10 @@ namespace Project2Simulator.FunctionalUnits
 			dest1 = new RegisterValue();
 			dest2 = new RegisterValue();
 			dest2Valid = false;
+
+			address = addr;
+
+			CurrentCycle = 0;
 
 			Executing = true;
         }
@@ -62,6 +73,10 @@ namespace Project2Simulator.FunctionalUnits
 			op1.Value = 0;
 			op2.Value = 0;
 			op3.Value = 0;
+
+			address.Value = 0;
+
+			CurrentCycle = 0;
 
 			Executing = false;
         }
