@@ -15,10 +15,12 @@ namespace Project2Simulator
 		private const ushort DestRegMask = 0x00F0;
 		private const ushort ImmediateIdentifierMask = 0x0100;
 
+
 		//Arithmetic Masks
 		private const ushort ArithDestRegMask = 0x00F0;
 		private const ushort Arith1RegOP = 0x000F;
 		private const ushort RegOP2 = 0x000F; //used for any instruction format where 2nd op is 4 LSB of 32-bit LBSs
+		private const ushort RegOP3 = 0x00F0; //Used for atomics Compare and Swap
 
 
         public Decoder(RegisterFile regFile)
@@ -494,7 +496,7 @@ namespace Project2Simulator
 				null,
 				new RegisterID(UpperBits & Arith1RegOP),
 				new RegisterID(LowerBits & RegOP2),
-				null,
+				new RegisterID(LowerBits & RegOP3),
 				new RegisterValue(0),
 				new RegisterValue(0),
 				new RegisterValue(0),
