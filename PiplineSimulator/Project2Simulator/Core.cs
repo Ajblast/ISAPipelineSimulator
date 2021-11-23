@@ -20,7 +20,7 @@ namespace Project2Simulator
 		private THECommonDataBus bus;
 		private DataBusControlUnit dataBusControlUnit;
 
-		private CoreID coreID;
+		public CoreID coreID;
 
 		private const int reorderBufferSize = 8;
 		public ReservationStationCounts ResCounts;

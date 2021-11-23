@@ -2,7 +2,9 @@
 
 using Project2Simulator.Memory;
 using Project2Simulator.FunctionalUnits;
+using Project2Simulator.ReservationStations;
 using System.Collections.Generic;
+
 
 namespace Project2Simulator
 {
@@ -16,13 +18,17 @@ namespace Project2Simulator
 
 		private const int coreCount = 2;
 
-		public CPU()
+		public CPU(ReservationStationCounts counts)
         {
-			cores = new Core[coreCount];
-
-			THEMMU = new MMU(); 
-			memory= new MainMemory(0x100000, true);
+			THEMMU = new MMU();
+			memory = new MainMemory(0x100000, true);
 			magicPerfectStupidCache = new MagicPerfectStupidCache(memory);
+
+			cores = new Core[coreCount];
+			for (int i = 0; i < coreCount; i++)
+            {
+				cores[i] = new Core(new CoreID(i), memory, counts);
+            }
 
 			FunctionalFactory.Initialize(THEMMU, magicPerfectStupidCache);
         }

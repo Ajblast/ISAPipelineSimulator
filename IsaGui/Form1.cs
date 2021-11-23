@@ -51,7 +51,7 @@ namespace IsaGui
             ALU2Box.Text = Convert.ToString(simCpu.alu.op1.Value, 2);
             ALU3Box.Text = Convert.ToString(simCpu.alu.op2.Value, 2);
 
-            PCBox.Text = Convert.ToString(simCpu.registers.PC.Value, 2);
+            //PCBox.Text = Convert.ToString(simCpu.registers.PC.Value, 2);
            
             rLBox.Text = Convert.ToString(simCpu.registers.SP2.Value, 2);
 

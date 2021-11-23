@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreGui;
 using Project2Simulator;
+using Project2Simulator.ReservationStations;
 
 namespace PipelineGUI
 {
@@ -20,22 +21,29 @@ namespace PipelineGUI
         private string assemblyFilePath;
         private string binaryInFilePath;
         private Decoder textDecoder;
-        private Encoder binaryEncoder = new Encoder("");
+        private Encoder binaryEncoder;// = new Encoder("");
 
         public CPU Cpu;
         public CoreGUI[] CoreGUIs;
         public AtomicGUI AtomicGui;
-
+        public ReservationStationCounts Counts;
         public bool IsRunning = false;
         public bool Stop = false;
         public ControlGUI()
         {
-            Cpu = new CPU();
+            Counts = new ReservationStationCounts();
+            Counts.BranchUnit = 1;
+            Counts.IntegerAdder = 4;
+            Counts.MemoryUnit = 1;
+            Counts.MovementUnit = 2;
+            Cpu = new CPU(Counts);
             InitializeComponent();
             CoreGUIs = new CoreGUI[Cpu.GetCoreCount()];
             for (int i = 0; i < Cpu.GetCoreCount(); i++)
             {
+                Core tempCore = Cpu.GetCores()[i];
                 CoreGUIs[i] = new CoreGUI(Cpu.GetCores()[i]);
+                CoreGUIs[i].setCoreID(tempCore.coreID.ID);
             }
             foreach (CoreGUI coreGui in CoreGUIs)
             {
@@ -110,7 +118,7 @@ namespace PipelineGUI
 
         private void remakeCPU()
         {
-            Cpu = new CPU();
+            Cpu = new CPU(Counts);
             for (int i = 0; i < Cpu.GetCoreCount(); i++)
             {
                 CoreGUIs[i] = new CoreGUI(Cpu.GetCores()[i]);
