@@ -7,42 +7,59 @@ using Project2Simulator.ReorderBuffers;
 
 namespace Project2Simulator.FunctionalUnits
 {
-	public class MemoryUnit : MemoryAccessUnit
+    public struct MemoryCycleTimes
+    {
+        public int LoadMemory;
+        public int StorMemory;
+
+        public int AtomicOperation;
+        public int AtomicLoadMemory;
+        public int AtomicStorMemory;
+    }
+
+    public class MemoryUnit : MemoryAccessUnit
 	{
         enum AtomicStage
         {
+            NOP,
             LOAD,
             EXECUTE,
             STORE
         }
 
         private AtomicStage atomicStage;
+        private MemoryCycleTimes cycleTimings;
 
-        public MemoryUnit(MMU mmu, MagicPerfectStupidCache cache, THECommonDataBus bus, CoreID core) : base(mmu, cache, bus, core)
+        private RegisterValue tempValue;
+        private Address tempAddress;
+        private bool shouldWrite = false;
+
+        public MemoryUnit(MMU mmu, MagicPerfectStupidCache cache, THECommonDataBus bus, CoreID core, MemoryCycleTimes cycleTimes) : base(mmu, cache, bus, core)
         {
+            atomicStage = AtomicStage.NOP;
+            cycleTimings = cycleTimes;
         }
 
-        public override void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3)
+        public override void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3, Address address)
         {
-            base.StartExecution(opcode, op1, op2, op3);
+            base.StartExecution(opcode, op1, op2, op3, address);
 
-            atomicStage = AtomicStage.LOAD;
+            atomicStage = AtomicStage.NOP;
         }
 
         public override bool Cycle()
         {
+            bool hasMemoryAccess = false;
+
             switch (opcode)
             {
                 case Opcode.LOAD:
-                    break;
                 case Opcode.STOR:
-                    break;
                 case Opcode.PUSH:
-                    break;
                 case Opcode.POP:
+                    hasMemoryAccess = MMU.RequestMemory(core, address, false);
                     break;
 
-                // TODO: Memory unit instructions
                 case Opcode.FETCH:
                 case Opcode.ADDA:
                 case Opcode.SUBA:
@@ -51,16 +68,251 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.XORA:
                 case Opcode.CMPSW:
                 case Opcode.SWAP:
+                    hasMemoryAccess = MMU.RequestMemory(core, address, true);
+                    break;
 
                 default:
                     break;
             }
 
-            throw new System.NotImplementedException();
+            if (hasMemoryAccess == false)
+                return false;
+
+            bool retValue = false;
+
+            switch (opcode)
+            {
+                case Opcode.LOAD:
+                    if (CurrentCycle == cycleTimings.LoadMemory)
+                    {
+                        if (address == null)
+                            dest1.Value = magicPerfectStupidCache.Load(new Address(op1.Value)).Value;   // Register
+                        else
+                            dest1.Value = magicPerfectStupidCache.Load(address).Value;                  // Immediate
+
+                        retValue = true;
+                    }
+                    break;
+                case Opcode.STOR:
+                    if (CurrentCycle == cycleTimings.StorMemory)
+                    {
+                        if (address == null)
+                        {
+                            tempAddress = new Address(op1.Value);
+                            tempValue = op2;
+                        }
+                        else
+                        {
+                            tempAddress = new Address(address);
+                            tempValue = op2;
+                        }
+
+                        shouldWrite = true;
+                        retValue = true;
+                    }
+                    break;
+                case Opcode.PUSH:
+                    if (CurrentCycle == cycleTimings.StorMemory)
+                    {
+                        dest1.Value = op1.Value - RegisterValue.ByteSize;
+                        tempAddress = new Address(op1.Value);
+                        tempValue = op2;
+                    
+                        shouldWrite = true;
+                        retValue = true;
+                    }
+                    break;
+                case Opcode.POP:
+                    if (CurrentCycle == cycleTimings.LoadMemory)
+                    {
+                        dest1.Value = magicPerfectStupidCache.Load(new Address(op1.Value)).Value;
+                        dest2.Value = op1.Value + RegisterValue.ByteSize;
+
+                        retValue = true;
+                    }
+                    break;
+
+                case Opcode.FETCH:  // Same Load
+                    if (CurrentCycle == cycleTimings.AtomicLoadMemory)
+                    {
+                        if (address == null)
+                            dest1.Value = magicPerfectStupidCache.Load(new Address(op1.Value)).Value;   // Register
+                        else
+                            dest1.Value = magicPerfectStupidCache.Load(address).Value;                  // Immediate
+
+                        retValue = true;
+                    }
+                    break;
+                case Opcode.ADDA:   // Same as Add
+                    if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
+                    {
+                        tempAddress = new Address(op1.Value);
+                        tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+
+                        atomicStage = AtomicStage.EXECUTE;
+                    }
+                    else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
+                    {
+                        tempValue.Value += op2.Value;
+
+                        atomicStage = AtomicStage.STORE;
+                    }
+                    else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
+                    {
+                        atomicStage = AtomicStage.NOP;
+                        shouldWrite = true;
+                        retValue = true;
+                    }
+                    break;
+                case Opcode.SUBA:
+                    if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
+                    {
+                        tempAddress = new Address(op1.Value);
+                        tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+
+                        atomicStage = AtomicStage.EXECUTE;
+                    }
+                    else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
+                    {
+                        tempValue.Value -= op2.Value;
+
+                        atomicStage = AtomicStage.STORE;
+                    }
+                    else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
+                    {
+                        atomicStage = AtomicStage.NOP;
+                        shouldWrite = true;
+                        retValue = true;
+                    }
+                    break;
+                case Opcode.ANDA:
+                    if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
+                    {
+                        tempAddress = new Address(op1.Value);
+                        tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+
+                        atomicStage = AtomicStage.EXECUTE;
+                    }
+                    else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
+                    {
+                        tempValue.Value &= op2.Value;
+
+                        atomicStage = AtomicStage.STORE;
+                    }
+                    else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
+                    {
+                        atomicStage = AtomicStage.NOP;
+                        shouldWrite = true;
+                        retValue = true;
+                    }
+                    break;
+                case Opcode.ORA:
+                    if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
+                    {
+                        tempAddress = new Address(op1.Value);
+                        tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+
+                        atomicStage = AtomicStage.EXECUTE;
+                    }
+                    else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
+                    {
+                        tempValue.Value |= op2.Value;
+
+                        atomicStage = AtomicStage.STORE;
+                    }
+                    else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
+                    {
+                        atomicStage = AtomicStage.NOP;
+                        shouldWrite = true;
+                        retValue = true;
+                    }
+                    break;
+                case Opcode.XORA:
+                    if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
+                    {
+                        tempAddress = new Address(op1.Value);
+                        tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+
+                        atomicStage = AtomicStage.EXECUTE;
+                    }
+                    else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
+                    {
+                        tempValue.Value ^= op2.Value;
+
+                        atomicStage = AtomicStage.STORE;
+                    }
+                    else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
+                    {
+                        atomicStage = AtomicStage.NOP;
+                        shouldWrite = true;
+                        retValue = true;
+                    }
+                    break;
+
+                case Opcode.CMPSW:
+                    if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
+                    {
+                        tempAddress = new Address(op1.Value);
+                        tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+
+                        atomicStage = AtomicStage.EXECUTE;
+                    }
+                    else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
+                    {
+                        if (tempValue.Value == op2.Value)
+                        {
+                            dest1.Value = op3.Value;
+                            tempValue.Value = op3.Value;
+                            shouldWrite = true;
+                        }
+                        else
+                            dest1.Value = tempValue.Value;
+
+                        atomicStage = AtomicStage.STORE;
+                    }
+                    else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
+                    {
+                        atomicStage = AtomicStage.NOP;
+
+                        retValue = true;
+                    }
+                    break;
+                case Opcode.SWAP:
+                    if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
+                    {
+                        tempAddress = new Address(op1.Value);
+                        tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+
+                        atomicStage = AtomicStage.EXECUTE;
+                    }
+                    else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
+                    {
+                        dest1.Value = tempValue.Value;
+                        tempValue.Value = op2.Value;
+
+                        atomicStage = AtomicStage.STORE;
+                    }
+                    else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
+                    {
+                        atomicStage = AtomicStage.NOP;
+                        shouldWrite = true;
+                        retValue = true;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            return retValue;
         }
 
         public override void Flush()
         {
+            tempValue = new RegisterValue();
+            tempAddress = new Address();
+            shouldWrite = false;
+
             MMU.RemoveAtomic(core);
             base.Flush();
         }
@@ -69,7 +321,12 @@ namespace Project2Simulator.FunctionalUnits
         {
             base.Commit(id);
 
-            // Commit to memory
+            if (shouldWrite)
+                magicPerfectStupidCache.Store(tempAddress, tempValue);
+            
+            tempValue = new RegisterValue();
+            tempAddress = new Address();
+            shouldWrite = false;
         }
     }
 
