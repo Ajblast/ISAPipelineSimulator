@@ -401,6 +401,8 @@ namespace Project2Simulator
 			if ((UpperBits & 0b10000) == 0b10000)
 				immediate |= 0xFFE00000;
 
+			int newPC = (int) RegFile.PC.Value.Value + (int) immediate;
+
 			return new Instruction(
 				opcode,
 				new RegisterID(RegFile.PC.ID),
@@ -411,7 +413,7 @@ namespace Project2Simulator
 				new RegisterValue(0),
 				new RegisterValue(0),
 				new RegisterValue(0),
-				new Address(immediate),
+				new Address(newPC),
 				OpcodeHelper.GetFunctionalUnitType(opcode)
 				);
         }
