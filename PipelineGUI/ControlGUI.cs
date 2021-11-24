@@ -44,7 +44,7 @@ namespace PipelineGUI
             RemakeCPU();
         }
 
-        private void importAssemblyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ImportAssemblyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             string CombinedPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "..");
@@ -65,7 +65,7 @@ namespace PipelineGUI
 
 
 
-        private void importBinaryToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ImportBinaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             string CombinedPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "..");
@@ -86,7 +86,7 @@ namespace PipelineGUI
         {
             byte[] array = File.ReadAllBytes(binaryFilepath);
 
-            for (int i = 0; i < array.Length - 3; i = i + 4)
+            for (int i = 0; i < array.Length - 3; i += 4)
             {
                 uint pulledValue = 0;
                 pulledValue |= (uint) array[i + 0] << 24;
@@ -202,7 +202,7 @@ namespace PipelineGUI
 
 
 
-        private string ToHexString(uint val)
+        private static string ToHexString(uint val)
         {
             return Convert.ToString(val, 16);
         }

@@ -18,7 +18,7 @@ namespace CoreGui
     public partial class CoreGUI : Form
     {
         public Core FormCore;
-        private string ResLabel = String.Format(StringFormatService.GetReservationStationFormat(), 
+        private readonly string ResLabel = String.Format(StringFormatService.GetReservationStationFormat(), 
             "Busy", 
             "Op",
             "Dest",
@@ -31,7 +31,7 @@ namespace CoreGui
             "Addr"
             );
 
-        private string ReorderLabel = String.Format(StringFormatService.GetReorderBufferSlotFormat(),
+        private readonly string ReorderLabel = String.Format(StringFormatService.GetReorderBufferSlotFormat(),
             "ID",
             "StID",
             "Occ",
@@ -43,7 +43,7 @@ namespace CoreGui
             "Valid"
             );
          
-        private string InstructionLabel = String.Format(StringFormatService.GetInstructionFormat(),
+        private readonly string InstructionLabel = String.Format(StringFormatService.GetInstructionFormat(),
             "OP",
             "D1",
             "D2",
@@ -69,7 +69,7 @@ namespace CoreGui
         {
             ClearForm();
             UpdateRegisters();
-            makeReservationEntries();
+            MakeReservationEntries();
             UpdateReorderBuffer();
             UpdateInstructionQueue();
             //Update Reservation Stations
@@ -121,7 +121,7 @@ namespace CoreGui
 
         }
 
-        private void makeReservationEntries()
+        private void MakeReservationEntries()
         {
             var MemoryRes = Array.FindAll(FormCore.reservationStations.reservationStations, (t => t.FunctionalUnit.Type == Project2Simulator.FunctionalUnits.FunctionalUnitType.MEMORY_UNIT));
             var BranchRes = Array.FindAll(FormCore.reservationStations.reservationStations, (t => t.FunctionalUnit.Type == Project2Simulator.FunctionalUnits.FunctionalUnitType.BRANCH_UNIT));

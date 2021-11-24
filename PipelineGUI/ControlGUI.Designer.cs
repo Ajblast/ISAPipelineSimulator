@@ -74,14 +74,14 @@ namespace PipelineGUI
             this.importAssemblyToolStripMenuItem.Name = "importAssemblyToolStripMenuItem";
             this.importAssemblyToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
             this.importAssemblyToolStripMenuItem.Text = "Import Assembly";
-            this.importAssemblyToolStripMenuItem.Click += new System.EventHandler(this.importAssemblyToolStripMenuItem_Click);
+            this.importAssemblyToolStripMenuItem.Click += new System.EventHandler(this.ImportAssemblyToolStripMenuItem_Click);
             // 
             // importBinaryToolStripMenuItem
             // 
             this.importBinaryToolStripMenuItem.Name = "importBinaryToolStripMenuItem";
             this.importBinaryToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
             this.importBinaryToolStripMenuItem.Text = "Import Binary";
-            this.importBinaryToolStripMenuItem.Click += new System.EventHandler(this.importBinaryToolStripMenuItem_Click);
+            this.importBinaryToolStripMenuItem.Click += new System.EventHandler(this.ImportBinaryToolStripMenuItem_Click);
             // 
             // StepButton
             // 
