@@ -22,6 +22,7 @@ namespace CoreGui
         {
             FormCore = core;
             InitializeComponent();
+            CoreIDLabel.Text = "Core ID: " + core.coreID.ID.ToString();
         }
 
         public void UpdateValues()
@@ -116,9 +117,6 @@ namespace CoreGui
             MovUnitResList.Items.Clear();
         }
 
-        public void setCoreID(int coreID)
-        {
-            CoreIDLabel.Text = "Core ID: " + coreID.ToString();
-        }
+
     }
 }

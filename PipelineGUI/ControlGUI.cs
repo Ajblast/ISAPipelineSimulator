@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreGui;
 using Project2Simulator;
+using Project2Simulator.FunctionalUnits;
 using Project2Simulator.ReservationStations;
 
 namespace PipelineGUI
@@ -27,30 +28,22 @@ namespace PipelineGUI
         public CoreGUI[] CoreGUIs;
         public AtomicGUI AtomicGui;
         public ReservationStationCounts Counts;
+        public MemoryCycleTimes memoryCycleTimes;
         public bool IsRunning = false;
         public bool Stop = false;
         public ControlGUI()
         {
+            memoryCycleTimes = new MemoryCycleTimes();
             Counts = new ReservationStationCounts();
             Counts.BranchUnit = 1;
             Counts.IntegerAdder = 4;
             Counts.MemoryUnit = 1;
             Counts.MovementUnit = 2;
-            Cpu = new CPU(Counts);
             InitializeComponent();
-            CoreGUIs = new CoreGUI[Cpu.GetCoreCount()];
-            for (int i = 0; i < Cpu.GetCoreCount(); i++)
-            {
-                Core tempCore = Cpu.GetCores()[i];
-                CoreGUIs[i] = new CoreGUI(Cpu.GetCores()[i]);
-                CoreGUIs[i].setCoreID(tempCore.coreID.ID);
-            }
-            foreach (CoreGUI coreGui in CoreGUIs)
-            {
-                coreGui.Show();
-            }
+
             AtomicGui = new AtomicGUI();
             AtomicGui.Show();
+            RemakeCPU();
         }
 
         private void importAssemblyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -62,7 +55,7 @@ namespace PipelineGUI
             if (openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
-            remakeCPU();
+            RemakeCPU();
 
             //Load into assembly list box
             assemblyFilePath = openFileDialog.FileName;
@@ -83,7 +76,7 @@ namespace PipelineGUI
             if (openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
-            remakeCPU();
+            RemakeCPU();
 
             binaryInFilePath = openFileDialog.FileName;
             textDecoder = new Decoder(binaryInFilePath);
@@ -124,15 +117,26 @@ namespace PipelineGUI
             AtomicGui.UpdateAtomics(Cpu.THEMMU);
         }
 
-        private void remakeCPU()
+        private void RemakeCPU()
         {
-            Cpu = new CPU(Counts);
+            Cpu = new CPU(Counts, memoryCycleTimes);
+            if(CoreGUIs != null)
+                for (int i = 0; i < CoreGUIs.Length; i++)
+                {
+                    CoreGUIs[i].Dispose();
+                }
+
+            CoreGUIs = new CoreGUI[Cpu.GetCoreCount()];
             for (int i = 0; i < Cpu.GetCoreCount(); i++)
             {
-                CoreGUIs[i] = new CoreGUI(Cpu.GetCores()[i]);
+                Core tempCore = Cpu.GetCores()[i];
+                CoreGUIs[i] = new CoreGUI(tempCore);
+                CoreGUIs[i].Show();
                 CoreGUIs[i].UpdateValues();
-            }
+            }   
+
             AtomicGui.UpdateAtomics(Cpu.THEMMU);
+
         }
 
         private void RunButton_Click(object sender, EventArgs e)
