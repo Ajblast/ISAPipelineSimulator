@@ -33,13 +33,17 @@ namespace Project2Simulator.FetchDecode
 			if (reorderBuffer.IsUncommittedBranchInstruction() || instructionQueue.HasBranchInstruction() || instructionQueue.IsFull())
 				return;
 
-			uint index = registerFile.PC.Value.Value;
+			uint PCValue = registerFile.PC.Value.Value;
 
-			uint instruction = memory[(int)index].Value;
+			uint encodedInstruction = memory[(int)PCValue].Value;	// WARNING: This breaks if the PC is greater than 2^20 because memory
 
-			Instruction instruciton = decoder.Decode(instruction);
+			Instruction instruction = decoder.Decode(encodedInstruction);
+			instructionQueue.QueueInstruction(instruction);
 
-			instructionQueue.QueueInstruction(instruciton);
+
+			// PREDICTION
+			// If instruction address < PC, take the branch
+			// Else, PC += 4
 
 			registerFile.PC.Value.Value += 4;
 			//TODO: Austin needs to ruin this with branch prediction :)
