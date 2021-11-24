@@ -17,7 +17,18 @@ namespace CoreGui
     public partial class CoreGUI : Form
     {
         public Core FormCore;
-
+        private string ResLabel = String.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-10}{5,-10}{6,-10}{7,-10}{8,-10}{9}", 
+            "Busy", 
+            "Op",
+            "Dest",
+            "Val1",
+            "Val2",
+            "Val3",
+            "Src1",
+            "Src2",
+            "Src3",
+            "Addr"
+            );
         public CoreGUI(Core core)
         {
             FormCore = core;
@@ -38,6 +49,7 @@ namespace CoreGui
 
         private void UpdateInstructionQueue()
         {
+            InstructionQueueList.Items.Add("");
             foreach (var instruction in FormCore.instructionQueue.Instructions)
             {
                 InstructionQueueList.Items.Add(instruction.ToString());
@@ -46,6 +58,7 @@ namespace CoreGui
 
         private void UpdateReorderBuffer()
         {
+            ReorderBufferList.Items.Add("");
             foreach (ReorderBufferSlot slot in FormCore.reorderBuffer.bufferSlots)
             {
                 ReorderBufferList.Items.Add(slot.ToString());
@@ -85,22 +98,26 @@ namespace CoreGui
             var BranchRes = Array.FindAll(FormCore.reservationStations.reservationStations, (t => t.FunctionalUnit.Type == Project2Simulator.FunctionalUnits.FunctionalUnitType.BRANCH_UNIT));
             var IntAddRes = Array.FindAll(FormCore.reservationStations.reservationStations, (t => t.FunctionalUnit.Type == Project2Simulator.FunctionalUnits.FunctionalUnitType.INTEGER_ADDER));
             var MovRes = Array.FindAll(FormCore.reservationStations.reservationStations, (t => t.FunctionalUnit.Type == Project2Simulator.FunctionalUnits.FunctionalUnitType.MEMORY_UNIT));
-
+            
+            MemoryResList.Items.Add(ResLabel);
             foreach (ReservationStation station in MemoryRes)
             {
                 MemoryResList.Items.Add(station.ToString());
             }
 
+            BranchResList.Items.Add(ResLabel);
             foreach (ReservationStation station in BranchRes)
             {
                 BranchResList.Items.Add(station.ToString());
             }
 
+            IntergerAdderResList.Items.Add(ResLabel);
             foreach (ReservationStation station in IntAddRes)
             {
                 IntergerAdderResList.Items.Add(station.ToString());
             }
 
+            MovUnitResList.Items.Add(ResLabel);
             foreach (ReservationStation station in MovRes)
             {
                 MovUnitResList.Items.Add(station.ToString());

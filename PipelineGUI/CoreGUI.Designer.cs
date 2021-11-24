@@ -94,7 +94,7 @@ namespace CoreGui
             // 
             this.FlagLabel.AutoSize = true;
             this.FlagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FlagLabel.Location = new System.Drawing.Point(1295, 21);
+            this.FlagLabel.Location = new System.Drawing.Point(1382, 21);
             this.FlagLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FlagLabel.Name = "FlagLabel";
             this.FlagLabel.Size = new System.Drawing.Size(48, 20);
@@ -105,7 +105,7 @@ namespace CoreGui
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(1358, 21);
+            this.label4.Location = new System.Drawing.Point(1445, 21);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(20, 20);
@@ -116,7 +116,7 @@ namespace CoreGui
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(1396, 21);
+            this.label5.Location = new System.Drawing.Point(1483, 21);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(21, 20);
@@ -127,7 +127,7 @@ namespace CoreGui
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(1433, 21);
+            this.label6.Location = new System.Drawing.Point(1520, 21);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(32, 20);
@@ -138,7 +138,7 @@ namespace CoreGui
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(1483, 21);
+            this.label7.Location = new System.Drawing.Point(1570, 21);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(19, 20);
@@ -149,7 +149,7 @@ namespace CoreGui
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(1525, 21);
+            this.label8.Location = new System.Drawing.Point(1612, 21);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(20, 20);
@@ -158,7 +158,7 @@ namespace CoreGui
             // 
             // sBox
             // 
-            this.sBox.Location = new System.Drawing.Point(1360, 56);
+            this.sBox.Location = new System.Drawing.Point(1447, 56);
             this.sBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.sBox.Name = "sBox";
             this.sBox.Size = new System.Drawing.Size(23, 23);
@@ -166,7 +166,7 @@ namespace CoreGui
             // 
             // oBox
             // 
-            this.oBox.Location = new System.Drawing.Point(1400, 56);
+            this.oBox.Location = new System.Drawing.Point(1487, 56);
             this.oBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.oBox.Name = "oBox";
             this.oBox.Size = new System.Drawing.Size(23, 23);
@@ -174,7 +174,7 @@ namespace CoreGui
             // 
             // eqBox
             // 
-            this.eqBox.Location = new System.Drawing.Point(1441, 56);
+            this.eqBox.Location = new System.Drawing.Point(1528, 56);
             this.eqBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.eqBox.Name = "eqBox";
             this.eqBox.Size = new System.Drawing.Size(23, 23);
@@ -182,7 +182,7 @@ namespace CoreGui
             // 
             // zBox
             // 
-            this.zBox.Location = new System.Drawing.Point(1482, 56);
+            this.zBox.Location = new System.Drawing.Point(1569, 56);
             this.zBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.zBox.Name = "zBox";
             this.zBox.Size = new System.Drawing.Size(23, 23);
@@ -190,7 +190,7 @@ namespace CoreGui
             // 
             // cBox
             // 
-            this.cBox.Location = new System.Drawing.Point(1524, 56);
+            this.cBox.Location = new System.Drawing.Point(1611, 56);
             this.cBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cBox.Name = "cBox";
             this.cBox.Size = new System.Drawing.Size(23, 23);
@@ -198,7 +198,7 @@ namespace CoreGui
             // 
             // PCBox
             // 
-            this.PCBox.Location = new System.Drawing.Point(1405, 108);
+            this.PCBox.Location = new System.Drawing.Point(1492, 108);
             this.PCBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.PCBox.Name = "PCBox";
             this.PCBox.Size = new System.Drawing.Size(145, 23);
@@ -206,7 +206,7 @@ namespace CoreGui
             // 
             // SPBox
             // 
-            this.SPBox.Location = new System.Drawing.Point(1405, 140);
+            this.SPBox.Location = new System.Drawing.Point(1492, 140);
             this.SPBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.SPBox.Name = "SPBox";
             this.SPBox.Size = new System.Drawing.Size(145, 23);
@@ -214,7 +214,7 @@ namespace CoreGui
             // 
             // rLBox
             // 
-            this.rLBox.Location = new System.Drawing.Point(1405, 524);
+            this.rLBox.Location = new System.Drawing.Point(1492, 524);
             this.rLBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rLBox.Name = "rLBox";
             this.rLBox.Size = new System.Drawing.Size(145, 23);
@@ -222,7 +222,7 @@ namespace CoreGui
             // 
             // rABox
             // 
-            this.rABox.Location = new System.Drawing.Point(1405, 172);
+            this.rABox.Location = new System.Drawing.Point(1492, 172);
             this.rABox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rABox.Name = "rABox";
             this.rABox.Size = new System.Drawing.Size(145, 23);
@@ -230,7 +230,7 @@ namespace CoreGui
             // 
             // rBBox
             // 
-            this.rBBox.Location = new System.Drawing.Point(1405, 204);
+            this.rBBox.Location = new System.Drawing.Point(1492, 204);
             this.rBBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rBBox.Name = "rBBox";
             this.rBBox.Size = new System.Drawing.Size(145, 23);
@@ -238,7 +238,7 @@ namespace CoreGui
             // 
             // rCBox
             // 
-            this.rCBox.Location = new System.Drawing.Point(1405, 236);
+            this.rCBox.Location = new System.Drawing.Point(1492, 236);
             this.rCBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rCBox.Name = "rCBox";
             this.rCBox.Size = new System.Drawing.Size(145, 23);
@@ -246,7 +246,7 @@ namespace CoreGui
             // 
             // rEBox
             // 
-            this.rEBox.Location = new System.Drawing.Point(1405, 300);
+            this.rEBox.Location = new System.Drawing.Point(1492, 300);
             this.rEBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rEBox.Name = "rEBox";
             this.rEBox.Size = new System.Drawing.Size(145, 23);
@@ -254,7 +254,7 @@ namespace CoreGui
             // 
             // rFBox
             // 
-            this.rFBox.Location = new System.Drawing.Point(1405, 332);
+            this.rFBox.Location = new System.Drawing.Point(1492, 332);
             this.rFBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rFBox.Name = "rFBox";
             this.rFBox.Size = new System.Drawing.Size(145, 23);
@@ -262,7 +262,7 @@ namespace CoreGui
             // 
             // rGBox
             // 
-            this.rGBox.Location = new System.Drawing.Point(1405, 364);
+            this.rGBox.Location = new System.Drawing.Point(1492, 364);
             this.rGBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rGBox.Name = "rGBox";
             this.rGBox.Size = new System.Drawing.Size(145, 23);
@@ -270,7 +270,7 @@ namespace CoreGui
             // 
             // rHBox
             // 
-            this.rHBox.Location = new System.Drawing.Point(1405, 396);
+            this.rHBox.Location = new System.Drawing.Point(1492, 396);
             this.rHBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rHBox.Name = "rHBox";
             this.rHBox.Size = new System.Drawing.Size(145, 23);
@@ -278,7 +278,7 @@ namespace CoreGui
             // 
             // rIBox
             // 
-            this.rIBox.Location = new System.Drawing.Point(1405, 428);
+            this.rIBox.Location = new System.Drawing.Point(1492, 428);
             this.rIBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rIBox.Name = "rIBox";
             this.rIBox.Size = new System.Drawing.Size(145, 23);
@@ -286,7 +286,7 @@ namespace CoreGui
             // 
             // rJBox
             // 
-            this.rJBox.Location = new System.Drawing.Point(1405, 460);
+            this.rJBox.Location = new System.Drawing.Point(1492, 460);
             this.rJBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rJBox.Name = "rJBox";
             this.rJBox.Size = new System.Drawing.Size(145, 23);
@@ -294,7 +294,7 @@ namespace CoreGui
             // 
             // rKBox
             // 
-            this.rKBox.Location = new System.Drawing.Point(1405, 492);
+            this.rKBox.Location = new System.Drawing.Point(1492, 492);
             this.rKBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rKBox.Name = "rKBox";
             this.rKBox.Size = new System.Drawing.Size(145, 23);
@@ -302,7 +302,7 @@ namespace CoreGui
             // 
             // rMBox
             // 
-            this.rMBox.Location = new System.Drawing.Point(1405, 556);
+            this.rMBox.Location = new System.Drawing.Point(1492, 556);
             this.rMBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rMBox.Name = "rMBox";
             this.rMBox.Size = new System.Drawing.Size(145, 23);
@@ -312,7 +312,7 @@ namespace CoreGui
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(1362, 111);
+            this.label12.Location = new System.Drawing.Point(1449, 111);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(30, 20);
@@ -323,7 +323,7 @@ namespace CoreGui
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(1362, 143);
+            this.label13.Location = new System.Drawing.Point(1449, 143);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(30, 20);
@@ -334,7 +334,7 @@ namespace CoreGui
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(1366, 527);
+            this.label14.Location = new System.Drawing.Point(1453, 527);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(23, 20);
@@ -345,7 +345,7 @@ namespace CoreGui
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(1365, 175);
+            this.label3.Location = new System.Drawing.Point(1452, 175);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(25, 20);
@@ -356,7 +356,7 @@ namespace CoreGui
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label15.Location = new System.Drawing.Point(1365, 207);
+            this.label15.Location = new System.Drawing.Point(1452, 207);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(25, 20);
@@ -367,7 +367,7 @@ namespace CoreGui
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label16.Location = new System.Drawing.Point(1365, 239);
+            this.label16.Location = new System.Drawing.Point(1452, 239);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(25, 20);
@@ -378,7 +378,7 @@ namespace CoreGui
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label17.Location = new System.Drawing.Point(1365, 303);
+            this.label17.Location = new System.Drawing.Point(1452, 303);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(25, 20);
@@ -389,7 +389,7 @@ namespace CoreGui
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label18.Location = new System.Drawing.Point(1365, 335);
+            this.label18.Location = new System.Drawing.Point(1452, 335);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(24, 20);
@@ -400,7 +400,7 @@ namespace CoreGui
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label19.Location = new System.Drawing.Point(1364, 367);
+            this.label19.Location = new System.Drawing.Point(1451, 367);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(27, 20);
@@ -411,7 +411,7 @@ namespace CoreGui
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label20.Location = new System.Drawing.Point(1364, 399);
+            this.label20.Location = new System.Drawing.Point(1451, 399);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(26, 20);
@@ -422,7 +422,7 @@ namespace CoreGui
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label21.Location = new System.Drawing.Point(1368, 431);
+            this.label21.Location = new System.Drawing.Point(1455, 431);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(19, 20);
@@ -433,7 +433,7 @@ namespace CoreGui
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label22.Location = new System.Drawing.Point(1366, 463);
+            this.label22.Location = new System.Drawing.Point(1453, 463);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(22, 20);
@@ -444,7 +444,7 @@ namespace CoreGui
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label23.Location = new System.Drawing.Point(1365, 495);
+            this.label23.Location = new System.Drawing.Point(1452, 495);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(24, 20);
@@ -455,7 +455,7 @@ namespace CoreGui
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label24.Location = new System.Drawing.Point(1364, 559);
+            this.label24.Location = new System.Drawing.Point(1451, 559);
             this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(27, 20);
@@ -464,7 +464,7 @@ namespace CoreGui
             // 
             // rDBox
             // 
-            this.rDBox.Location = new System.Drawing.Point(1405, 268);
+            this.rDBox.Location = new System.Drawing.Point(1492, 268);
             this.rDBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rDBox.Name = "rDBox";
             this.rDBox.Size = new System.Drawing.Size(145, 23);
@@ -474,7 +474,7 @@ namespace CoreGui
             // 
             this.rDLabel.AutoSize = true;
             this.rDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rDLabel.Location = new System.Drawing.Point(1364, 271);
+            this.rDLabel.Location = new System.Drawing.Point(1451, 271);
             this.rDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.rDLabel.Name = "rDLabel";
             this.rDLabel.Size = new System.Drawing.Size(26, 20);
@@ -503,29 +503,27 @@ namespace CoreGui
             // 
             // IntergerAdderResList
             // 
-            this.IntergerAdderResList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.IntergerAdderResList.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.IntergerAdderResList.FormattingEnabled = true;
-            this.IntergerAdderResList.ItemHeight = 21;
-            this.IntergerAdderResList.Location = new System.Drawing.Point(688, 396);
+            this.IntergerAdderResList.Location = new System.Drawing.Point(730, 396);
             this.IntergerAdderResList.Name = "IntergerAdderResList";
-            this.IntergerAdderResList.Size = new System.Drawing.Size(325, 88);
+            this.IntergerAdderResList.Size = new System.Drawing.Size(355, 95);
             this.IntergerAdderResList.TabIndex = 67;
             // 
             // MovUnitResList
             // 
-            this.MovUnitResList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MovUnitResList.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MovUnitResList.FormattingEnabled = true;
-            this.MovUnitResList.ItemHeight = 21;
-            this.MovUnitResList.Location = new System.Drawing.Point(1032, 396);
+            this.MovUnitResList.Location = new System.Drawing.Point(1091, 396);
             this.MovUnitResList.Name = "MovUnitResList";
-            this.MovUnitResList.Size = new System.Drawing.Size(325, 88);
+            this.MovUnitResList.Size = new System.Drawing.Size(355, 95);
             this.MovUnitResList.TabIndex = 69;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(109, 362);
+            this.label1.Location = new System.Drawing.Point(124, 362);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(121, 21);
             this.label1.TabIndex = 71;
@@ -535,7 +533,7 @@ namespace CoreGui
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label25.Location = new System.Drawing.Point(455, 362);
+            this.label25.Location = new System.Drawing.Point(491, 362);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(110, 21);
             this.label25.TabIndex = 73;
@@ -545,7 +543,7 @@ namespace CoreGui
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label26.Location = new System.Drawing.Point(784, 362);
+            this.label26.Location = new System.Drawing.Point(841, 362);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(133, 21);
             this.label26.TabIndex = 75;
@@ -555,7 +553,7 @@ namespace CoreGui
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label27.Location = new System.Drawing.Point(1140, 362);
+            this.label27.Location = new System.Drawing.Point(1214, 362);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(108, 21);
             this.label27.TabIndex = 76;
@@ -575,7 +573,7 @@ namespace CoreGui
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(49, 508);
+            this.textBox1.Location = new System.Drawing.Point(64, 508);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(240, 29);
             this.textBox1.TabIndex = 79;
@@ -585,7 +583,7 @@ namespace CoreGui
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox2.Location = new System.Drawing.Point(730, 508);
+            this.textBox2.Location = new System.Drawing.Point(787, 508);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(240, 29);
             this.textBox2.TabIndex = 80;
@@ -595,7 +593,7 @@ namespace CoreGui
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox3.Location = new System.Drawing.Point(1074, 508);
+            this.textBox3.Location = new System.Drawing.Point(1148, 508);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(240, 29);
             this.textBox3.TabIndex = 81;
@@ -605,7 +603,7 @@ namespace CoreGui
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox4.Location = new System.Drawing.Point(390, 508);
+            this.textBox4.Location = new System.Drawing.Point(426, 508);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(240, 29);
             this.textBox4.TabIndex = 82;
@@ -614,12 +612,11 @@ namespace CoreGui
             // 
             // MemoryResList
             // 
-            this.MemoryResList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MemoryResList.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MemoryResList.FormattingEnabled = true;
-            this.MemoryResList.ItemHeight = 21;
             this.MemoryResList.Location = new System.Drawing.Point(7, 396);
             this.MemoryResList.Name = "MemoryResList";
-            this.MemoryResList.Size = new System.Drawing.Size(325, 88);
+            this.MemoryResList.Size = new System.Drawing.Size(355, 95);
             this.MemoryResList.TabIndex = 84;
             // 
             // label28
@@ -644,12 +641,11 @@ namespace CoreGui
             // 
             // BranchResList
             // 
-            this.BranchResList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BranchResList.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BranchResList.FormattingEnabled = true;
-            this.BranchResList.ItemHeight = 21;
-            this.BranchResList.Location = new System.Drawing.Point(348, 396);
+            this.BranchResList.Location = new System.Drawing.Point(369, 396);
             this.BranchResList.Name = "BranchResList";
-            this.BranchResList.Size = new System.Drawing.Size(325, 88);
+            this.BranchResList.Size = new System.Drawing.Size(355, 95);
             this.BranchResList.TabIndex = 87;
             // 
             // CoreIDLabel
@@ -668,7 +664,7 @@ namespace CoreGui
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1560, 597);
+            this.ClientSize = new System.Drawing.Size(1640, 597);
             this.Controls.Add(this.CoreIDLabel);
             this.Controls.Add(this.BranchResList);
             this.Controls.Add(this.label29);

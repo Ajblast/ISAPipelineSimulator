@@ -397,17 +397,21 @@ namespace Project2Simulator
         {
 			ushort UpperBits = GetUpperBits(encodedInstruction);
 			ushort LowerBits = GetLowerBits(encodedInstruction);
+			uint immediate =  (uint)(((UpperBits & 0b11111) << 16) | LowerBits);
+			if ((UpperBits & 0b10000) == 0b10000)
+				immediate |= 0xFFE00000;
+
 			return new Instruction(
 				opcode,
 				new RegisterID(RegFile.PC.ID),
 				null,
 				new RegisterID(RegFile.FLAG.ID.ID),
-				new RegisterID(RegFile.RE.ID),
+				null,
 				null,
 				new RegisterValue(0),
 				new RegisterValue(0),
 				new RegisterValue(0),
-				null,
+				new Address(immediate),
 				OpcodeHelper.GetFunctionalUnitType(opcode)
 				);
         }
