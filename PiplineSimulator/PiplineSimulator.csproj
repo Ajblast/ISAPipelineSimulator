@@ -83,6 +83,7 @@
     <Compile Include="Project2Simulator\ReservationStations\StationValues.cs" />
     <Compile Include="Project2Simulator\THECommonDataBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringFormatService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

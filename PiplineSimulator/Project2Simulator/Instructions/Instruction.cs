@@ -2,6 +2,7 @@
 using Project2Simulator.Instructions;
 using Project2Simulator.Registers;
 using Project2Simulator.FunctionalUnits;
+using PiplineSimulator;
 
 namespace Project2Simulator.Instructions
 {
@@ -48,7 +49,7 @@ namespace Project2Simulator.Instructions
 
         public override string ToString()
         {
-			return string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-10}{5,-10}{6,-10}{7,-10}{8}",
+			return string.Format(StringFormatService.GetInstructionFormat(),
 				Opcode.ToString(),
                 (Destination == null) ? "X":Destination.ID.ToString(),
 				(Destination2 == null) ? "X":Destination2.ID.ToString(),
@@ -56,7 +57,7 @@ namespace Project2Simulator.Instructions
 				Op1.Value,
 				(Op2Reg == null) ? "X":Op2Reg.ID.ToString(),
 				Op2.Value,
-				(Op2Reg == null) ? "X":Op3Reg.ID.ToString(),
+				(Op3Reg == null) ? "X":Op3Reg.ID.ToString(),
 				Op3.Value,
 				(Address == null) ? "X":Address.Value.ToString(),
 				FunctionalUnitType.ToString()

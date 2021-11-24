@@ -51,23 +51,7 @@ namespace Project2Simulator.Instructions
 		SWAP	= 0b0101001,	// Swap				// MEM Reg, Value Reg
 
 
-		HALT = 0b1111111,
-		rA = 0b0000,
-		rB = 0b0001,
-		rC = 0b0010,
-		rD = 0b0011,
-		rE = 0b0100,
-		rF = 0b0101,
-		rG = 0b0110,
-		rH = 0b0111,
-		rI = 0b1000,
-		rJ = 0b1001,
-		rK = 0b1010,
-		PC1 = 0b1011,
-		PC2 = 0b1100,
-		SP1 = 0b1101,
-		SP2 = 0b1110,
-		FLAG = 0b1111
+		HALT = 0b1111111
 	}
 
 	/* Author: Austin Kincer */

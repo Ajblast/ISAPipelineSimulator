@@ -93,568 +93,592 @@ namespace CoreGui
             // FlagLabel
             // 
             this.FlagLabel.AutoSize = true;
-            this.FlagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FlagLabel.Location = new System.Drawing.Point(1382, 21);
+            this.FlagLabel.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FlagLabel.Location = new System.Drawing.Point(1566, 16);
             this.FlagLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FlagLabel.Name = "FlagLabel";
-            this.FlagLabel.Size = new System.Drawing.Size(48, 20);
+            this.FlagLabel.Size = new System.Drawing.Size(65, 21);
             this.FlagLabel.TabIndex = 9;
             this.FlagLabel.Text = "Flags";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(1445, 21);
+            this.label4.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(1629, 16);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(20, 20);
+            this.label4.Size = new System.Drawing.Size(21, 21);
             this.label4.TabIndex = 10;
             this.label4.Text = "S";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(1483, 21);
+            this.label5.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(1667, 16);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(21, 20);
+            this.label5.Size = new System.Drawing.Size(21, 21);
             this.label5.TabIndex = 11;
             this.label5.Text = "O";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(1520, 21);
+            this.label6.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(1704, 16);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 20);
+            this.label6.Size = new System.Drawing.Size(32, 21);
             this.label6.TabIndex = 12;
             this.label6.Text = "EQ";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(1570, 21);
+            this.label7.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(1754, 16);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(19, 20);
+            this.label7.Size = new System.Drawing.Size(21, 21);
             this.label7.TabIndex = 13;
             this.label7.Text = "Z";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(1612, 21);
+            this.label8.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(1796, 16);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(20, 20);
+            this.label8.Size = new System.Drawing.Size(21, 21);
             this.label8.TabIndex = 14;
             this.label8.Text = "C";
             // 
             // sBox
             // 
-            this.sBox.Location = new System.Drawing.Point(1447, 56);
+            this.sBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.sBox.Location = new System.Drawing.Point(1631, 51);
             this.sBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.sBox.Name = "sBox";
-            this.sBox.Size = new System.Drawing.Size(23, 23);
+            this.sBox.Size = new System.Drawing.Size(23, 29);
             this.sBox.TabIndex = 15;
             // 
             // oBox
             // 
-            this.oBox.Location = new System.Drawing.Point(1487, 56);
+            this.oBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.oBox.Location = new System.Drawing.Point(1671, 51);
             this.oBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.oBox.Name = "oBox";
-            this.oBox.Size = new System.Drawing.Size(23, 23);
+            this.oBox.Size = new System.Drawing.Size(23, 29);
             this.oBox.TabIndex = 16;
             // 
             // eqBox
             // 
-            this.eqBox.Location = new System.Drawing.Point(1528, 56);
+            this.eqBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.eqBox.Location = new System.Drawing.Point(1712, 51);
             this.eqBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.eqBox.Name = "eqBox";
-            this.eqBox.Size = new System.Drawing.Size(23, 23);
+            this.eqBox.Size = new System.Drawing.Size(23, 29);
             this.eqBox.TabIndex = 17;
             // 
             // zBox
             // 
-            this.zBox.Location = new System.Drawing.Point(1569, 56);
+            this.zBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.zBox.Location = new System.Drawing.Point(1753, 51);
             this.zBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.zBox.Name = "zBox";
-            this.zBox.Size = new System.Drawing.Size(23, 23);
+            this.zBox.Size = new System.Drawing.Size(23, 29);
             this.zBox.TabIndex = 18;
             // 
             // cBox
             // 
-            this.cBox.Location = new System.Drawing.Point(1611, 56);
+            this.cBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cBox.Location = new System.Drawing.Point(1795, 51);
             this.cBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cBox.Name = "cBox";
-            this.cBox.Size = new System.Drawing.Size(23, 23);
+            this.cBox.Size = new System.Drawing.Size(23, 29);
             this.cBox.TabIndex = 19;
             // 
             // PCBox
             // 
-            this.PCBox.Location = new System.Drawing.Point(1492, 108);
+            this.PCBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PCBox.Location = new System.Drawing.Point(1450, 68);
             this.PCBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.PCBox.Name = "PCBox";
-            this.PCBox.Size = new System.Drawing.Size(145, 23);
+            this.PCBox.Size = new System.Drawing.Size(145, 29);
             this.PCBox.TabIndex = 23;
             // 
             // SPBox
             // 
-            this.SPBox.Location = new System.Drawing.Point(1492, 140);
+            this.SPBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SPBox.Location = new System.Drawing.Point(1450, 100);
             this.SPBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.SPBox.Name = "SPBox";
-            this.SPBox.Size = new System.Drawing.Size(145, 23);
+            this.SPBox.Size = new System.Drawing.Size(145, 29);
             this.SPBox.TabIndex = 24;
             // 
             // rLBox
             // 
-            this.rLBox.Location = new System.Drawing.Point(1492, 524);
+            this.rLBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rLBox.Location = new System.Drawing.Point(1671, 260);
             this.rLBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rLBox.Name = "rLBox";
-            this.rLBox.Size = new System.Drawing.Size(145, 23);
+            this.rLBox.Size = new System.Drawing.Size(145, 29);
             this.rLBox.TabIndex = 25;
             // 
             // rABox
             // 
-            this.rABox.Location = new System.Drawing.Point(1492, 172);
+            this.rABox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rABox.Location = new System.Drawing.Point(1450, 132);
             this.rABox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rABox.Name = "rABox";
-            this.rABox.Size = new System.Drawing.Size(145, 23);
+            this.rABox.Size = new System.Drawing.Size(145, 29);
             this.rABox.TabIndex = 26;
             // 
             // rBBox
             // 
-            this.rBBox.Location = new System.Drawing.Point(1492, 204);
+            this.rBBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rBBox.Location = new System.Drawing.Point(1450, 164);
             this.rBBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rBBox.Name = "rBBox";
-            this.rBBox.Size = new System.Drawing.Size(145, 23);
+            this.rBBox.Size = new System.Drawing.Size(145, 29);
             this.rBBox.TabIndex = 27;
             // 
             // rCBox
             // 
-            this.rCBox.Location = new System.Drawing.Point(1492, 236);
+            this.rCBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rCBox.Location = new System.Drawing.Point(1450, 196);
             this.rCBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rCBox.Name = "rCBox";
-            this.rCBox.Size = new System.Drawing.Size(145, 23);
+            this.rCBox.Size = new System.Drawing.Size(145, 29);
             this.rCBox.TabIndex = 28;
             // 
             // rEBox
             // 
-            this.rEBox.Location = new System.Drawing.Point(1492, 300);
+            this.rEBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rEBox.Location = new System.Drawing.Point(1450, 260);
             this.rEBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rEBox.Name = "rEBox";
-            this.rEBox.Size = new System.Drawing.Size(145, 23);
+            this.rEBox.Size = new System.Drawing.Size(145, 29);
             this.rEBox.TabIndex = 29;
             // 
             // rFBox
             // 
-            this.rFBox.Location = new System.Drawing.Point(1492, 332);
+            this.rFBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rFBox.Location = new System.Drawing.Point(1450, 292);
             this.rFBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rFBox.Name = "rFBox";
-            this.rFBox.Size = new System.Drawing.Size(145, 23);
+            this.rFBox.Size = new System.Drawing.Size(145, 29);
             this.rFBox.TabIndex = 30;
             // 
             // rGBox
             // 
-            this.rGBox.Location = new System.Drawing.Point(1492, 364);
+            this.rGBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rGBox.Location = new System.Drawing.Point(1671, 100);
             this.rGBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rGBox.Name = "rGBox";
-            this.rGBox.Size = new System.Drawing.Size(145, 23);
+            this.rGBox.Size = new System.Drawing.Size(145, 29);
             this.rGBox.TabIndex = 31;
             // 
             // rHBox
             // 
-            this.rHBox.Location = new System.Drawing.Point(1492, 396);
+            this.rHBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rHBox.Location = new System.Drawing.Point(1671, 132);
             this.rHBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rHBox.Name = "rHBox";
-            this.rHBox.Size = new System.Drawing.Size(145, 23);
+            this.rHBox.Size = new System.Drawing.Size(145, 29);
             this.rHBox.TabIndex = 32;
             // 
             // rIBox
             // 
-            this.rIBox.Location = new System.Drawing.Point(1492, 428);
+            this.rIBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rIBox.Location = new System.Drawing.Point(1671, 164);
             this.rIBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rIBox.Name = "rIBox";
-            this.rIBox.Size = new System.Drawing.Size(145, 23);
+            this.rIBox.Size = new System.Drawing.Size(145, 29);
             this.rIBox.TabIndex = 33;
             // 
             // rJBox
             // 
-            this.rJBox.Location = new System.Drawing.Point(1492, 460);
+            this.rJBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rJBox.Location = new System.Drawing.Point(1671, 196);
             this.rJBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rJBox.Name = "rJBox";
-            this.rJBox.Size = new System.Drawing.Size(145, 23);
+            this.rJBox.Size = new System.Drawing.Size(145, 29);
             this.rJBox.TabIndex = 34;
             // 
             // rKBox
             // 
-            this.rKBox.Location = new System.Drawing.Point(1492, 492);
+            this.rKBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rKBox.Location = new System.Drawing.Point(1671, 228);
             this.rKBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rKBox.Name = "rKBox";
-            this.rKBox.Size = new System.Drawing.Size(145, 23);
+            this.rKBox.Size = new System.Drawing.Size(145, 29);
             this.rKBox.TabIndex = 35;
             // 
             // rMBox
             // 
-            this.rMBox.Location = new System.Drawing.Point(1492, 556);
+            this.rMBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rMBox.Location = new System.Drawing.Point(1671, 292);
             this.rMBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rMBox.Name = "rMBox";
-            this.rMBox.Size = new System.Drawing.Size(145, 23);
+            this.rMBox.Size = new System.Drawing.Size(145, 29);
             this.rMBox.TabIndex = 36;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(1449, 111);
+            this.label12.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label12.Location = new System.Drawing.Point(1407, 71);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(30, 20);
+            this.label12.Size = new System.Drawing.Size(32, 21);
             this.label12.TabIndex = 44;
             this.label12.Text = "PC";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(1449, 143);
+            this.label13.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label13.Location = new System.Drawing.Point(1407, 103);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(30, 20);
+            this.label13.Size = new System.Drawing.Size(32, 21);
             this.label13.TabIndex = 45;
             this.label13.Text = "SP";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(1453, 527);
+            this.label14.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label14.Location = new System.Drawing.Point(1632, 263);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(23, 20);
+            this.label14.Size = new System.Drawing.Size(32, 21);
             this.label14.TabIndex = 46;
             this.label14.Text = "rL";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(1452, 175);
+            this.label3.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(1410, 135);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(25, 20);
+            this.label3.Size = new System.Drawing.Size(32, 21);
             this.label3.TabIndex = 47;
             this.label3.Text = "rA";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label15.Location = new System.Drawing.Point(1452, 207);
+            this.label15.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label15.Location = new System.Drawing.Point(1410, 167);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(25, 20);
+            this.label15.Size = new System.Drawing.Size(32, 21);
             this.label15.TabIndex = 48;
             this.label15.Text = "rB";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label16.Location = new System.Drawing.Point(1452, 239);
+            this.label16.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label16.Location = new System.Drawing.Point(1410, 199);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(25, 20);
+            this.label16.Size = new System.Drawing.Size(32, 21);
             this.label16.TabIndex = 49;
             this.label16.Text = "rC";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label17.Location = new System.Drawing.Point(1452, 303);
+            this.label17.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label17.Location = new System.Drawing.Point(1410, 263);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(25, 20);
+            this.label17.Size = new System.Drawing.Size(32, 21);
             this.label17.TabIndex = 50;
             this.label17.Text = "rE";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label18.Location = new System.Drawing.Point(1452, 335);
+            this.label18.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label18.Location = new System.Drawing.Point(1410, 295);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(24, 20);
+            this.label18.Size = new System.Drawing.Size(32, 21);
             this.label18.TabIndex = 51;
             this.label18.Text = "rF";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label19.Location = new System.Drawing.Point(1451, 367);
+            this.label19.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label19.Location = new System.Drawing.Point(1630, 103);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(27, 20);
+            this.label19.Size = new System.Drawing.Size(32, 21);
             this.label19.TabIndex = 52;
             this.label19.Text = "rG";
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label20.Location = new System.Drawing.Point(1451, 399);
+            this.label20.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label20.Location = new System.Drawing.Point(1630, 135);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(26, 20);
+            this.label20.Size = new System.Drawing.Size(32, 21);
             this.label20.TabIndex = 53;
             this.label20.Text = "rH";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label21.Location = new System.Drawing.Point(1455, 431);
+            this.label21.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label21.Location = new System.Drawing.Point(1634, 167);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(19, 20);
+            this.label21.Size = new System.Drawing.Size(32, 21);
             this.label21.TabIndex = 54;
             this.label21.Text = "rI";
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label22.Location = new System.Drawing.Point(1453, 463);
+            this.label22.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label22.Location = new System.Drawing.Point(1632, 199);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(22, 20);
+            this.label22.Size = new System.Drawing.Size(32, 21);
             this.label22.TabIndex = 55;
             this.label22.Text = "rJ";
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label23.Location = new System.Drawing.Point(1452, 495);
+            this.label23.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label23.Location = new System.Drawing.Point(1631, 231);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(24, 20);
+            this.label23.Size = new System.Drawing.Size(32, 21);
             this.label23.TabIndex = 56;
             this.label23.Text = "rK";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label24.Location = new System.Drawing.Point(1451, 559);
+            this.label24.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label24.Location = new System.Drawing.Point(1630, 295);
             this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(27, 20);
+            this.label24.Size = new System.Drawing.Size(32, 21);
             this.label24.TabIndex = 57;
             this.label24.Text = "rM";
             // 
             // rDBox
             // 
-            this.rDBox.Location = new System.Drawing.Point(1492, 268);
+            this.rDBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rDBox.Location = new System.Drawing.Point(1450, 228);
             this.rDBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rDBox.Name = "rDBox";
-            this.rDBox.Size = new System.Drawing.Size(145, 23);
+            this.rDBox.Size = new System.Drawing.Size(145, 29);
             this.rDBox.TabIndex = 60;
             // 
             // rDLabel
             // 
             this.rDLabel.AutoSize = true;
-            this.rDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rDLabel.Location = new System.Drawing.Point(1451, 271);
+            this.rDLabel.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rDLabel.Location = new System.Drawing.Point(1409, 231);
             this.rDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.rDLabel.Name = "rDLabel";
-            this.rDLabel.Size = new System.Drawing.Size(26, 20);
+            this.rDLabel.Size = new System.Drawing.Size(32, 21);
             this.rDLabel.TabIndex = 61;
             this.rDLabel.Text = "rD";
             // 
             // ReorderBufferList
             // 
-            this.ReorderBufferList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ReorderBufferList.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ReorderBufferList.FormattingEnabled = true;
             this.ReorderBufferList.ItemHeight = 21;
-            this.ReorderBufferList.Location = new System.Drawing.Point(728, 65);
+            this.ReorderBufferList.Location = new System.Drawing.Point(807, 70);
             this.ReorderBufferList.Name = "ReorderBufferList";
             this.ReorderBufferList.Size = new System.Drawing.Size(580, 256);
             this.ReorderBufferList.TabIndex = 62;
             // 
             // InstructionQueueList
             // 
-            this.InstructionQueueList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.InstructionQueueList.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.InstructionQueueList.FormattingEnabled = true;
             this.InstructionQueueList.ItemHeight = 21;
-            this.InstructionQueueList.Location = new System.Drawing.Point(62, 65);
+            this.InstructionQueueList.Location = new System.Drawing.Point(18, 65);
             this.InstructionQueueList.Name = "InstructionQueueList";
-            this.InstructionQueueList.Size = new System.Drawing.Size(580, 256);
+            this.InstructionQueueList.Size = new System.Drawing.Size(773, 256);
             this.InstructionQueueList.TabIndex = 63;
             // 
             // IntergerAdderResList
             // 
-            this.IntergerAdderResList.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.IntergerAdderResList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.IntergerAdderResList.FormattingEnabled = true;
-            this.IntergerAdderResList.Location = new System.Drawing.Point(730, 396);
+            this.IntergerAdderResList.ItemHeight = 14;
+            this.IntergerAdderResList.Location = new System.Drawing.Point(916, 396);
             this.IntergerAdderResList.Name = "IntergerAdderResList";
-            this.IntergerAdderResList.Size = new System.Drawing.Size(355, 95);
+            this.IntergerAdderResList.Size = new System.Drawing.Size(456, 88);
             this.IntergerAdderResList.TabIndex = 67;
             // 
             // MovUnitResList
             // 
-            this.MovUnitResList.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MovUnitResList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MovUnitResList.FormattingEnabled = true;
-            this.MovUnitResList.Location = new System.Drawing.Point(1091, 396);
+            this.MovUnitResList.ItemHeight = 14;
+            this.MovUnitResList.Location = new System.Drawing.Point(1373, 396);
             this.MovUnitResList.Name = "MovUnitResList";
-            this.MovUnitResList.Size = new System.Drawing.Size(355, 95);
+            this.MovUnitResList.Size = new System.Drawing.Size(456, 88);
             this.MovUnitResList.TabIndex = 69;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(124, 362);
+            this.label1.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(158, 362);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 21);
+            this.label1.Size = new System.Drawing.Size(164, 21);
             this.label1.TabIndex = 71;
             this.label1.Text = "Memory Station";
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label25.Location = new System.Drawing.Point(491, 362);
+            this.label25.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label25.Location = new System.Drawing.Point(602, 362);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(110, 21);
+            this.label25.Size = new System.Drawing.Size(164, 21);
             this.label25.TabIndex = 73;
             this.label25.Text = "Branch Station";
             // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label26.Location = new System.Drawing.Point(841, 362);
+            this.label26.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label26.Location = new System.Drawing.Point(1028, 362);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(133, 21);
+            this.label26.Size = new System.Drawing.Size(208, 21);
             this.label26.TabIndex = 75;
             this.label26.Text = "Int Adder Stations";
             // 
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label27.Location = new System.Drawing.Point(1214, 362);
+            this.label27.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label27.Location = new System.Drawing.Point(1479, 362);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(108, 21);
+            this.label27.Size = new System.Drawing.Size(153, 21);
             this.label27.TabIndex = 76;
             this.label27.Text = "Move Stations";
             // 
             // FlushLabel
             // 
             this.FlushLabel.AutoSize = true;
-            this.FlushLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FlushLabel.Location = new System.Drawing.Point(1086, 41);
+            this.FlushLabel.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FlushLabel.Location = new System.Drawing.Point(1165, 46);
             this.FlushLabel.Name = "FlushLabel";
-            this.FlushLabel.Size = new System.Drawing.Size(52, 21);
+            this.FlushLabel.Size = new System.Drawing.Size(76, 21);
             this.FlushLabel.TabIndex = 77;
             this.FlushLabel.Text = "Flush!";
             this.FlushLabel.Visible = false;
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(64, 508);
+            this.textBox1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox1.Location = new System.Drawing.Point(98, 508);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(240, 29);
+            this.textBox1.Size = new System.Drawing.Size(240, 26);
             this.textBox1.TabIndex = 79;
             this.textBox1.Text = "Memory Unit";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox2.Location = new System.Drawing.Point(787, 508);
+            this.textBox2.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox2.Location = new System.Drawing.Point(974, 508);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(240, 29);
+            this.textBox2.Size = new System.Drawing.Size(240, 26);
             this.textBox2.TabIndex = 80;
             this.textBox2.Text = "Integer Adders";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox3
             // 
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox3.Location = new System.Drawing.Point(1148, 508);
+            this.textBox3.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox3.Location = new System.Drawing.Point(1413, 508);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(240, 29);
+            this.textBox3.Size = new System.Drawing.Size(240, 26);
             this.textBox3.TabIndex = 81;
             this.textBox3.Text = "Move Unit";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox4
             // 
-            this.textBox4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox4.Location = new System.Drawing.Point(426, 508);
+            this.textBox4.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox4.Location = new System.Drawing.Point(537, 508);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(240, 29);
+            this.textBox4.Size = new System.Drawing.Size(240, 26);
             this.textBox4.TabIndex = 82;
             this.textBox4.Text = "Branch Station";
             this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // MemoryResList
             // 
-            this.MemoryResList.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MemoryResList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MemoryResList.FormattingEnabled = true;
-            this.MemoryResList.Location = new System.Drawing.Point(7, 396);
+            this.MemoryResList.ItemHeight = 14;
+            this.MemoryResList.Location = new System.Drawing.Point(2, 396);
             this.MemoryResList.Name = "MemoryResList";
-            this.MemoryResList.Size = new System.Drawing.Size(355, 95);
+            this.MemoryResList.Size = new System.Drawing.Size(456, 88);
             this.MemoryResList.TabIndex = 84;
             // 
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label28.Location = new System.Drawing.Point(62, 44);
+            this.label28.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label28.Location = new System.Drawing.Point(18, 44);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(134, 21);
+            this.label28.Size = new System.Drawing.Size(197, 21);
             this.label28.TabIndex = 85;
             this.label28.Text = "Instruction Queue";
             // 
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label29.Location = new System.Drawing.Point(728, 41);
+            this.label29.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label29.Location = new System.Drawing.Point(807, 46);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(112, 21);
+            this.label29.Size = new System.Drawing.Size(164, 21);
             this.label29.TabIndex = 86;
             this.label29.Text = "Reorder Buffer";
             // 
             // BranchResList
             // 
-            this.BranchResList.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BranchResList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BranchResList.FormattingEnabled = true;
-            this.BranchResList.Location = new System.Drawing.Point(369, 396);
+            this.BranchResList.ItemHeight = 14;
+            this.BranchResList.Location = new System.Drawing.Point(459, 396);
             this.BranchResList.Name = "BranchResList";
-            this.BranchResList.Size = new System.Drawing.Size(355, 95);
+            this.BranchResList.Size = new System.Drawing.Size(456, 88);
             this.BranchResList.TabIndex = 87;
             // 
             // CoreIDLabel
             // 
             this.CoreIDLabel.AutoSize = true;
-            this.CoreIDLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CoreIDLabel.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CoreIDLabel.Location = new System.Drawing.Point(13, 13);
             this.CoreIDLabel.Name = "CoreIDLabel";
-            this.CoreIDLabel.Size = new System.Drawing.Size(86, 28);
+            this.CoreIDLabel.Size = new System.Drawing.Size(109, 21);
             this.CoreIDLabel.TabIndex = 88;
             this.CoreIDLabel.Text = "Core ID: ";
             // 
@@ -664,7 +688,7 @@ namespace CoreGui
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1640, 597);
+            this.ClientSize = new System.Drawing.Size(1826, 586);
             this.Controls.Add(this.CoreIDLabel);
             this.Controls.Add(this.BranchResList);
             this.Controls.Add(this.label29);
