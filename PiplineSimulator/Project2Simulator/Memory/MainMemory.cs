@@ -7,8 +7,8 @@ namespace Project2Simulator.Memory
 	// The memory of the simulator
 	public class MainMemory
 	{
-		private byte[] TheWholeNineYards;
-		bool bigEndian;
+		private readonly  byte[] TheWholeNineYards;
+		private readonly bool bigEndian;
 
 		// Create a new memory
 		public MainMemory(int size, bool bigEndian)
