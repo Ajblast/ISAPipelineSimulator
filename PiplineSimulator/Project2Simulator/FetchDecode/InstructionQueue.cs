@@ -41,6 +41,11 @@ namespace Project2Simulator.FetchDecode
 			if (Instructions.Count < 1 || reorderBuffer.IsUncommittedBranchInstruction())
 				return;
 			Instruction newInstruction = Instructions.Peek();
+			if (newInstruction.FunctionalUnitType == FunctionalUnits.FunctionalUnitType.NULL)
+			{
+				Instructions.Dequeue();
+				return;
+			}
 
 			ReorderBufferSlot newSlot = reorderBuffer.FreeSlot();
 			ReservationStation newStation = reservationStations.GetFreeStation(newInstruction.FunctionalUnitType);

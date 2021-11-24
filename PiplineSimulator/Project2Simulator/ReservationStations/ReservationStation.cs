@@ -4,6 +4,7 @@ using Project2Simulator.FunctionalUnits;
 using Project2Simulator.Registers;
 using Project2Simulator.Instructions;
 using Project2Simulator.ReorderBuffers;
+using PiplineSimulator;
 
 namespace Project2Simulator.ReservationStations
 {
@@ -30,6 +31,7 @@ namespace Project2Simulator.ReservationStations
 			FunctionalUnit = FunctionalFactory.CreateUnit(bus, type, core);
 			StationID = id;
 			Values = new StationValues();
+			Values.Dest = null;
 			Values.Op1 = new RegisterValue();
 			Values.Op2 = new RegisterValue();
 			Values.Op3 = new RegisterValue();
@@ -186,7 +188,7 @@ namespace Project2Simulator.ReservationStations
 			dataBusControlUnit.Flush();
 
 			FunctionalUnit.Commit(Values.Dest);
-
+			Values = new StationValues();
 			Busy = false;
 		}
 		public void Flush()
@@ -201,7 +203,7 @@ namespace Project2Simulator.ReservationStations
 
         public override string ToString()
         {
-			return string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-10}{5,-10}{6,-10}{7,-10}{8,-10}{9}", 
+			return string.Format(StringFormatService.GetReservationStationFormat(), 
 				Busy.ToString(), 
 				Values.Opcode.ToString(),
 				(Values.Dest == null) ? "X":Values.Dest.BufferID.ToString(),

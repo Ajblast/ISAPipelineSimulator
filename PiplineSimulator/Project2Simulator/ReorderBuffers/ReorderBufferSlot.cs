@@ -1,6 +1,7 @@
 using Project2Simulator.Registers;
 using Project2Simulator.ReservationStations;
 using Project2Simulator.ReorderBuffers;
+using PiplineSimulator;
 
 namespace Project2Simulator.ReorderBuffers
 {
@@ -30,7 +31,7 @@ namespace Project2Simulator.ReorderBuffers
 
         public override string ToString()
         {
-            return string.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-10}{5,-10}{6,-10}{7,-10}{8}",
+            return string.Format(StringFormatService.GetReorderBufferSlotFormat(),
 				ReorderBufferID.BufferID,
 				(Instruction == null) ? "X":Instruction.StationID.ID.ToString(),
 				Ocupodo.ToString(),

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PiplineSimulator;
 using Project2Simulator;
 using Project2Simulator.ReorderBuffers;
 using Project2Simulator.ReservationStations;
@@ -17,7 +18,7 @@ namespace CoreGui
     public partial class CoreGUI : Form
     {
         public Core FormCore;
-        private string ResLabel = String.Format("{0,-10}{1,-10}{2,-10}{3,-10}{4,-10}{5,-10}{6,-10}{7,-10}{8,-10}{9}", 
+        private string ResLabel = String.Format(StringFormatService.GetReservationStationFormat(), 
             "Busy", 
             "Op",
             "Dest",
@@ -29,6 +30,34 @@ namespace CoreGui
             "Src3",
             "Addr"
             );
+
+        private string ReorderLabel = String.Format(StringFormatService.GetReorderBufferSlotFormat(),
+            "ID",
+            "StID",
+            "Occ",
+            "D1",
+            "V1",
+            "Valid",
+            "D2",
+            "V2",
+            "Valid"
+            );
+         
+        private string InstructionLabel = String.Format(StringFormatService.GetInstructionFormat(),
+            "OP",
+            "D1",
+            "D2",
+            "Reg1",
+            "Val1",
+            "Reg2",
+            "Val2",
+            "Reg3",
+            "Val3",
+            "Addr",
+            "Func"
+            );
+
+
         public CoreGUI(Core core)
         {
             FormCore = core;
@@ -49,7 +78,7 @@ namespace CoreGui
 
         private void UpdateInstructionQueue()
         {
-            InstructionQueueList.Items.Add("");
+            InstructionQueueList.Items.Add(InstructionLabel);
             foreach (var instruction in FormCore.instructionQueue.Instructions)
             {
                 InstructionQueueList.Items.Add(instruction.ToString());
@@ -58,7 +87,7 @@ namespace CoreGui
 
         private void UpdateReorderBuffer()
         {
-            ReorderBufferList.Items.Add("");
+            ReorderBufferList.Items.Add(ReorderLabel);
             foreach (ReorderBufferSlot slot in FormCore.reorderBuffer.bufferSlots)
             {
                 ReorderBufferList.Items.Add(slot.ToString());
