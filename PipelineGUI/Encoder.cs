@@ -15,13 +15,12 @@ namespace PipelineGUI
     /// </summary>
     public static class Encoder
     {
-        private static List<string> labels;                        //This holds all of the labels that are intitialized in the remix file, the int in the same position in the labelPositions
+        private static List<string> labels;         //This holds all of the labels that are intitialized in the remix file, the int in the same position in the labelPositions
                                                     //list holds the address of the label
 
-        private static StreamReader input;                 // Input file to read fromt
-        private static BinaryWriter output;                // Output file to write to
-        private static StringBuilder intermediary;
-        private static string intermediaryString;
+        private static StreamReader input;          // Input file to read fromt
+        private static BinaryWriter output;         // Output file to write to
+        private static string intermediary;
 
         private static Dictionary<string, int> labelPositions;
 
@@ -29,7 +28,6 @@ namespace PipelineGUI
         {
             input = new StreamReader(inputFilepath);
             output = new BinaryWriter(File.OpenWrite(outputFilepath));
-            intermediary = new StringBuilder();
 
             labels = new List<string>();
             labelPositions = new Dictionary<string, int>();
@@ -46,6 +44,7 @@ namespace PipelineGUI
         private static void FirstPass()
         {
             string[] arr;
+            StringBuilder intermediaryBuilder = new StringBuilder();
             string line;
 
             while ((line = input.ReadLine()) != null)
@@ -66,22 +65,22 @@ namespace PipelineGUI
                 if (arr[0].Equals("jmp"))
                 {
                     // jmp macro
-                    intermediary.AppendLine("cmp rA rA");
-                    intermediary.AppendLine("jz " + arr[1]);
+                    intermediaryBuilder.AppendLine("cmp rA rA");
+                    intermediaryBuilder.AppendLine("jz " + arr[1]);
                 }
                 else if (line.Equals("") == false)
-                    intermediary.AppendLine(line);
+                    intermediaryBuilder.AppendLine(line);
 
             }
 
-            intermediaryString = intermediary.ToString();
+            intermediary = intermediaryBuilder.ToString();
         }
 
         private static void SecondPass()
         {
             string[] arr;
 
-            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(intermediaryString));
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(intermediary));
             StreamReader intermediaryStream = new StreamReader(ms);
 
             int counter = 0;
@@ -120,7 +119,7 @@ namespace PipelineGUI
 
         private static void ThirdPass()
         {
-            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(intermediaryString));
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(intermediary));
             StreamReader intermediaryStream = new StreamReader(ms);
             string line;
 
@@ -164,24 +163,51 @@ namespace PipelineGUI
                     }
                     break;
                 case 4:
-                    if (values[3].Contains("#"))
+                    switch (opcode)
                     {
-                        // Arithmetic Immediate
-                        int immediate = int.Parse(values[3].Substring(1));
+                        case Opcode.ADD:
+                        case Opcode.ADDC:
+                        case Opcode.SUB:
+                        case Opcode.SUBB:
+                        case Opcode.AND:
+                        case Opcode.OR:
+                        case Opcode.NOR:
+                        case Opcode.XOR:
+                        case Opcode.SHL:
+                        case Opcode.SHR:
+                        case Opcode.SHAR:
+                        case Opcode.ROR:
+                        case Opcode.ROL:
+                        case Opcode.RORC:
+                        case Opcode.ROLC:
+                        // Atomics
+                        case Opcode.ADDA:
+                        case Opcode.SUBA:
+                        case Opcode.ANDA:
+                        case Opcode.ORA:
+                        case Opcode.XORA:
+                            if (values[3].Contains("#"))
+                            {
+                                // Arithmetic Immediate
+                                int immediate = int.Parse(values[3].Substring(1));
 
-                        instruction |= 0x01000000;                                          // Immediate bit
-                        instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
-                        instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
-                        instruction |= (uint)immediate & 0xFFFF                     << 0;   // Immediate Value
-                    }
-                    else
-                    {
-                        // Arithmetic Register
-                        instruction |= 0x00000000;                                          // Immediate bit
-                        instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
-                        instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
-                        instruction |= (uint)RegisterHelper.StringToName(values[3]) << 0;   // Op2
-                    }        
+                                instruction |= 0x01000000;                                          // Immediate bit
+                                instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                                instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
+                                instruction |= (uint)immediate & 0xFFFF << 0;   // Immediate Value
+                            }
+                            else
+                            {
+                                // Arithmetic Register
+                                instruction |= 0x00000000;                                          // Immediate bit
+                                instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                                instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
+                                instruction |= (uint)RegisterHelper.StringToName(values[3]) << 0;   // Op2
+                            }
+                            break;
+                        default:
+                            throw new Exception("Unknown Instruction");
+                    }      
                     break;
                 case 3:
                     switch(opcode)
@@ -202,6 +228,7 @@ namespace PipelineGUI
                                 instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
                             }
                             break;
+                        case Opcode.FETCH:
                         case Opcode.LOAD:
                         case Opcode.STOR:
                             if (values[2].Contains("#"))
