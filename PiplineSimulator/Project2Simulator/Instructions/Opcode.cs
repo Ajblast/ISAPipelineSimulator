@@ -1,5 +1,6 @@
 /* Author: Seth Bowden */
 using Project2Simulator.FunctionalUnits;
+using System;
 
 namespace Project2Simulator.Instructions
 {
@@ -103,6 +104,65 @@ namespace Project2Simulator.Instructions
             }
 
 			return retValue;
+        }
+
+		public static bool IsArithmetic(Opcode opcode)
+        {
+			bool retValue = false;
+
+			switch (opcode)
+			{
+				case Opcode.ADD:
+				case Opcode.ADDC:
+				case Opcode.SUB:
+				case Opcode.SUBB:
+				case Opcode.AND:
+				case Opcode.OR:
+				case Opcode.NOR:
+				case Opcode.NEG:
+				case Opcode.XOR:
+				case Opcode.SHL:
+				case Opcode.SHR:
+				case Opcode.SHAR:
+				case Opcode.ROR:
+				case Opcode.ROL:
+				case Opcode.RORC:
+				case Opcode.ROLC:
+					retValue = true;
+					break;
+				default:
+					break;
+			}
+
+			return retValue;
+
+		}
+
+		public static bool IsJumpInstruction(Opcode opcode)
+        {
+			bool retValue = false;
+            switch (opcode)
+            {
+				case Opcode.JZ:
+				case Opcode.JNZ:
+				case Opcode.JG:
+				case Opcode.JGE:
+				case Opcode.JL:
+				case Opcode.JLE:
+				case Opcode.JA:
+				case Opcode.JAE:
+				case Opcode.JB:
+				case Opcode.JBE:
+					retValue = true;
+					break;
+            }
+
+			return retValue;
+        }
+
+		public static Opcode StringToOpcode(string opcode)
+        {
+			return (Opcode) Enum.Parse(typeof(Opcode), opcode, true);
         }
 
 		public static FunctionalUnitType GetFunctionalUnitType(Opcode opcode)
