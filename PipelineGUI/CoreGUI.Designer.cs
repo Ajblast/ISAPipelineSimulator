@@ -158,172 +158,210 @@ namespace CoreGui
             // 
             // sBox
             // 
+            this.sBox.BackColor = System.Drawing.SystemColors.Window;
             this.sBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.sBox.Location = new System.Drawing.Point(1631, 51);
             this.sBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.sBox.Name = "sBox";
+            this.sBox.ReadOnly = true;
             this.sBox.Size = new System.Drawing.Size(23, 29);
             this.sBox.TabIndex = 15;
             // 
             // oBox
             // 
+            this.oBox.BackColor = System.Drawing.SystemColors.Window;
             this.oBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.oBox.Location = new System.Drawing.Point(1671, 51);
             this.oBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.oBox.Name = "oBox";
+            this.oBox.ReadOnly = true;
             this.oBox.Size = new System.Drawing.Size(23, 29);
             this.oBox.TabIndex = 16;
             // 
             // eqBox
             // 
+            this.eqBox.BackColor = System.Drawing.SystemColors.Window;
             this.eqBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.eqBox.Location = new System.Drawing.Point(1712, 51);
             this.eqBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.eqBox.Name = "eqBox";
+            this.eqBox.ReadOnly = true;
             this.eqBox.Size = new System.Drawing.Size(23, 29);
             this.eqBox.TabIndex = 17;
             // 
             // zBox
             // 
+            this.zBox.BackColor = System.Drawing.SystemColors.Window;
             this.zBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.zBox.Location = new System.Drawing.Point(1753, 51);
             this.zBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.zBox.Name = "zBox";
+            this.zBox.ReadOnly = true;
             this.zBox.Size = new System.Drawing.Size(23, 29);
             this.zBox.TabIndex = 18;
             // 
             // cBox
             // 
+            this.cBox.BackColor = System.Drawing.SystemColors.Window;
             this.cBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cBox.Location = new System.Drawing.Point(1795, 51);
             this.cBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cBox.Name = "cBox";
+            this.cBox.ReadOnly = true;
             this.cBox.Size = new System.Drawing.Size(23, 29);
             this.cBox.TabIndex = 19;
             // 
             // PCBox
             // 
+            this.PCBox.BackColor = System.Drawing.SystemColors.Window;
             this.PCBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.PCBox.Location = new System.Drawing.Point(1450, 68);
             this.PCBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.PCBox.Name = "PCBox";
+            this.PCBox.ReadOnly = true;
             this.PCBox.Size = new System.Drawing.Size(145, 29);
             this.PCBox.TabIndex = 23;
             // 
             // SPBox
             // 
+            this.SPBox.BackColor = System.Drawing.SystemColors.Window;
             this.SPBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SPBox.Location = new System.Drawing.Point(1450, 100);
             this.SPBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.SPBox.Name = "SPBox";
+            this.SPBox.ReadOnly = true;
             this.SPBox.Size = new System.Drawing.Size(145, 29);
             this.SPBox.TabIndex = 24;
             // 
             // rLBox
             // 
+            this.rLBox.BackColor = System.Drawing.SystemColors.Window;
             this.rLBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rLBox.Location = new System.Drawing.Point(1671, 260);
             this.rLBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rLBox.Name = "rLBox";
+            this.rLBox.ReadOnly = true;
             this.rLBox.Size = new System.Drawing.Size(145, 29);
             this.rLBox.TabIndex = 25;
             // 
             // rABox
             // 
+            this.rABox.BackColor = System.Drawing.SystemColors.Window;
             this.rABox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rABox.Location = new System.Drawing.Point(1450, 132);
             this.rABox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rABox.Name = "rABox";
+            this.rABox.ReadOnly = true;
             this.rABox.Size = new System.Drawing.Size(145, 29);
             this.rABox.TabIndex = 26;
             // 
             // rBBox
             // 
+            this.rBBox.BackColor = System.Drawing.SystemColors.Window;
             this.rBBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rBBox.Location = new System.Drawing.Point(1450, 164);
             this.rBBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rBBox.Name = "rBBox";
+            this.rBBox.ReadOnly = true;
             this.rBBox.Size = new System.Drawing.Size(145, 29);
             this.rBBox.TabIndex = 27;
             // 
             // rCBox
             // 
+            this.rCBox.BackColor = System.Drawing.SystemColors.Window;
             this.rCBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rCBox.Location = new System.Drawing.Point(1450, 196);
             this.rCBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rCBox.Name = "rCBox";
+            this.rCBox.ReadOnly = true;
             this.rCBox.Size = new System.Drawing.Size(145, 29);
             this.rCBox.TabIndex = 28;
             // 
             // rEBox
             // 
+            this.rEBox.BackColor = System.Drawing.SystemColors.Window;
             this.rEBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rEBox.Location = new System.Drawing.Point(1450, 260);
             this.rEBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rEBox.Name = "rEBox";
+            this.rEBox.ReadOnly = true;
             this.rEBox.Size = new System.Drawing.Size(145, 29);
             this.rEBox.TabIndex = 29;
             // 
             // rFBox
             // 
+            this.rFBox.BackColor = System.Drawing.SystemColors.Window;
             this.rFBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rFBox.Location = new System.Drawing.Point(1450, 292);
             this.rFBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rFBox.Name = "rFBox";
+            this.rFBox.ReadOnly = true;
             this.rFBox.Size = new System.Drawing.Size(145, 29);
             this.rFBox.TabIndex = 30;
             // 
             // rGBox
             // 
+            this.rGBox.BackColor = System.Drawing.SystemColors.Window;
             this.rGBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rGBox.Location = new System.Drawing.Point(1671, 100);
             this.rGBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rGBox.Name = "rGBox";
+            this.rGBox.ReadOnly = true;
             this.rGBox.Size = new System.Drawing.Size(145, 29);
             this.rGBox.TabIndex = 31;
             // 
             // rHBox
             // 
+            this.rHBox.BackColor = System.Drawing.SystemColors.Window;
             this.rHBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rHBox.Location = new System.Drawing.Point(1671, 132);
             this.rHBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rHBox.Name = "rHBox";
+            this.rHBox.ReadOnly = true;
             this.rHBox.Size = new System.Drawing.Size(145, 29);
             this.rHBox.TabIndex = 32;
             // 
             // rIBox
             // 
+            this.rIBox.BackColor = System.Drawing.SystemColors.Window;
             this.rIBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rIBox.Location = new System.Drawing.Point(1671, 164);
             this.rIBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rIBox.Name = "rIBox";
+            this.rIBox.ReadOnly = true;
             this.rIBox.Size = new System.Drawing.Size(145, 29);
             this.rIBox.TabIndex = 33;
             // 
             // rJBox
             // 
+            this.rJBox.BackColor = System.Drawing.SystemColors.Window;
             this.rJBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rJBox.Location = new System.Drawing.Point(1671, 196);
             this.rJBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rJBox.Name = "rJBox";
+            this.rJBox.ReadOnly = true;
             this.rJBox.Size = new System.Drawing.Size(145, 29);
             this.rJBox.TabIndex = 34;
             // 
             // rKBox
             // 
+            this.rKBox.BackColor = System.Drawing.SystemColors.Window;
             this.rKBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rKBox.Location = new System.Drawing.Point(1671, 228);
             this.rKBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rKBox.Name = "rKBox";
+            this.rKBox.ReadOnly = true;
             this.rKBox.Size = new System.Drawing.Size(145, 29);
             this.rKBox.TabIndex = 35;
             // 
             // rMBox
             // 
+            this.rMBox.BackColor = System.Drawing.SystemColors.Window;
             this.rMBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rMBox.Location = new System.Drawing.Point(1671, 292);
             this.rMBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rMBox.Name = "rMBox";
+            this.rMBox.ReadOnly = true;
             this.rMBox.Size = new System.Drawing.Size(145, 29);
             this.rMBox.TabIndex = 36;
             // 
@@ -483,10 +521,12 @@ namespace CoreGui
             // 
             // rDBox
             // 
+            this.rDBox.BackColor = System.Drawing.SystemColors.Window;
             this.rDBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rDBox.Location = new System.Drawing.Point(1450, 228);
             this.rDBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rDBox.Name = "rDBox";
+            this.rDBox.ReadOnly = true;
             this.rDBox.Size = new System.Drawing.Size(145, 29);
             this.rDBox.TabIndex = 60;
             // 
@@ -506,8 +546,9 @@ namespace CoreGui
             this.ReorderBufferList.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ReorderBufferList.FormattingEnabled = true;
             this.ReorderBufferList.ItemHeight = 21;
-            this.ReorderBufferList.Location = new System.Drawing.Point(807, 70);
+            this.ReorderBufferList.Location = new System.Drawing.Point(807, 65);
             this.ReorderBufferList.Name = "ReorderBufferList";
+            this.ReorderBufferList.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.ReorderBufferList.Size = new System.Drawing.Size(580, 256);
             this.ReorderBufferList.TabIndex = 62;
             // 
@@ -518,6 +559,7 @@ namespace CoreGui
             this.InstructionQueueList.ItemHeight = 21;
             this.InstructionQueueList.Location = new System.Drawing.Point(18, 65);
             this.InstructionQueueList.Name = "InstructionQueueList";
+            this.InstructionQueueList.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.InstructionQueueList.Size = new System.Drawing.Size(773, 256);
             this.InstructionQueueList.TabIndex = 63;
             // 
@@ -528,6 +570,7 @@ namespace CoreGui
             this.IntergerAdderResList.ItemHeight = 14;
             this.IntergerAdderResList.Location = new System.Drawing.Point(916, 396);
             this.IntergerAdderResList.Name = "IntergerAdderResList";
+            this.IntergerAdderResList.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.IntergerAdderResList.Size = new System.Drawing.Size(456, 88);
             this.IntergerAdderResList.TabIndex = 67;
             // 
@@ -538,6 +581,7 @@ namespace CoreGui
             this.MovUnitResList.ItemHeight = 14;
             this.MovUnitResList.Location = new System.Drawing.Point(1373, 396);
             this.MovUnitResList.Name = "MovUnitResList";
+            this.MovUnitResList.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.MovUnitResList.Size = new System.Drawing.Size(456, 88);
             this.MovUnitResList.TabIndex = 69;
             // 
@@ -585,7 +629,7 @@ namespace CoreGui
             // 
             this.FlushLabel.AutoSize = true;
             this.FlushLabel.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FlushLabel.Location = new System.Drawing.Point(1165, 46);
+            this.FlushLabel.Location = new System.Drawing.Point(1165, 41);
             this.FlushLabel.Name = "FlushLabel";
             this.FlushLabel.Size = new System.Drawing.Size(76, 21);
             this.FlushLabel.TabIndex = 77;
@@ -639,6 +683,7 @@ namespace CoreGui
             this.MemoryResList.ItemHeight = 14;
             this.MemoryResList.Location = new System.Drawing.Point(2, 396);
             this.MemoryResList.Name = "MemoryResList";
+            this.MemoryResList.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.MemoryResList.Size = new System.Drawing.Size(456, 88);
             this.MemoryResList.TabIndex = 84;
             // 
@@ -656,7 +701,7 @@ namespace CoreGui
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label29.Location = new System.Drawing.Point(807, 46);
+            this.label29.Location = new System.Drawing.Point(807, 41);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(164, 21);
             this.label29.TabIndex = 86;
@@ -669,6 +714,7 @@ namespace CoreGui
             this.BranchResList.ItemHeight = 14;
             this.BranchResList.Location = new System.Drawing.Point(459, 396);
             this.BranchResList.Name = "BranchResList";
+            this.BranchResList.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.BranchResList.Size = new System.Drawing.Size(456, 88);
             this.BranchResList.TabIndex = 87;
             // 
