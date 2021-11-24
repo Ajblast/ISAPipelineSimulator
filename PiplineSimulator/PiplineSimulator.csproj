@@ -68,8 +68,10 @@
     <Compile Include="Project2Simulator\Memory\MagicPerfectStupidCache.cs" />
     <Compile Include="Project2Simulator\Memory\MainMemory.cs" />
     <Compile Include="Project2Simulator\Memory\MMU.cs" />
+    <Compile Include="Project2Simulator\PredictionUnit.cs" />
     <Compile Include="Project2Simulator\Registers\Register.cs" />
     <Compile Include="Project2Simulator\Registers\RegisterFile.cs" />
+    <Compile Include="Project2Simulator\Registers\RegisterHelper.cs" />
     <Compile Include="Project2Simulator\Registers\RegisterID.cs" />
     <Compile Include="Project2Simulator\Registers\RegisterValue.cs" />
     <Compile Include="Project2Simulator\ReorderBuffers\ReorderBuffer.cs" />

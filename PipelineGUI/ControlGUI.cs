@@ -18,19 +18,17 @@ namespace PipelineGUI
 {
     public partial class ControlGUI : Form
     {
-
-        private string assemblyFilePath;
-        private string binaryInFilePath;
-        private Decoder textDecoder;
-        private Encoder binaryEncoder;// = new Encoder("");
-
         public CPU Cpu;
         public CoreGUI[] CoreGUIs;
         public AtomicGUI AtomicGui;
+
         public ReservationStationCounts Counts;
         public MemoryCycleTimes memoryCycleTimes;
+
         public bool IsRunning = false;
         public bool Stop = false;
+        public int threadSleepMS = 1000;    // TODO: Make this an actual variable people can change in the gui
+
         public ControlGUI()
         {
             memoryCycleTimes = new MemoryCycleTimes();
@@ -48,7 +46,6 @@ namespace PipelineGUI
 
         private void importAssemblyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            binaryInFilePath = null;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             string CombinedPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "..");
             openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(CombinedPath);
@@ -58,12 +55,12 @@ namespace PipelineGUI
             RemakeCPU();
 
             //Load into assembly list box
-            assemblyFilePath = openFileDialog.FileName;
+            string assemblyFilePath = openFileDialog.FileName;
+            string binaryInFilePath = Path.ChangeExtension(assemblyFilePath, ".bin");
 
-            binaryEncoder.ChangeFiles(assemblyFilePath);
-            binaryInFilePath = binaryEncoder.EncodeFile();
+            Encoder.Encode(assemblyFilePath, binaryInFilePath);
 
-            InstallBinary(assemblyFilePath.Replace(".txt", ".bin"));
+            InstallBinary(binaryInFilePath);
         }
 
 
@@ -78,28 +75,25 @@ namespace PipelineGUI
 
             RemakeCPU();
 
-            binaryInFilePath = openFileDialog.FileName;
-            textDecoder = new Decoder(binaryInFilePath);
-            string assemblyText = textDecoder.DecodedFile();
+            // Removed the decoding stuff because we aren't doing it anymore. Just load the binary as it is. If something fails, well too bad
 
-            StreamWriter sw = new StreamWriter(binaryInFilePath.Replace(".bin", ".sht"));
-            sw.Write(assemblyText);
-            sw.Close();
+            string binaryInFilePath = openFileDialog.FileName;
 
-            assemblyFilePath = binaryInFilePath.Replace(".bin", ".txt");
-            binaryEncoder.ChangeFiles(assemblyFilePath);
-            binaryEncoder.EncodeFile();
-
-            InstallBinary(assemblyFilePath.Replace(".txt", ".bin"));
+            InstallBinary(binaryInFilePath);
         }
 
-        private void InstallBinary(string binaryInFilePath)
+        private void InstallBinary(string binaryFilepath)
         {
-            byte[] array = File.ReadAllBytes(binaryInFilePath);
+            byte[] array = File.ReadAllBytes(binaryFilepath);
 
             for (int i = 0; i < array.Length - 3; i = i + 4)
             {
-                uint pulledValue = (uint)(((ushort)(array[i] << 8 | array[i + 1]) << 16) | (ushort)(array[i + 2] << 8 | array[i + 3]));
+                uint pulledValue = 0;
+                pulledValue |= (uint) array[i + 0] << 24;
+                pulledValue |= (uint) array[i + 1] << 16;
+                pulledValue |= (uint) array[i + 2] << 8;
+                pulledValue |= (uint) array[i + 3] << 0;
+
                 Cpu.memory[i].Value = pulledValue;
             }
         }
@@ -143,12 +137,20 @@ namespace PipelineGUI
         {
             if (IsRunning == true)
                 return;
+
             Stop = false;
             Thread t = new Thread(new ThreadStart(RunCores));
         }
         
         private void RunCores()
         {
+            // Yes, I threw an exception in running code, but I wanted to get your attention.
+            // Add a small textbox or something to control the amount of seconds between thread updates.
+            // You could also just ignore this because this project is stupid at this point, and just keep it at 1 second between updates.
+            // Only reason I suggest this is when we show off the project, own personal demonstration could use the 1 second, then we could make it like 1 ms when doing the
+            // the big demonstration.
+            throw new NotImplementedException();
+
             while (Stop == false)
             {
                 foreach (Core core in Cpu.GetCores())
@@ -160,6 +162,9 @@ namespace PipelineGUI
                     Gui.UpdateValues();
                 }
                 AtomicGui.UpdateAtomics(Cpu.THEMMU);
+
+                // The thread needs to sleep otherwise it will just go turbo
+                Thread.Sleep(threadSleepMS);
             }
         }
 

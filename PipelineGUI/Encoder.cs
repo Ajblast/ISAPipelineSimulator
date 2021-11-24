@@ -2,550 +2,332 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.ComponentModel;
-using System.Collections;
-using System.Runtime.InteropServices;
+
+using Project2Simulator.Instructions;
+using Project2Simulator.Registers;
 
 namespace PipelineGUI
 {
-
-
     /// <summary>
     /// Encoder
     /// This class will encode a file of commands written in team 5's ISA into the binary equivalents written in our ISA
     /// </summary>
-    public class Encoder
+    public static class Encoder
     {
-        Dictionary<string, byte> inDicCode;             //This is a dictionary that uses the name of an instruction as a key, the value is the code for that command
-                                                        //in the form of a byte
+        private static List<string> labels;                        //This holds all of the labels that are intitialized in the remix file, the int in the same position in the labelPositions
+                                                    //list holds the address of the label
 
-        Dictionary<string, int> inDicSize;              //This is a dictionary that will uses the name of an instruction as a key, the value is the size of that command
-                                                        //0 is used as a size placeholder for hybrid commands
+        private static StreamReader input;                 // Input file to read fromt
+        private static BinaryWriter output;                // Output file to write to
+        private static StringBuilder intermediary;
+        private static string intermediaryString;
 
-        Dictionary<string, byte> regDicCode;            //This is a dictionary that uses the name of a register as a key, the value is the code for that register in 
-                                                        //the form of a byte
+        private static Dictionary<string, int> labelPositions;
 
-        private string txtFilePath;                     //Holds the path to the original file which is being encoded
-        private string remixFilePath;                   //Holds the path to the edited version of the original file, certain changes are made, such as extending macros, eliminating
-                                                        //commas, and removing comments
-        private string binFilePath;                     //Holds the path to the binary file that holds the encoded version of the original file
-        private string infoFilePath;
-
-        private StreamWriter sw;
-        private StreamReader sr;
-        private BinaryWriter bw;
-
-        List<string> labels;                            //This holds all of the labels that are intitialized in the remix file, the int in the same position in the labelPositions
-                                                        //list holds the address of the label
-        List<int> labelPositions;                       //This holds all of the positions of labels that are initialized in the remix file, the string in the same position in the
-                                                        //labels list holds the corresponding label.
-        List<bool> SixteenBit;
-        public List<int> inLengths;                     //This list holds the length of every line (instruction or not) in the remix file in bits. If a line holds a label, the corresponding
-                                                        //value in inLengths will be -1
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Encoder"/> class.
-        /// </summary>
-        /// <param name="filePath">The file path to the instruction file.</param>
-        /// <param name-"infoFile">The file path to the info file</param>
-        /// <param name="outputPath">The file path the binary file will go.</param>
-        public Encoder(string filePath)
+        public static void Encode(string inputFilepath, string outputFilepath)
         {
-            txtFilePath = filePath;
-            remixFilePath = filePath.Replace(".txt", ".remix");
-            binFilePath = filePath.Replace(".txt", ".bin");
-            infoFilePath = System.IO.Path.GetFullPath("ISAInput.txt");
+            input = new StreamReader(inputFilepath);
+            output = new BinaryWriter(File.OpenWrite(outputFilepath));
+            intermediary = new StringBuilder();
 
             labels = new List<string>();
-            labelPositions = new List<int>();
-            inLengths = new List<int>();
+            labelPositions = new Dictionary<string, int>();
 
-            inDicSize = new Dictionary<string, int>();
-            inDicSize.Add("nop", 16);
-            inDicSize.Add("add", 32);
-            inDicSize.Add("addc", 32);
-            inDicSize.Add("subb", 32);
-            inDicSize.Add("and", 32);
-            inDicSize.Add("or", 32);
-            inDicSize.Add("nor", 32);
-            inDicSize.Add("shl", 32);
-            inDicSize.Add("shr", 32);
-            inDicSize.Add("shar", 32);
-            inDicSize.Add("ror", 32);
-            inDicSize.Add("rol", 32);
-            inDicSize.Add("rorc", 32);
-            inDicSize.Add("rolc", 32);
-            inDicSize.Add("load", 32);
-            inDicSize.Add("stor", 32);
-            inDicSize.Add("mov", 0);
-            inDicSize.Add("push", 0);
-            inDicSize.Add("pop", 16);
-            inDicSize.Add("cmp", 16);
-            inDicSize.Add("jz", 16);
-            inDicSize.Add("jnz", 16);
-            inDicSize.Add("jg", 16);
-            inDicSize.Add("jge", 16);
-            inDicSize.Add("jl", 16);
-            inDicSize.Add("jle", 16);
-            inDicSize.Add("ja", 16);
-            inDicSize.Add("jae", 16);
-            inDicSize.Add("jb", 16);
-            inDicSize.Add("jbe", 16);
-            inDicSize.Add("lda", 32);
-            inDicSize.Add("neg", 32);
-            inDicSize.Add("xor", 32);
-            inDicSize.Add("sub", 32);
-            inDicSize.Add("halt", 16);
-
-            inDicCode = new Dictionary<string, byte>();
-            sr = new StreamReader(infoFilePath);
-            string temp;
-            string[] tempArr;
-            for (int i = 0; i < 35; i++)
-            {
-                temp = sr.ReadLine();
-                tempArr = temp.Split(' ');
-                inDicCode.Add(tempArr[0], Convert.ToByte(tempArr[1]));
-            }
-
-            regDicCode = new Dictionary<string, byte>();
-            for (int i = 0; i < 16; i++)
-            {
-                temp = sr.ReadLine();
-                tempArr = temp.Split(' ');
-                inDicCode.Add(tempArr[0], Convert.ToByte(tempArr[1]));
-            }
-            sr.Close();
-        }
-
-        /// <summary>
-        /// This method allows you to shift the focus of this class to another file
-        /// It sets the necessary values and changes the txtFilePath to the new file path
-        /// </summary>
-        /// <param name="filePath">The file path.</param>
-        public void ChangeFiles(string filePath)
-        {
-            txtFilePath = filePath;
-            remixFilePath = filePath.Replace(".txt", ".remix");
-            binFilePath = filePath.Replace(".txt", ".bin");
-
-            labels = new List<string>();
-            labelPositions = new List<int>();
-            inLengths = new List<int>();
-
-            sr = new StreamReader(txtFilePath);
-            sw = new StreamWriter(remixFilePath);
-        }
-
-        /// <summary>
-        /// This method will encode an input file containing instructions from our ISA into binary
-        /// </summary>
-        /// <returns>binary - the path to the binary file created by this method</returns>
-        public string EncodeFile()
-        {
             FirstPass();
             SecondPass();
             ThirdPass();
-            FourthPass();
-            return binFilePath;
+
+            input.Close();
+            output.Close();
         }
 
-        /// <summary>
-        /// The first pass through the text file that contains instructions from our ISA
-        /// What this pass does is expand any jmp macro calls into a cmp and je command.
-        /// This pass will also replace ", " with " " in the file
-        /// </summary>
-        public void FirstPass()
+
+        private static void FirstPass()
         {
             string[] arr;
-            string input = sr.ReadLine();
+            string line;
 
-            while (input != null)
+            while ((line = input.ReadLine()) != null)
             {
-                input = input.Replace(", ", " ");
-                if (input.Contains("//"))    //This will remove any comments present in the code
-                {
-                    input = input.Remove(input.IndexOf("//"), input.Length - input.IndexOf("//"));
-                }
+                line = line.Replace(", ", " ");
 
-                input = input.Trim();
-                arr = input.Split(' ');
+                // Remove comments
+                if (line.Contains("//"))
+                    line = line.Remove(line.IndexOf("//"), line.Length - line.IndexOf("//"));
 
-                if (arr[0].Equals("jmp"))   //jmp is the only macro currently present in our ISA, it expands out to the commands below
+                line = line.ToLower();
+
+                // Remove whitespace and skip if line is only whitespace
+                line = line.Trim();
+
+                // Check for macros
+                arr = line.Split(' ');
+                if (arr[0].Equals("jmp"))
                 {
-                    sw.WriteLine("lda " + arr[1]);
-                    sw.WriteLine("cmp rA rA");
-                    sw.WriteLine("jz");
+                    // jmp macro
+                    intermediary.AppendLine("cmp rA rA");
+                    intermediary.AppendLine("jz " + arr[1]);
                 }
-                else
-                {
-                    if (!input.Equals(""))   //A line may be empty if it only contained a comment, for my sake I've excluded these lines
-                        sw.WriteLine(input);
-                }
-                input = sr.ReadLine();
+                else if (line.Equals("") == false)
+                    intermediary.AppendLine(line);
+
             }
-            sr.Close();
-            sw.Close();
+
+            intermediaryString = intermediary.ToString();
         }
 
-        /// <summary>
-        /// The second pass through the text file
-        /// This pass will find the size of each instruction being read from the file
-        /// </summary>
-        public void SecondPass()
+        private static void SecondPass()
         {
-            sr = new StreamReader(remixFilePath);       //We'll only need to read from the remix file from here on out
-            string input = sr.ReadLine();
             string[] arr;
 
-            while (input != null)
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(intermediaryString));
+            StreamReader intermediaryStream = new StreamReader(ms);
+
+            int counter = 0;
+            string line;
+            while ((line = intermediaryStream.ReadLine()) != null)
             {
-                arr = input.Split(' ');
-                int x;                                  //This int will hold the size of a command
-                if (inDicSize.TryGetValue(arr[0], out x))
+                arr = line.Split(' ');
+
+                string[] opcodes = Enum.GetNames(typeof(Opcode));
+                for (int i = 0; i < opcodes.Length; i++)
+                    opcodes[i] = opcodes[i].ToLower();
+
+                if (opcodes.Contains(arr[0]) == false)
                 {
-                    
-                    if (x == 0)                          //This if block will deal with any of the placeholder 0's that represent hybrid commands
-                    {                                   //Since there are only 2 hybrid commands, there's only 2 cases
-                        if (arr.Length == 2)             //if the command has 1 operand (push)
-                        {
-                            if (arr[1].Contains("#"))    //if the operand is an immediate
-                            {
-                                inLengths.Add(32);
-                                SixteenBit.Add(false);
-                            }
-                            else
-                            {
-                                //inLengths.Add(16);
-                                inLengths.Add(32);
-                                SixteenBit.Add(true);
-                            }
-                        }
-                        else                             //(mov)
-                        {
-                            if (arr[2].Contains("#"))
-                            {
-                                inLengths.Add(32);
-                                SixteenBit.Add(false);
-                            }
-                            else
-                            {
-                                //inLengths.Add(16);
-                                inLengths.Add(32);
-                                SixteenBit.Add(true);
-                            }
-                        }
-                    }
-                    else                                                            //The length is known for the rest of the commands so we don't need to worry about granularity
+                    // The opcode wasn't recognized. Could be label or just invalid instruction
+                    if (arr[0].Substring(arr[0].Length - 1, 1).Equals(":"))
                     {
-                        if(x == 16)
-                        {
-                            inLengths.Add(32);
-                            SixteenBit.Add(true);
-                        }
-                        else
-                        {
-                            inLengths.Add(32);
-                            SixteenBit.Add(false);
-                        }
+                        // Label
+                        labels.Add(line.Substring(0, line.Length - 1));
+                        labelPositions.Add(line.Substring(0, line.Length - 1), counter);
                     }
-                    
-                }
-                else                                                                //If we reach this else statement, 1 of 2 things has occurred
-                {
-                    if (arr[0].Substring(arr[0].Length - 1, 1).Equals(":"))         //either the line contains a label, for which we'll put the placeholder -1
+                    else
                     {
-                        inLengths.Add(-1);
-                    }
-                    else                                                            //Or the command is unrecognized
-                    {
-                        sr.Close();
+                        // ERROR
+                        intermediaryStream.Close();
                         throw new Exception("Unrecognized command: " + arr[0]);
                     }
+
                 }
-                input = sr.ReadLine();
+
+                counter += 32;
             }
-            sr.Close();
+
+            intermediaryStream.Close();
         }
 
-        /// <summary>
-        /// The third pass through the file
-        /// This will resolve any labels in the file to their subsequent address in the file
-        /// </summary>
-        public void ThirdPass()
+        private static void ThirdPass()
         {
-            sr = new StreamReader(remixFilePath);
-            int counter = 0;                                                //This counter holds the current offset for a command
-            for (int i = 0; i < inLengths.Count; i++)                        //Every line has a corresponding entry in the array, so we'll just loop through all of the items in inLengths
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(intermediaryString));
+            StreamReader intermediaryStream = new StreamReader(ms);
+            string line;
+
+            int counter = 0;
+            while ((line = intermediaryStream.ReadLine()) != null)
             {
-                string input = sr.ReadLine();
-                if (inLengths[i] == -1)                                     //If we come across a label we can just add a new string to labels and add a new int in positions
-                {
-                    labels.Add(input.Substring(0, input.Length - 1));
-                    labelPositions.Add(counter);
-                }
-                else                                                        //If we haven't come across a label then we just add to the counter and keep moving
-                {
-                    counter += inLengths[i] / 8;
-                }
+                uint temp = BuildInstruction(line, counter);
+                output.Write((byte)((temp & 0xFF000000) >> 24));
+                output.Write((byte)((temp & 0x00FF0000) >> 16));
+                output.Write((byte)((temp & 0x0000FF00) >> 8));
+                output.Write((byte)((temp & 0x000000FF) >> 0));
+
+                counter += 32;
             }
-            sr.Close();
         }
 
-        /// <summary>
-        /// The fourth pass through the file
-        /// This method is where the class actually writes the binary form of the instructions into a binary file
-        /// </summary>
-        public void FourthPass()
+        private static uint BuildInstruction(string input, int counterPosition)
         {
-            sr = new StreamReader(remixFilePath);
-            bw = new BinaryWriter(File.OpenWrite(binFilePath));
-            string input;
-            for (int i = 0; i < inLengths.Count; i++)
+            string[] values = input.Split(' ');
+
+            uint instruction = 0;
+
+            Opcode opcode = OpcodeHelper.StringToOpcode(values[0]);
+            instruction |=  (uint) opcode << 25;
+
+            switch (values.Length)
             {
-                input = sr.ReadLine();
-                if (SixteenBit[i] == false)
-                {
-                    uint temp = Build32BitIn(input);
-                    bw.Write((byte)((temp & 0xFF000000) >> 24));
-                    bw.Write((byte)((temp & 0x00FF0000) >> 16));
-                    bw.Write((byte)((temp & 0x0000FF00) >> 8));
-                    bw.Write((byte)((temp & 0x000000FF)));
-                }
-                else if (SixteenBit[i] == true)
-                {
-                    uint temp = Build16BitIn(input);
-                    bw.Write((byte)((temp & 0xFF000000) >> 24));
-                    bw.Write((byte)((temp & 0x00FF0000) >> 16));
-                    bw.Write((byte)((temp & 0x0000FF00) >> 8));
-                    bw.Write((byte)((temp & 0x000000FF)));
-                }
+                case 5:
+                    // Only cmpswp is this
+                    switch(opcode)
+                    {
+                        case Opcode.CMPSW:
+                            instruction |= 0x00000000;                                          // Immediate bit
+                            instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                            instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
+                            instruction |= (uint)RegisterHelper.StringToName(values[3]) << 0;   // Op2
+                            instruction |= (uint)RegisterHelper.StringToName(values[4]) << 4;   // Op3
+                            break;
+                        default:
+                            throw new Exception("Unknown Instruction");
+                    }
+                    break;
+                case 4:
+                    if (values[3].Contains("#"))
+                    {
+                        // Arithmetic Immediate
+                        int immediate = int.Parse(values[3].Substring(1));
+
+                        instruction |= 0x01000000;                                          // Immediate bit
+                        instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                        instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
+                        instruction |= (uint)immediate & 0xFFFF                     << 0;   // Immediate Value
+                    }
+                    else
+                    {
+                        // Arithmetic Register
+                        instruction |= 0x00000000;                                          // Immediate bit
+                        instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                        instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
+                        instruction |= (uint)RegisterHelper.StringToName(values[3]) << 0;   // Op2
+                    }        
+                    break;
+                case 3:
+                    switch(opcode)
+                    {
+                        case Opcode.NEG:
+                            if (values[2].Contains("#"))
+                            {
+                                int immediate = int.Parse(values[2].Substring(1));
+
+                                instruction |= 0x01000000;                                          // Immediate bit
+                                instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                                instruction |= (uint)immediate & 0xFFFF << 0;   // Immediate Value
+                            }
+                            else
+                            {
+                                instruction |= 0x00000000;                                          // Immediate bit
+                                instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                                instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
+                            }
+                            break;
+                        case Opcode.LOAD:
+                        case Opcode.STOR:
+                            if (values[2].Contains("#"))
+                            {
+                                int immediate = int.Parse(values[2].Substring(1));
+
+                                instruction |= 0x01000000;                                          // Immediate bit
+                                instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                                instruction |= (uint)immediate & 0xFFFFF                    << 0;   // Immediate Value
+                            }
+                            else
+                            {
+                                instruction |= 0x00000000;                                          // Immediate bit
+                                instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                                instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
+                            }
+                            break;
+                        case Opcode.CMP:
+                            instruction |= 0x00000000;                                          // Immediate bit
+                            instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Op1
+                            instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op2
+                            break;
+                        case Opcode.MOV:
+                            if (values[2].Contains("#"))
+                            {
+                                int immediate = int.Parse(values[2].Substring(1));
+
+                                instruction |= 0x01000000;                                          // Immediate bit
+                                instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                                instruction |= (uint)immediate & 0xFFFF << 0;   // Immediate Value
+                            }
+                            else
+                            {
+                                instruction |= 0x00000000;                                          // Immediate bit
+                                instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Op1
+                                instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op2
+                            }
+                            break;
+                        case Opcode.SWAP:
+                            instruction |= 0x00000000;                                          // Immediate bit
+                            instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                            instruction |= (uint)RegisterHelper.StringToName(values[2]) << 16;  // Op1
+                            break;
+                        default:
+                            throw new Exception("Unknown Instruction");
+                    }
+                    break;
+                case 2:
+                    switch(opcode)
+                    {
+                        case Opcode.PUSH:
+                        case Opcode.POP:
+                            if (values[1].Contains("#"))
+                            {
+                                int immediate = int.Parse(values[1].Substring(1));
+
+                                instruction |= 0x01000000;                                          // Immediate bit
+                                instruction |= (uint)immediate & 0xFFFF << 0;                       // Immediate Value
+                            }
+                            else
+                            {
+                                instruction |= 0x00000000;                                          // Immediate bit
+                                instruction |= (uint)RegisterHelper.StringToName(values[1]) << 20;  // Destination
+                            }
+                            break;
+                        case Opcode.LDA:
+                            {
+                                int immediate = int.Parse(values[1].Substring(1));
+
+                                instruction |= 0x01000000;                                              // Immediate bit
+                                instruction |= (uint)immediate & 0xFFFFF << 0;                          // Immediate Value
+                            }
+                            break;
+                        case Opcode.JZ:
+                        case Opcode.JNZ:
+                        case Opcode.JG:
+                        case Opcode.JGE:
+                        case Opcode.JL:
+                        case Opcode.JLE:
+                        case Opcode.JA:
+                        case Opcode.JAE:
+                        case Opcode.JB:
+                        case Opcode.JBE:
+                            {
+                                int immediate;
+
+                                if (values[1][0].Equals("<"))
+                                {
+                                    string label = values[1].Substring(1, values[1].Length - 2);
+
+                                    int labelPosition = labelPositions[label];          // Position of the label
+
+                                    immediate = labelPosition - counterPosition;        // What is the offset of the label from the current counter
+                                }
+                                else if (values[1][0].Equals("#"))
+                                {
+                                    immediate = int.Parse(values[1].Substring(1));      // Just an immediate
+                                }
+                                else
+                                    throw new Exception("Unknown character in jump instruction");
+
+                                instruction |= 0x01000000;                                              // Immediate bit
+                                instruction |= (uint)immediate & 0x1FFFFF << 0;                         // Immediate Value
+
+                            }
+                            break;
+                        default:
+                            throw new Exception("Unkown Instruction");
+                    }
+                    break;
+                case 1:
+                    switch(opcode)
+                    {
+                        case Opcode.HALT:
+                        case Opcode.NOP:
+                            // Does nothing
+                            break;
+                        default:
+                            throw new Exception("Unkown Instruction");
+                    }
+                    break;
+                default:
+                    throw new Exception("Uknown Instruction with operands");
             }
-            sr.Close();
-            bw.Close();           
+
+            return instruction;
         }
-
-        /// <summary>
-        /// Encodes a 16 bit command from our ISA into binary
-        /// The ISA has changed to a fixed length instruction format inwhich each instruction is 32 bits long, thus 16 bits will containing 0 will be appended to the end of these instructions
-        /// </summary>
-        /// <param name="input">The instruction to be encoded.</param>
-        /// <returns>code - an unsigned 16 bit integer containing the binary version of the instruction</returns>
-        /// <exception cref="Exception">Something went wrong in BuildByteArray2</exception>
-        private uint Build16BitIn(string input)
-        {
-            string[] arr = input.Split();
-            byte Op1;
-            byte Op2;
-            byte immediate;
-            byte opcode;
-            uint code = 0;
-            if (inDicCode.TryGetValue(arr[0], out opcode))
-            {
-                code |= (ushort)((opcode & 0x7F) << 25);
-                switch (arr.Length)
-                {
-                    case 3:                                         //for cmp and mov reg
-
-                        immediate = 0;
-                        Op1 = regDicCode[arr[1]];
-                        Op2 = regDicCode[arr[2]];
-                        code |= (uint)((immediate & 0x1) << 24);
-                        code |= (uint)((Op1 & 0xF) << 20);
-                        code |= (uint)((Op2 & 0xF) << 16);
-                        break;
-                    case 2:                                         //for pop and push reg
-                        immediate = 0;
-                        Op1 = regDicCode[arr[1]];
-                        code |= (uint)((immediate & 0x1) << 24);
-                        code |= (uint)((Op1 & 0xF) << 20);
-                        code |= (uint)((0x00 & 0xF) << 16);
-                        break;
-                    case 1:                                          //for all jumps, nop, and halt
-                        immediate = 0;
-                        code |= (uint)((immediate & 0x1) << 24);
-                        code |= (uint)((0x00 & 0xFF) << 16);
-                        break;
-                }
-                code |= (uint)(0x0000000000000000 & 0xFFFF);
-                return code;
-            }
-            else
-                throw new Exception("Something went wrong in BuildByteArray2");
-
-        }
-
-        /// <summary>
-        /// Encodes a 32 bit command from our ISA into binary
-        /// </summary>
-        /// <param name="input">The command to be encoded.</param>
-        /// <returns>code - an unsigned 32 bit integer containing the encoded version of a command</returns>
-        /// <exception cref="Exception">Something went wrong in BuildByteArray2</exception>
-        private uint Build32BitIn(string input)
-        {
-            string[] arr = input.Split();
-            byte Op1;
-            byte Op2;
-            byte Op3;
-            ushort imm;
-            uint mem;
-            byte immediate;
-            byte opcode;
-            uint code = 0;
-            if (inDicCode.TryGetValue(arr[0], out opcode))
-            {
-                code |= (uint)((opcode & 0x7F) << 25);
-                switch (arr.Length)
-                {
-                    case 4:                                               //For arithmetic instructions with immediates or registers or load/stor register
-                        if (arr[3].Contains("#"))                         //for arithmetic imm
-                        {
-                            immediate = 1;
-                            Op1 = regDicCode[arr[1]];
-                            Op2 = regDicCode[arr[2]];
-                            imm = UInt16.Parse(arr[3].Substring(1));
-                            code |= (uint)((immediate & 0x1) << 24);
-                            code |= (uint)((Op1 & 0xF) << 20);
-                            code |= (uint)((Op2 & 0xF) << 16);
-                            code |= (uint)(imm & 0xFFFF);
-
-                        }
-                        else                                                //for arithmetic reg and load/stor register
-                        {
-                            if (opcode == 14 || opcode == 15)               //for load/stor register
-                            {
-                                immediate = 0;
-                                Op1 = regDicCode[arr[1]];
-                                Op2 = regDicCode[arr[2]];
-                                Op3 = regDicCode[arr[3]];
-                                code |= (uint)((immediate & 0x1) << 24);
-                                code |= (uint)((Op1 & 0xF) << 20);
-                                code |= (uint)((Op2 & 0xF) << 16);
-                                code |= (uint)((0x000 & 0xFFF) << 4);
-                                code |= (uint)(Op3 & 0xF);
-                            }
-                            else                                            //for arithmetic reg
-                            {
-                                immediate = 0;
-                                Op1 = regDicCode[arr[1]];
-                                Op2 = regDicCode[arr[2]];
-                                Op3 = regDicCode[arr[3]];
-                                code |= (uint)((immediate & 0x1) << 24);
-                                code |= (uint)((Op1 & 0xF) << 20);
-                                code |= (uint)((Op2 & 0xF) << 16);
-                                code |= (uint)((0x000 & 0xFFF) << 4);
-                                code |= (uint)(Op3 & 0xF);
-                            }
-                        }
-                        break;
-                    case 3:                                     //For load or stor with immediate, or neg, or mov imm
-                        if (arr[1].Contains("<"))               //for stor imm
-                        {
-                            immediate = 1;
-                            Op1 = regDicCode[arr[2]];
-                            mem = (uint)labelPositions[labels.IndexOf(arr[1].Substring(1, arr[1].Length - 2))];
-                            code |= (uint)((immediate & 0x1) << 24);
-                            code |= (uint)((Op1 & 0xF) << 20);
-                            code |= (uint)(mem & 0xFFFFF);
-                        }
-                        else if (arr[1].Contains("#"))          //for stor imm
-                        {
-                            immediate = 1;
-                            Op1 = regDicCode[arr[2]];
-                            mem = UInt32.Parse(arr[1].Substring(1));
-                            code |= (uint)((immediate & 0x1) << 24);
-                            code |= (uint)((Op1 & 0xF) << 20);
-                            code |= (uint)(mem & 0xFFFFF);
-
-                        }
-                        else if (arr[2].Contains("<"))          //for load imm
-                        {
-                            immediate = 1;
-                            Op1 = regDicCode[arr[1]];
-                            mem = (uint)labelPositions[labels.IndexOf(arr[2].Substring(1, arr[1].Length - 2))];
-                            code |= (uint)((immediate & 0x1) << 24);
-                            code |= (uint)((Op1 & 0xF) << 20);
-                            code |= (uint)(mem & 0xFFFFF);
-                        }
-                        else if (arr[2].Contains("#"))          //for load imm, neg imm, mov imm
-                        {
-                            if (opcode == 14)                   //for load imm
-                            {
-                                immediate = 1;
-                                Op1 = regDicCode[arr[1]];
-                                mem = UInt32.Parse(arr[2].Substring(1));
-                                code |= (uint)((immediate & 0x1) << 24);
-                                code |= (uint)((Op1 & 0xF) << 20);
-                                code |= (uint)(mem & 0xFFFFF);
-
-                            }
-                            else                                //for neg imm, mov imm
-                            {
-                                immediate = 1;
-                                Op1 = regDicCode[arr[1]];
-                                imm = UInt16.Parse(arr[2].Substring(1));
-                                code |= (uint)((immediate & 0x1) << 24);
-                                code |= (uint)((Op1 & 0xF) << 20);
-                                code |= (uint)((0x0 & 0xF) << 16);
-                                code |= (uint)(imm & 0xFFFF);
-                            }
-                        }
-                        else                                    //for neg reg
-                        {
-                            immediate = 0;
-                            Op1 = regDicCode[arr[1]];
-                            Op2 = regDicCode[arr[2]];
-                            code |= (uint)((immediate & 0x1) << 24);
-                            code |= (uint)((Op1 & 0xF) << 20);
-                            code |= (uint)((Op2 & 0xF) << 16);
-                            code |= (uint)(0x0000 & 0xFFFF);
-                        }
-                        break;
-                    case 2:                                                 //for lda and push imm
-                        if (arr[1].Contains("#"))
-                        {
-                            if (opcode == 30)                                //for lda with a register
-                            {
-                                immediate = 1;
-                                mem = UInt32.Parse(arr[1].Substring(1));
-                                code |= (uint)((immediate & 0x1) << 24);
-                                code |= (uint)((0x0 & 0xF) << 20);
-                                code |= (uint)(mem & 0xFFFFF);
-                            }
-                            else                                            //for push imm
-                            {
-                                immediate = 1;
-                                imm = UInt16.Parse(arr[1].Substring(1));
-                                code |= (uint)((immediate & 0x1) << 24);
-                                code |= (uint)((0x00 & 0xFF) << 16);
-                                code |= (uint)(imm & 0xFFFF);
-                            }
-                        }
-                        else                                                //for lda with a label
-                        {
-                            immediate = 1;
-                            mem = (uint)labelPositions[labels.IndexOf(arr[1].Substring(1, arr[1].Length - 2))];
-                            code |= (uint)((immediate & 0x1) << 24);
-                            code |= (uint)((0x0 & 0xF) << 20);
-                            code |= (uint)(mem & 0xFFFFF);
-                        }
-                        break;
-                }
-                return code;
-            }
-            else
-                throw new Exception("Something went wrong in BuildByteArray2");
-        }
-
-        /*
-        static void Main(string[] args)
-        {
-            Encoder x = new Encoder(@"\Users\isaia\source\repos\CAProjectEncoder\CAProjectEncoder\hello.txt");
-            Console.WriteLine(x.EncodeFile());
-
-        }
-        */
     }
 }
