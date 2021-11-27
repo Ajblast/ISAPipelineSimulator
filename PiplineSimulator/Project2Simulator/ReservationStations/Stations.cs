@@ -15,7 +15,7 @@ namespace Project2Simulator.ReservationStations
 
 			// Create all reservation stations
 			int index = 0;
-            for (int i = 0; i < counts.MemoryUnit; i++, index++)
+			for (int i = 0; i < counts.MemoryUnit; i++, index++)
 				reservationStations[index] = new ReservationStation(regs, bus, control, FunctionalUnitType.MEMORY_UNIT, core, new StationID(index));
             for (int i = 0; i < counts.BranchUnit; i++, index++)
 				reservationStations[index] = new ReservationStation(regs, bus, control, FunctionalUnitType.BRANCH_UNIT, core, new StationID(index));
@@ -29,6 +29,7 @@ namespace Project2Simulator.ReservationStations
 				reservationStations[index] = new ReservationStation(regs, bus, control, FunctionalUnitType.INTEGER_MULTIPLIER, core, new StationID(index));
             for (int i = 0; i < counts.MovementUnit; i++, index++)
 				reservationStations[index] = new ReservationStation(regs, bus, control, FunctionalUnitType.MOVEMENT_UNIT, core, new StationID(index));
+
 		}
 
 		public void Cycle()

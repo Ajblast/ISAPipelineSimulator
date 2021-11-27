@@ -125,8 +125,8 @@ namespace PipelineGUI
             {
                 Core tempCore = Cpu.GetCores()[i];
                 CoreGUIs[i] = new CoreGUI(tempCore);
-                CoreGUIs[i].Show();
                 CoreGUIs[i].UpdateValues();
+                CoreGUIs[i].Show();
             }   
 
             AtomicGui.UpdateAtomics(Cpu.THEMMU);
