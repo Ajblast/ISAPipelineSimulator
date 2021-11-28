@@ -33,6 +33,12 @@ namespace PipelineGUI
         public ControlGUI()
         {
             memoryCycleTimes = new MemoryCycleTimes();
+            memoryCycleTimes.AtomicLoadMemory = 1;
+            memoryCycleTimes.AtomicOperation = 1;
+            memoryCycleTimes.AtomicStorMemory = 1;
+            memoryCycleTimes.LoadMemory = 1;
+            memoryCycleTimes.StorMemory = 1;
+
             Counts = new ReservationStationCounts();
             Counts.BranchUnit = 1;
             Counts.IntegerAdder = 4;
