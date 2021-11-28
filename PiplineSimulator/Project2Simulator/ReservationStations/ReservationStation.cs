@@ -189,6 +189,9 @@ namespace Project2Simulator.ReservationStations
 
 			FunctionalUnit.Commit(Values.Dest);
 			Values = new StationValues();
+			Values.Op1 = new RegisterValue();
+			Values.Op2 = new RegisterValue();
+			Values.Op3 = new RegisterValue();
 			Busy = false;
 		}
 		public void Flush()
@@ -196,6 +199,9 @@ namespace Project2Simulator.ReservationStations
 			FunctionalUnit.Flush();
 
 			Values = new StationValues();
+			Values.Op1 = new RegisterValue();
+			Values.Op2 = new RegisterValue();
+			Values.Op3 = new RegisterValue();
 
 			Busy = false;
 			AskedForCommit = false;
