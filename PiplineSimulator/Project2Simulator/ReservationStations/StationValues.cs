@@ -16,6 +16,10 @@ namespace Project2Simulator.ReservationStations
 		public RegisterValue Op2;
 		public RegisterValue Op3;
 
+		public bool Op1Present;
+		public bool Op2Present;
+		public bool Op3Present;
+
 		public ReorderBufferID Op1Src;
 		public ReorderBufferID Op2Src;
 		public ReorderBufferID Op3Src;

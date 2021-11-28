@@ -35,6 +35,9 @@ namespace Project2Simulator.ReservationStations
 			Values.Op1 = new RegisterValue();
 			Values.Op2 = new RegisterValue();
 			Values.Op3 = new RegisterValue();
+			Values.Op1Present = false;
+			Values.Op2Present = false;
+			Values.Op3Present = false;
 
 			Busy = false;
 
@@ -53,17 +56,19 @@ namespace Project2Simulator.ReservationStations
 				if (op1ID == null)
                 {
 					Values.Op1 = new RegisterValue(registerFile[instruction.Op1Reg.ID].Value);
+					Values.Op1Present = true;
 					Values.Op1Src = null;
                 }
 				else
                 {
-					Values.Op1 = null;
+					Values.Op1Present = false;
 					Values.Op1Src = new ReorderBufferID(op1ID);
                 }
 			}
 			else
             {
 				Values.Op1 = instruction.Op1;
+				Values.Op1Present = true;
 				Values.Op1Src = null;
             }
 
@@ -73,43 +78,47 @@ namespace Project2Simulator.ReservationStations
 				// Check the register file busy flag
 				ReorderBufferID op2ID = registerFile[instruction.Op2Reg.ID].ReorderId;
 				if (op2ID == null)
-                {
+				{
 					Values.Op2 = new RegisterValue(registerFile[instruction.Op2Reg.ID].Value);
+					Values.Op2Present = true;
 					Values.Op2Src = null;
-                }
+				}
 				else
-                {
-					Values.Op2 = null;
+				{
+					Values.Op2Present = false;
 					Values.Op2Src = new ReorderBufferID(op2ID);
-                }
+				}
 			}
 			else
-            {
+			{
 				Values.Op2 = instruction.Op2;
+				Values.Op2Present = true;
 				Values.Op2Src = null;
-            }
+			}
 
-			// Check if Op3 uses the register file
+			// Check if op3 uses the register file
 			if (instruction.Op3Reg != null)
 			{
 				// Check the register file busy flag
-				ReorderBufferID Op3ID = registerFile[instruction.Op3Reg.ID].ReorderId;
-				if (Op3ID == null)
-                {
+				ReorderBufferID op3ID = registerFile[instruction.Op3Reg.ID].ReorderId;
+				if (op3ID == null)
+				{
 					Values.Op3 = new RegisterValue(registerFile[instruction.Op3Reg.ID].Value);
+					Values.Op3Present = true;
 					Values.Op3Src = null;
-                }
+				}
 				else
-                {
-					Values.Op3 = null;
-					Values.Op3Src = new ReorderBufferID(Op3ID);
-                }
+				{
+					Values.Op3Present = false;
+					Values.Op3Src = new ReorderBufferID(op3ID);
+				}
 			}
 			else
-            {
+			{
 				Values.Op3 = instruction.Op3;
+				Values.Op3Present = true;
 				Values.Op3Src = null;
-            }
+			}
 
 			// Get the address from the instruction
 			Values.Addr = instruction.Address;
@@ -139,17 +148,17 @@ namespace Project2Simulator.ReservationStations
 			if (bus.Valid == false)
 				return;
 
-			if (Values.Op1 == null && bus.ReorderID.Equals(Values.Op1Src))
+			if (Values.Op1Present == false && bus.ReorderID.Equals(Values.Op1Src))
 			{
 				Values.Op1 = bus.Value;
 				Values.Op1Src = null;
 			}
-			if (Values.Op2 == null && bus.ReorderID.Equals(Values.Op2Src))
+			if (Values.Op2Present == false && bus.ReorderID.Equals(Values.Op2Src))
 			{
 				Values.Op2 = bus.Value;
 				Values.Op2Src = null;
 			}
-			if (Values.Op3 == null && bus.ReorderID.Equals(Values.Op3Src))
+			if (Values.Op3Present == false && bus.ReorderID.Equals(Values.Op3Src))
 			{
 				Values.Op3 = bus.Value;
 				Values.Op3Src = null;
@@ -166,7 +175,7 @@ namespace Project2Simulator.ReservationStations
 			else
 			{
 				// Do nothing if the values are not present in the reservation station
-				if (Values.Op1 == null || Values.Op2 == null || Values.Op3 == null)
+				if (Values.Op1Present == false || Values.Op2Present == false || Values.Op3Present == false)
 					return;
 
 				if (FunctionalUnit.Executing == false)
@@ -192,6 +201,10 @@ namespace Project2Simulator.ReservationStations
 			Values.Op1 = new RegisterValue();
 			Values.Op2 = new RegisterValue();
 			Values.Op3 = new RegisterValue();
+			Values.Op1Present = false;
+			Values.Op2Present = false;
+			Values.Op3Present = false;
+
 			Busy = false;
 		}
 		public void Flush()
@@ -202,6 +215,9 @@ namespace Project2Simulator.ReservationStations
 			Values.Op1 = new RegisterValue();
 			Values.Op2 = new RegisterValue();
 			Values.Op3 = new RegisterValue();
+			Values.Op1Present = false;
+			Values.Op2Present = false;
+			Values.Op3Present = false;
 
 			Busy = false;
 			AskedForCommit = false;
