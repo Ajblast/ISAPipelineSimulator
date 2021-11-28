@@ -148,18 +148,22 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(op1.Value);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
                     }
                     else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
                     {
                         tempValue.Value += op2.Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.STORE;
                     }
                     else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
                     {
                         atomicStage = AtomicStage.NOP;
+                        CurrentCycle = 0;
+
                         shouldWrite = true;
                         retValue = true;
                     }
@@ -169,18 +173,22 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(op1.Value);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
                     }
                     else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
                     {
                         tempValue.Value -= op2.Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.STORE;
                     }
                     else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
                     {
                         atomicStage = AtomicStage.NOP;
+                        CurrentCycle = 0;
+                        
                         shouldWrite = true;
                         retValue = true;
                     }
@@ -190,18 +198,21 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(op1.Value);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
                     }
                     else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
                     {
                         tempValue.Value &= op2.Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.STORE;
                     }
                     else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
                     {
                         atomicStage = AtomicStage.NOP;
+                        CurrentCycle = 0;
                         shouldWrite = true;
                         retValue = true;
                     }
@@ -211,18 +222,21 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(op1.Value);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
                     }
                     else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
                     {
                         tempValue.Value |= op2.Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.STORE;
                     }
                     else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
                     {
                         atomicStage = AtomicStage.NOP;
+                        CurrentCycle = 0;
                         shouldWrite = true;
                         retValue = true;
                     }
@@ -232,18 +246,21 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(op1.Value);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
                     }
                     else if (atomicStage == AtomicStage.EXECUTE && CurrentCycle == cycleTimings.AtomicOperation)
                     {
                         tempValue.Value ^= op2.Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.STORE;
                     }
                     else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
                     {
                         atomicStage = AtomicStage.NOP;
+                        CurrentCycle = 0;
                         shouldWrite = true;
                         retValue = true;
                     }
@@ -254,6 +271,7 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(op1.Value);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
                     }
@@ -267,12 +285,14 @@ namespace Project2Simulator.FunctionalUnits
                         }
                         else
                             dest1.Value = tempValue.Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.STORE;
                     }
                     else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
                     {
                         atomicStage = AtomicStage.NOP;
+                        CurrentCycle = 0;
 
                         retValue = true;
                     }
@@ -282,6 +302,7 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(op1.Value);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
                     }
@@ -289,12 +310,15 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         dest1.Value = tempValue.Value;
                         tempValue.Value = op2.Value;
+                        CurrentCycle = 0;
 
                         atomicStage = AtomicStage.STORE;
                     }
                     else if (atomicStage == AtomicStage.STORE && CurrentCycle == cycleTimings.AtomicStorMemory)
                     {
                         atomicStage = AtomicStage.NOP;
+                        CurrentCycle = 0;
+                       
                         shouldWrite = true;
                         retValue = true;
                     }
