@@ -55,6 +55,19 @@ namespace Project2Simulator.ReservationStations
 
 			return null;
         }
+
+		public bool HasFreeStation(FunctionalUnitType type)
+        {
+			for (int i = 0; i < reservationStations.Length; i++)
+			{
+				if (reservationStations[i].FunctionalUnit.Type.Equals(type) && reservationStations[i].Busy == false)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 
 }
