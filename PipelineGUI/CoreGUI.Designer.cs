@@ -542,7 +542,7 @@ namespace CoreGui
             this.ReorderBufferList.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ReorderBufferList.FormattingEnabled = true;
             this.ReorderBufferList.ItemHeight = 21;
-            this.ReorderBufferList.Location = new System.Drawing.Point(807, 65);
+            this.ReorderBufferList.Location = new System.Drawing.Point(826, 65);
             this.ReorderBufferList.Name = "ReorderBufferList";
             this.ReorderBufferList.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.ReorderBufferList.Size = new System.Drawing.Size(580, 256);
@@ -556,7 +556,7 @@ namespace CoreGui
             this.InstructionQueueList.Location = new System.Drawing.Point(18, 65);
             this.InstructionQueueList.Name = "InstructionQueueList";
             this.InstructionQueueList.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.InstructionQueueList.Size = new System.Drawing.Size(773, 256);
+            this.InstructionQueueList.Size = new System.Drawing.Size(802, 256);
             this.InstructionQueueList.TabIndex = 63;
             // 
             // IntergerAdderResList
@@ -625,7 +625,7 @@ namespace CoreGui
             // 
             this.FlushLabel.AutoSize = true;
             this.FlushLabel.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FlushLabel.Location = new System.Drawing.Point(1165, 41);
+            this.FlushLabel.Location = new System.Drawing.Point(1184, 41);
             this.FlushLabel.Name = "FlushLabel";
             this.FlushLabel.Size = new System.Drawing.Size(76, 21);
             this.FlushLabel.TabIndex = 77;
@@ -657,7 +657,7 @@ namespace CoreGui
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label29.Location = new System.Drawing.Point(807, 41);
+            this.label29.Location = new System.Drawing.Point(826, 41);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(164, 21);
             this.label29.TabIndex = 86;
