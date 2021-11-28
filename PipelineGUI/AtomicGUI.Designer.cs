@@ -60,6 +60,7 @@ namespace PipelineGUI
             this.ClientSize = new System.Drawing.Size(340, 234);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.MemoryListBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AtomicGUI";
             this.Text = "AtomicGUI";
             this.ResumeLayout(false);

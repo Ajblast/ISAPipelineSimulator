@@ -221,6 +221,7 @@ namespace PipelineGUI
             this.Controls.Add(this.RunButton);
             this.Controls.Add(this.StepButton);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ControlGUI";
             this.Text = "ControlGUI";
