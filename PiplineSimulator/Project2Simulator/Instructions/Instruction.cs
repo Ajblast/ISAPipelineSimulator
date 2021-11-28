@@ -3,6 +3,9 @@ using Project2Simulator.Instructions;
 using Project2Simulator.Registers;
 using Project2Simulator.FunctionalUnits;
 using PiplineSimulator;
+using System;
+using System.Reflection;
+using System.ComponentModel;
 
 namespace Project2Simulator.Instructions
 {
@@ -60,11 +63,33 @@ namespace Project2Simulator.Instructions
 				(Op3Reg == null) ? "X":Op3Reg.ID.ToString(),
 				Op3.Value,
 				(Address == null) ? "X":Address.Value.ToString(),
-				FunctionalUnitType.ToString()
+				GetDescription(this.FunctionalUnitType)
 				);
 		}
 
-    }
+		//Sourced from https://stackoverflow.com/questions/1415140/can-my-enums-have-friendly-names
+		public static string GetDescription(Enum value)
+		{
+			Type type = value.GetType();
+			string name = Enum.GetName(type, value);
+			if (name != null)
+			{
+				FieldInfo field = type.GetField(name);
+				if (field != null)
+				{
+					DescriptionAttribute attr =
+						   Attribute.GetCustomAttribute(field,
+							 typeof(DescriptionAttribute)) as DescriptionAttribute;
+					if (attr != null)
+					{
+						return attr.Description;
+					}
+				}
+			}
+			return null;
+		}
+
+	}
 
 }
 
