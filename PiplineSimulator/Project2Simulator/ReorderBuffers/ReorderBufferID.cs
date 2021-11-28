@@ -30,6 +30,11 @@ namespace Project2Simulator.ReorderBuffers
         {
             return BufferID;
         }
+
+        public override string ToString()
+        {
+            return BufferID.ToString();
+        }
     }
 
 }

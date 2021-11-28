@@ -20,6 +20,11 @@ namespace Project2Simulator.Registers
         {
             Value = other.Value;
         }
+
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
     }
 
 }

@@ -24,6 +24,11 @@ namespace Project2Simulator.ReservationStations
             return ID.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return ID.ToString();
+        }
+
     }
 
 }
