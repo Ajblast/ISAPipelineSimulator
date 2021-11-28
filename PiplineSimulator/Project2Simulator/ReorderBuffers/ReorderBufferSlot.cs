@@ -19,6 +19,9 @@ namespace Project2Simulator.ReorderBuffers
 		public RegisterValue Value2;
 		public bool ValidValue2;
 
+		public bool Head;
+		public bool Tail;
+
         public ReorderBufferSlot(int reorderBufferID)
         {
 			ReorderBufferID = new ReorderBufferID(reorderBufferID);
@@ -27,18 +30,23 @@ namespace Project2Simulator.ReorderBuffers
 			ValidValue = false;
 			ValidValue2 = false;
 
+			Head = false;
+			Tail = false;
         }
 
         public override string ToString()
         {
             return string.Format(StringFormatService.GetReorderBufferSlotFormat(),
+				Head == true ? "H" : Tail == true ? "T" : "X",
 				ReorderBufferID.BufferID,
-				(Instruction == null) ? "X":Instruction.StationID.ID.ToString(),
+				(Instruction == null) ? "X" : Instruction.StationID.ToString(),
 				Ocupodo.ToString(),
-				(DestRegId == null) ? "X":DestRegId.ID.ToString(),
+				//(DestRegId == null) ? "X" : DestRegId.ToString(),
+				(DestRegId == null) ? "X" : RegisterHelper.IDtoName(DestRegId),
 				Value.Value,
 				ValidValue,
-				(DestRegId2 == null) ? "X":DestRegId2.ID.ToString(),
+				//(DestRegId2 == null) ? "X" : DestRegId2.ToString(),
+				(DestRegId2 == null) ? "X" : RegisterHelper.IDtoName(DestRegId2),
 				Value2.Value,
 				ValidValue2
 				);

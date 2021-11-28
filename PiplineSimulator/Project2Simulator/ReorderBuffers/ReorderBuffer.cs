@@ -28,6 +28,9 @@ namespace Project2Simulator.ReorderBuffers
 			Head = 0;
 			Tail = 0;
 
+			bufferSlots[Head].Head = true;
+			bufferSlots[Tail].Tail = true;
+
 			this.bufferSize = bufferSize;
 		}
 
@@ -37,12 +40,12 @@ namespace Project2Simulator.ReorderBuffers
 			if (THECommonDataBus.Valid == false)
 				return;
 
-			bufferSlots[THECommonDataBus.ReorderID.BufferID].Value = THECommonDataBus.Value;
+			bufferSlots[THECommonDataBus.ReorderID.BufferID].Value = new RegisterValue(THECommonDataBus.Value);
 			bufferSlots[THECommonDataBus.ReorderID.BufferID].ValidValue = true;
 			
 			if (THECommonDataBus.ValidValue2)
 			{
-				bufferSlots[THECommonDataBus.ReorderID.BufferID].Value2 = THECommonDataBus.Value2;
+				bufferSlots[THECommonDataBus.ReorderID.BufferID].Value2 = new RegisterValue(THECommonDataBus.Value2);
 				bufferSlots[THECommonDataBus.ReorderID.BufferID].ValidValue2 = true;
 			}
 
@@ -57,17 +60,28 @@ namespace Project2Simulator.ReorderBuffers
 			{
                 if (bufferSlots[Head].DestRegId != null && bufferSlots[Head].ValidValue)
                 {
-					registerFile[bufferSlots[Head].DestRegId.ID].Value = bufferSlots[Head].Value;
+					registerFile[bufferSlots[Head].DestRegId.ID].Value = new RegisterValue(bufferSlots[Head].Value);
 					registerFile[bufferSlots[Head].DestRegId.ID].Busy = false;
 					registerFile[bufferSlots[Head].DestRegId.ID].ReorderId = null;
 				}
 
                 if (bufferSlots[Head].DestRegId2 != null && bufferSlots[Head].ValidValue2)
                 {
-					registerFile[bufferSlots[Head].DestRegId2.ID].Value = bufferSlots[Head].Value2;
+					registerFile[bufferSlots[Head].DestRegId2.ID].Value = new RegisterValue(bufferSlots[Head].Value2);
 					registerFile[bufferSlots[Head].DestRegId2.ID].Busy = false;
 					registerFile[bufferSlots[Head].DestRegId2.ID].ReorderId = null;
 				}
+
+				// Do a work around that reservation stations need to be able to read from reorder buffers to pull value.
+				// Just write to the common databus and assume it will be properly cleared.
+				if (bufferSlots[Head].ValidValue)
+					THECommonDataBus.Write(
+						bufferSlots[Head].ReorderBufferID,
+						bufferSlots[Head].Value,
+						bufferSlots[Head].Value2,
+						bufferSlots[Head].ValidValue2
+						);
+
 
 				bufferSlots[Head].ValidValue = false;
 				bufferSlots[Head].ValidValue2 = false;
@@ -75,8 +89,12 @@ namespace Project2Simulator.ReorderBuffers
 				if (bufferSlots[Head].Instruction != null)
 					bufferSlots[Head].Instruction.Flush();
 
+				bufferSlots[Head].Head = false;
+
 				// Increment the head
 				Head = (Head + 1) % bufferSize;
+
+				bufferSlots[Head].Head = true;
 			}
 
 		}
@@ -89,7 +107,9 @@ namespace Project2Simulator.ReorderBuffers
 
 			ReorderBufferSlot retValue = bufferSlots[Tail];
 
+			bufferSlots[(Tail + bufferSize - 1) % bufferSize].Tail = false;
 			Tail = (Tail + 1) % bufferSize;
+			bufferSlots[(Tail + bufferSize - 1) % bufferSize].Tail = true;
 
 			return retValue;
 		}

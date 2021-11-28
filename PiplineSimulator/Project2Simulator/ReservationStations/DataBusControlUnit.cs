@@ -33,12 +33,15 @@ namespace Project2Simulator.ReservationStations
 		public bool RequestAccess(StationID id)
         {
 			if (CommitingStation == null)
-				CommitingStation = id;
+				CommitingStation = new StationID(id);
 
 			if (id.Equals(CommitingStation))
 				return true;
 			else
+            {
+				stationsAsking.Add(new StationID(id));
 				return false;
+            }
         }
 
 	}

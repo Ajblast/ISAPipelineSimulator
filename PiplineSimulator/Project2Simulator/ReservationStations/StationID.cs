@@ -10,6 +10,10 @@ namespace Project2Simulator.ReservationStations
         {
             this.ID = ID;
         }
+        public StationID(StationID other)
+        {
+            ID = other.ID;
+        }
 
         public override bool Equals(object obj)
         {

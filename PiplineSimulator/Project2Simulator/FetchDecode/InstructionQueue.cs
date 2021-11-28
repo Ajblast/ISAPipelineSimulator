@@ -2,6 +2,7 @@
 using Project2Simulator.ReservationStations;
 using Project2Simulator.ReorderBuffers;
 using Project2Simulator.Instructions;
+using Project2Simulator.Registers;
 using System.Collections.Generic;
 
 namespace Project2Simulator.FetchDecode
@@ -37,9 +38,9 @@ namespace Project2Simulator.FetchDecode
 
 		public void IssueInstruction()
 		{
-
 			if (Instructions.Count < 1 || reorderBuffer.IsUncommittedBranchInstruction())
 				return;
+
 			Instruction newInstruction = Instructions.Peek();
 			if (newInstruction.FunctionalUnitType == FunctionalUnits.FunctionalUnitType.NULL)
 			{
@@ -49,12 +50,14 @@ namespace Project2Simulator.FetchDecode
 
 			if (reservationStations.HasFreeStation(newInstruction.FunctionalUnitType) == false || reorderBuffer.HasFreeSlot() == false)
 				return;
+
 			ReservationStation newStation = reservationStations.GetFreeStation(newInstruction.FunctionalUnitType);
 			ReorderBufferSlot newSlot = reorderBuffer.FreeSlot();
 
 			Instructions.Dequeue();
 			if (newInstruction.FunctionalUnitType == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT)
 				numBranchInstructions--;
+
 			newSlot.Ocupodo = true;
 			newSlot.DestRegId = newInstruction.Destination;
 			newSlot.DestRegId2 = newInstruction.Destination2;

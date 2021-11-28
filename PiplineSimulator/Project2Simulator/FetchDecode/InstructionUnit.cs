@@ -30,6 +30,15 @@ namespace Project2Simulator.FetchDecode
 
 		public void FetchDecode()
 		{
+			// We are fetching the fetch instruction after jnz for some reason. I don't know why, but we are. After that, adda was properly loaded as the program counter
+			// was committed. I think what it is is that the branch instruction because not occupied, so it can commit. As such, the IsUncommittedBranchInstruction() will
+			// return false because it is only checking if the branch instruction slot is unused.
+			// We need to figure out a better way of keeping tracking if something in the reorder buffer is not in use. Getting tired of the reorder buffer "stuff" and
+			// Just want to get things done. Thinking of just adding a boolean flag that says if it is in actual use to make things simplier. Maybe, Don't know anything
+			// at this point.
+			throw new System.Exception(); 
+
+
 			if (reorderBuffer.IsUncommittedBranchInstruction() || instructionQueue.HasBranchInstruction() || instructionQueue.IsFull())
 				return;
 

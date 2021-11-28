@@ -51,6 +51,8 @@ namespace Project2Simulator
 			bus.Flush();
 
 			reorderBuffer.CommitHead();
+			reservationStations.CheckDataBus();	// Workaround reservation stations reading from the reorder buffer
+			bus.Flush();						// Workaround reservation stations reading from the reorder buffer
 
 			reservationStations.Cycle();
 			reservationStations.CheckDataBus();

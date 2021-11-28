@@ -36,6 +36,11 @@ namespace Project2Simulator
             return Value.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
+
     }
 
 }

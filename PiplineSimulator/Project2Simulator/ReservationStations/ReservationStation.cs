@@ -69,7 +69,7 @@ namespace Project2Simulator.ReservationStations
 			}
 			else
             {
-				Values.Op1 = instruction.Op1;
+				Values.Op1 = new RegisterValue(instruction.Op1);
 				Values.Op1Present = true;
 				Values.Op1Src = null;
             }
@@ -93,7 +93,7 @@ namespace Project2Simulator.ReservationStations
 			}
 			else
 			{
-				Values.Op2 = instruction.Op2;
+				Values.Op2 = new RegisterValue(instruction.Op2);
 				Values.Op2Present = true;
 				Values.Op2Src = null;
 			}
@@ -117,7 +117,7 @@ namespace Project2Simulator.ReservationStations
 			}
 			else
 			{
-				Values.Op3 = instruction.Op3;
+				Values.Op3 = new RegisterValue(instruction.Op3);
 				Values.Op3Present = true;
 				Values.Op3Src = null;
 			}
@@ -152,17 +152,20 @@ namespace Project2Simulator.ReservationStations
 
 			if (Values.Op1Present == false && bus.ReorderID.Equals(Values.Op1Src))
 			{
-				Values.Op1 = bus.Value;
+				Values.Op1 = new RegisterValue(bus.Value);
+				Values.Op1Present = true;
 				Values.Op1Src = null;
 			}
 			if (Values.Op2Present == false && bus.ReorderID.Equals(Values.Op2Src))
 			{
-				Values.Op2 = bus.Value;
+				Values.Op2 = new RegisterValue(bus.Value);
+				Values.Op2Present = true;
 				Values.Op2Src = null;
 			}
 			if (Values.Op3Present == false && bus.ReorderID.Equals(Values.Op3Src))
 			{
-				Values.Op3 = bus.Value;
+				Values.Op3 = new RegisterValue(bus.Value);
+				Values.Op3Present = true;
 				Values.Op3Src = null;
 			}
 		}

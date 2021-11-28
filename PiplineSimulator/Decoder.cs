@@ -42,43 +42,23 @@ namespace Project2Simulator
 					CreatedInstruction = new Instruction(Opcode.NOP, null, null, null, null, null, new RegisterValue(0), new RegisterValue(0), new RegisterValue(0), null, FunctionalUnitType.NULL);
 					break;
 				case (ushort)Opcode.ADD:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.ADD, EncodedInstruction);
+				case (ushort)Opcode.SUB:
+				case (ushort)Opcode.AND:
+				case (ushort)Opcode.OR:
+				case (ushort)Opcode.NOR:
+				case (ushort)Opcode.XOR:
+				case (ushort)Opcode.SHL:
+				case (ushort)Opcode.SHR:
+				case (ushort)Opcode.SHAR:
+				case (ushort)Opcode.ROR:
+				case (ushort)Opcode.ROL:
+					CreatedInstruction = CreateArithmeticInstruction((Opcode)opCode, EncodedInstruction);
 					break;
 				case (ushort)Opcode.ADDC:
-					CreatedInstruction = CreateArithmeticInstructionFlags(Opcode.ADDC, EncodedInstruction);
-					break;
 				case (ushort)Opcode.SUBB:
-					CreatedInstruction = CreateArithmeticInstructionFlags(Opcode.SUBB, EncodedInstruction);
-					break;
-				case (ushort)Opcode.AND:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.AND, EncodedInstruction);
-					break;
-				case (ushort)Opcode.OR:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.OR, EncodedInstruction);
-					break;
-				case (ushort)Opcode.NOR:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.NOR, EncodedInstruction);
-					break;
-				case (ushort)Opcode.SHL:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.SHL, EncodedInstruction);
-					break;
-				case (ushort)Opcode.SHR:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.SHR, EncodedInstruction);
-					break;
-				case (ushort)Opcode.SHAR:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.SHAR, EncodedInstruction);
-					break;
-				case (ushort)Opcode.ROR:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.ROR, EncodedInstruction);
-					break;
-				case (ushort)Opcode.ROL:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.ROL, EncodedInstruction);
-					break;
 				case (ushort)Opcode.RORC:
-					CreatedInstruction = CreateArithmeticInstructionFlags(Opcode.RORC, EncodedInstruction);
-					break;
 				case (ushort)Opcode.ROLC:
-					CreatedInstruction = CreateArithmeticInstructionFlags(Opcode.ROLC, EncodedInstruction);
+					CreatedInstruction = CreateArithmeticInstructionFlags((Opcode)opCode, EncodedInstruction);
 					break;
 				case (ushort)Opcode.LOAD:
 					CreatedInstruction = CreateLoadInstruction(Opcode.LOAD, EncodedInstruction);
@@ -116,14 +96,11 @@ namespace Project2Simulator
 				case (ushort)Opcode.NEG:
 					CreatedInstruction = CreateNEGInstruction(EncodedInstruction);
 					break;
-				case (ushort)Opcode.XOR:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.XOR, EncodedInstruction);
-					break;
-				case (ushort)Opcode.SUB:
-					CreatedInstruction = CreateArithmeticInstruction(Opcode.SUB, EncodedInstruction);
-					break;
 				case (ushort)Opcode.HALT:
 					CreatedInstruction = new Instruction(Opcode.HALT, null, null, null, null, null, new RegisterValue(0), new RegisterValue(0), new RegisterValue(0), null, FunctionalUnitType.NULL);
+					break;
+				case (ushort)Opcode.FETCH:
+					CreatedInstruction = CreateFetchInstruction((Opcode)opCode, EncodedInstruction);
 					break;
 				case (ushort)Opcode.ADDA:
 				case (ushort)Opcode.SUBA:
@@ -214,7 +191,6 @@ namespace Project2Simulator
 		}
 
 
-		//Load is reusable for atomic fetch
 		private Instruction CreateLoadInstruction(Opcode opcode, uint encodedInstruction)
         {
 			ushort UpperBits = GetUpperBits(encodedInstruction);
@@ -472,11 +448,46 @@ namespace Project2Simulator
 					);
 		}
 
-		private Instruction CreateArithmeticInstructionAtomic(Opcode opcode, uint encodedInstruction)
+
+		private Instruction CreateFetchInstruction(Opcode opcode, uint encodedInstruction)
 		{
 			ushort UpperBits = GetUpperBits(encodedInstruction);
 			ushort LowerBits = GetLowerBits(encodedInstruction);
 			return new Instruction(
+				opcode,
+				new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+				null,
+				new RegisterID(UpperBits & Arith1RegOP),
+				null,
+				null,
+				new RegisterValue(0),
+				new RegisterValue(0),
+				new RegisterValue(0),
+				null,
+				OpcodeHelper.GetFunctionalUnitType(opcode)
+				);
+		}
+
+		private Instruction CreateArithmeticInstructionAtomic(Opcode opcode, uint encodedInstruction)
+		{
+			ushort UpperBits = GetUpperBits(encodedInstruction);
+			ushort LowerBits = GetLowerBits(encodedInstruction);
+			if (ImmediateBitSet(UpperBits))
+				return new Instruction(
+					opcode,
+					new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
+					null,
+					new RegisterID(UpperBits & Arith1RegOP),
+					null,
+					null,
+					new RegisterValue(0),
+					new RegisterValue(LowerBits),
+					new RegisterValue(0),
+					null,
+					OpcodeHelper.GetFunctionalUnitType(opcode)
+					);
+			else
+				return new Instruction(
 				opcode,
 				new RegisterID((int)(((uint)(UpperBits & ArithDestRegMask)) >> 4)),
 				null,

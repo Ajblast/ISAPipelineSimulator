@@ -16,9 +16,9 @@ namespace Project2Simulator
 
 		public void Write(ReorderBufferID id, RegisterValue value, RegisterValue value2, bool validValue2)
 		{
-			ReorderID = id;
-			Value = value;
-			Value2 = value2;
+			ReorderID = new ReorderBufferID(id);
+			Value = new RegisterValue(value);
+			Value2 = new RegisterValue(value2);
 			ValidValue2 = validValue2;
 
 			Valid = true;

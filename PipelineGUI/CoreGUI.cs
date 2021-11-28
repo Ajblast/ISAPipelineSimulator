@@ -39,6 +39,7 @@ namespace CoreGui
             );
 
         private readonly string ReorderLabel = String.Format(StringFormatService.GetReorderBufferSlotFormat(),
+            "Pos",
             "ID",
             "StID",
             "Occ",

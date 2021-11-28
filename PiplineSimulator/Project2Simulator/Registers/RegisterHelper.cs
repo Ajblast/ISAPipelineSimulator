@@ -19,13 +19,18 @@ namespace Project2Simulator.Registers
         RM,
         PC,
         SP,
-        FLAG
+        FG
     }
     public static class RegisterHelper
     {
         public static RegisterName StringToName(string name)
         {
             return (RegisterName)Enum.Parse(typeof(RegisterName), name, true);
+        }
+
+        public static string IDtoName(RegisterID ID)
+        {
+            return ((RegisterName)ID.ID).ToString();
         }
 
     }

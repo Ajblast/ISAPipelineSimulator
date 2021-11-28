@@ -84,7 +84,6 @@ namespace Project2Simulator.FunctionalUnits
                 default:
                     return false;
             }
-            throw new System.NotImplementedException();
         }
 
         private void Add()

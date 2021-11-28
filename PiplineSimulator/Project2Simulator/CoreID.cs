@@ -28,6 +28,11 @@ namespace Project2Simulator
             return ID.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return ID.ToString();
+        }
+
     }
 
 }

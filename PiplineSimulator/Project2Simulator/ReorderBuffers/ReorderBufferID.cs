@@ -16,14 +16,18 @@ namespace Project2Simulator.ReorderBuffers
 
         public override bool Equals(object obj)
         {
-
-            if (obj != null || obj.GetType() != this.GetType())
+            if ((obj == null) || this.GetType() != obj.GetType())
                 return false;
 
-            if (((ReorderBufferID) obj).BufferID == this.BufferID)
-                return true;
+            return ((ReorderBufferID) obj).BufferID == BufferID;
 
-            return false;
+            //if (obj != null || obj.GetType() != this.GetType())
+            //    return false;
+
+            //if (((ReorderBufferID) obj).BufferID == this.BufferID)
+            //    return true;
+
+            //return false;
         }
 
         public override int GetHashCode()

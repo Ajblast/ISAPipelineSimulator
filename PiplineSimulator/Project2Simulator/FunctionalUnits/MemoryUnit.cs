@@ -44,20 +44,53 @@ namespace Project2Simulator.FunctionalUnits
         {
             base.StartExecution(opcode, op1, op2, op3, address);
 
-            atomicStage = AtomicStage.NOP;
+            atomicStage = AtomicStage.LOAD;
         }
 
         public override bool Cycle()
         {
-            bool hasMemoryAccess = false;
+            // Increase the current cycle count
+            CurrentCycle++;
 
+            // Determine the lookup address
+            Address lookupAddress;
+            switch (opcode)
+            {
+                case Opcode.LOAD:
+                case Opcode.STOR:
+                case Opcode.FETCH:
+                    if (address == null)
+                        lookupAddress = new Address(op1.Value);
+                    else
+                        lookupAddress = address;
+                    break;
+                case Opcode.PUSH:
+                case Opcode.POP:
+                    lookupAddress = new Address(op1.Value);
+                    break;
+                case Opcode.ADDA:
+                case Opcode.SUBA:
+                case Opcode.ANDA:
+                case Opcode.ORA:
+                case Opcode.XORA:
+                case Opcode.CMPSW:
+                case Opcode.SWAP:
+                    lookupAddress = new Address(op1.Value);
+                    break;
+                default:
+                    lookupAddress = null;
+                    break;
+            }
+
+            // Determine memory access
+            bool hasMemoryAccess = false;
             switch (opcode)
             {
                 case Opcode.LOAD:
                 case Opcode.STOR:
                 case Opcode.PUSH:
                 case Opcode.POP:
-                    hasMemoryAccess = MMU.RequestMemory(core, address, false);
+                    hasMemoryAccess = MMU.RequestMemory(core, lookupAddress, false);
                     break;
 
                 case Opcode.FETCH:
@@ -68,7 +101,7 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.XORA:
                 case Opcode.CMPSW:
                 case Opcode.SWAP:
-                    hasMemoryAccess = MMU.RequestMemory(core, address, true);
+                    hasMemoryAccess = MMU.RequestMemory(core, lookupAddress, true);
                     break;
 
                 default:
@@ -78,17 +111,14 @@ namespace Project2Simulator.FunctionalUnits
             if (hasMemoryAccess == false)
                 return false;
 
+            // Do the stuff
             bool retValue = false;
-
             switch (opcode)
             {
                 case Opcode.LOAD:
                     if (CurrentCycle == cycleTimings.LoadMemory)
                     {
-                        if (address == null)
-                            dest1.Value = magicPerfectStupidCache.Load(new Address(op1.Value)).Value;   // Register
-                        else
-                            dest1.Value = magicPerfectStupidCache.Load(address).Value;                  // Immediate
+                        dest1.Value = magicPerfectStupidCache.Load(lookupAddress).Value;
 
                         retValue = true;
                     }
@@ -96,16 +126,8 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.STOR:
                     if (CurrentCycle == cycleTimings.StorMemory)
                     {
-                        if (address == null)
-                        {
-                            tempAddress = new Address(op1.Value);
-                            tempValue = op2;
-                        }
-                        else
-                        {
-                            tempAddress = new Address(address);
-                            tempValue = op2;
-                        }
+                        tempAddress = new Address(lookupAddress);
+                        tempValue = op2;
 
                         shouldWrite = true;
                         retValue = true;
@@ -114,8 +136,8 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.PUSH:
                     if (CurrentCycle == cycleTimings.StorMemory)
                     {
-                        dest1.Value = op1.Value - RegisterValue.ByteSize;
-                        tempAddress = new Address(op1.Value);
+                        dest1.Value = (uint) lookupAddress.Value - RegisterValue.ByteSize;
+                        tempAddress = new Address(lookupAddress);
                         tempValue = op2;
                     
                         shouldWrite = true;
@@ -125,8 +147,8 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.POP:
                     if (CurrentCycle == cycleTimings.LoadMemory)
                     {
-                        dest1.Value = magicPerfectStupidCache.Load(new Address(op1.Value)).Value;
-                        dest2.Value = op1.Value + RegisterValue.ByteSize;
+                        dest1.Value = magicPerfectStupidCache.Load(new Address(lookupAddress)).Value;
+                        dest2.Value = (uint) lookupAddress.Value + RegisterValue.ByteSize;
 
                         retValue = true;
                     }
@@ -135,10 +157,7 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.FETCH:  // Same Load
                     if (CurrentCycle == cycleTimings.AtomicLoadMemory)
                     {
-                        if (address == null)
-                            dest1.Value = magicPerfectStupidCache.Load(new Address(op1.Value)).Value;   // Register
-                        else
-                            dest1.Value = magicPerfectStupidCache.Load(address).Value;                  // Immediate
+                        dest1.Value = magicPerfectStupidCache.Load(new Address(lookupAddress)).Value;   // Register
 
                         retValue = true;
                     }
@@ -146,7 +165,7 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.ADDA:   // Same as Add
                     if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
                     {
-                        tempAddress = new Address(op1.Value);
+                        tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
                         CurrentCycle = 0;
 
@@ -171,7 +190,7 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.SUBA:
                     if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
                     {
-                        tempAddress = new Address(op1.Value);
+                        tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
                         CurrentCycle = 0;
 
@@ -196,7 +215,7 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.ANDA:
                     if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
                     {
-                        tempAddress = new Address(op1.Value);
+                        tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
                         CurrentCycle = 0;
 
@@ -220,7 +239,7 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.ORA:
                     if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
                     {
-                        tempAddress = new Address(op1.Value);
+                        tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
                         CurrentCycle = 0;
 
@@ -244,7 +263,7 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.XORA:
                     if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
                     {
-                        tempAddress = new Address(op1.Value);
+                        tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
                         CurrentCycle = 0;
 
@@ -269,7 +288,7 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.CMPSW:
                     if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
                     {
-                        tempAddress = new Address(op1.Value);
+                        tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
                         CurrentCycle = 0;
 
@@ -300,7 +319,7 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.SWAP:
                     if (atomicStage == AtomicStage.LOAD && CurrentCycle == cycleTimings.AtomicLoadMemory)
                     {
-                        tempAddress = new Address(op1.Value);
+                        tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
                         CurrentCycle = 0;
 
