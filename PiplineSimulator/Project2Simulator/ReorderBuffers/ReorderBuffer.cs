@@ -108,7 +108,7 @@ namespace Project2Simulator.ReorderBuffers
 
 		public bool IsUncommittedBranchInstruction()
         {
-			int slot = (Tail - 1) % bufferSize;
+			int slot = (Tail + bufferSize - 1) % bufferSize;
 			return bufferSlots[slot].Ocupodo == true && bufferSlots[slot].Instruction.FunctionalUnit.Type == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT;
 		}
     }

@@ -296,8 +296,8 @@ namespace Project2Simulator
 					null,
 					null,
 					null,
-					new RegisterValue(0),
 					new RegisterValue(LowerBits),
+					new RegisterValue(0),
 					new RegisterValue(0),
 					null,
 					OpcodeHelper.GetFunctionalUnitType(Opcode.MOV)
@@ -533,7 +533,7 @@ namespace Project2Simulator
 		private static ushort ExtractOpCode(uint EncodedInstruction)
         {
 			//I am using ASL due to c#, bitwise & produces int. Cast applies after all operations, so ASL should act as LSL
-			return (ushort)((uint)(EncodedInstruction & OpCodeMask) >> 25);
+			return (ushort)(((uint)(EncodedInstruction >> 16) & OpCodeMask) >> 9);
 
         }
 
