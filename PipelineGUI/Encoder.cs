@@ -318,7 +318,7 @@ namespace PipelineGUI
                             {
                                 int immediate;
 
-                                if (values[1][0].Equals("<"))
+                                if (values[1][0].Equals('<'))
                                 {
                                     string label = values[1].Substring(1, values[1].Length - 2);
 
@@ -326,7 +326,7 @@ namespace PipelineGUI
 
                                     immediate = labelPosition - counterPosition;        // What is the offset of the label from the current counter
                                 }
-                                else if (values[1][0].Equals("#"))
+                                else if (values[1][0].Equals('#'))
                                 {
                                     immediate = int.Parse(values[1].Substring(1));      // Just an immediate
                                 }
