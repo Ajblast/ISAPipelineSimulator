@@ -94,6 +94,20 @@ namespace Project2Simulator.ReorderBuffers
 			return bufferSlots[Tail];
 		}
 
+		public bool HasFreeSlot()
+        {
+			int nextSlot = (Tail + 1) % bufferSize;
+
+			if (bufferSlots[nextSlot].Ocupodo == true)
+			{
+				// Tail caught up to head. Structural Hazard
+				return false;
+			}
+
+			return true;
+
+		}
+
 		public void Flush()
 		{
 			throw new System.NotImplementedException("No speculative execution capabilities yet");
