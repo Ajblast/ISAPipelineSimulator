@@ -220,6 +220,7 @@ namespace Project2Simulator.ReservationStations
         public override string ToString()
         {
 			return string.Format(StringFormatService.GetReservationStationFormat(), 
+				StationID,
 				Busy.ToString(), 
 				Values.Opcode.ToString(),
 				(Values.Dest == null) ? "X":Values.Dest.BufferID.ToString(),

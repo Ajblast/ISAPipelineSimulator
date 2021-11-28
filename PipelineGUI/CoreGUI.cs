@@ -25,6 +25,7 @@ namespace CoreGui
         public List<string> ReorderBufferCache = new List<string>();
         public Core FormCore;
         private readonly string ResLabel = String.Format(StringFormatService.GetReservationStationFormat(), 
+            "ID",
             "Busy", 
             "Op",
             "Dest",

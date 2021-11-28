@@ -564,10 +564,10 @@ namespace CoreGui
             this.IntergerAdderResList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.IntergerAdderResList.FormattingEnabled = true;
             this.IntergerAdderResList.ItemHeight = 14;
-            this.IntergerAdderResList.Location = new System.Drawing.Point(916, 396);
+            this.IntergerAdderResList.Location = new System.Drawing.Point(1022, 396);
             this.IntergerAdderResList.Name = "IntergerAdderResList";
             this.IntergerAdderResList.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.IntergerAdderResList.Size = new System.Drawing.Size(456, 88);
+            this.IntergerAdderResList.Size = new System.Drawing.Size(507, 88);
             this.IntergerAdderResList.TabIndex = 67;
             // 
             // MovUnitResList
@@ -575,10 +575,10 @@ namespace CoreGui
             this.MovUnitResList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MovUnitResList.FormattingEnabled = true;
             this.MovUnitResList.ItemHeight = 14;
-            this.MovUnitResList.Location = new System.Drawing.Point(1373, 396);
+            this.MovUnitResList.Location = new System.Drawing.Point(512, 531);
             this.MovUnitResList.Name = "MovUnitResList";
             this.MovUnitResList.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.MovUnitResList.Size = new System.Drawing.Size(456, 88);
+            this.MovUnitResList.Size = new System.Drawing.Size(507, 88);
             this.MovUnitResList.TabIndex = 69;
             // 
             // label1
@@ -595,7 +595,7 @@ namespace CoreGui
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label25.Location = new System.Drawing.Point(602, 362);
+            this.label25.Location = new System.Drawing.Point(683, 362);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(164, 21);
             this.label25.TabIndex = 73;
@@ -605,7 +605,7 @@ namespace CoreGui
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label26.Location = new System.Drawing.Point(1028, 362);
+            this.label26.Location = new System.Drawing.Point(1171, 362);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(208, 21);
             this.label26.TabIndex = 75;
@@ -615,7 +615,7 @@ namespace CoreGui
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label27.Location = new System.Drawing.Point(1479, 362);
+            this.label27.Location = new System.Drawing.Point(689, 497);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(153, 21);
             this.label27.TabIndex = 76;
@@ -640,7 +640,7 @@ namespace CoreGui
             this.MemoryResList.Location = new System.Drawing.Point(2, 396);
             this.MemoryResList.Name = "MemoryResList";
             this.MemoryResList.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.MemoryResList.Size = new System.Drawing.Size(456, 88);
+            this.MemoryResList.Size = new System.Drawing.Size(507, 88);
             this.MemoryResList.TabIndex = 84;
             // 
             // label28
@@ -668,10 +668,10 @@ namespace CoreGui
             this.BranchResList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BranchResList.FormattingEnabled = true;
             this.BranchResList.ItemHeight = 14;
-            this.BranchResList.Location = new System.Drawing.Point(459, 396);
+            this.BranchResList.Location = new System.Drawing.Point(512, 396);
             this.BranchResList.Name = "BranchResList";
             this.BranchResList.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.BranchResList.Size = new System.Drawing.Size(456, 88);
+            this.BranchResList.Size = new System.Drawing.Size(507, 88);
             this.BranchResList.TabIndex = 87;
             // 
             // CoreIDLabel
@@ -690,7 +690,7 @@ namespace CoreGui
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1826, 586);
+            this.ClientSize = new System.Drawing.Size(1846, 641);
             this.Controls.Add(this.CoreIDLabel);
             this.Controls.Add(this.BranchResList);
             this.Controls.Add(this.label29);
