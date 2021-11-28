@@ -43,10 +43,10 @@ namespace CoreGui
             "Occ",
             "D1",
             "V1",
-            "Valid",
+            "Valid1",
             "D2",
             "V2",
-            "Valid"
+            "Valid2"
             );
          
         private readonly string InstructionLabel = String.Format(StringFormatService.GetInstructionFormat(),
