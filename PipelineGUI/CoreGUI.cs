@@ -127,22 +127,41 @@ namespace CoreGui
 
         private void UpdateRegisters()
         {
-            SetAndCompareTextBox(PCBox,Convert.ToString(FormCore.registerFile.PC.Value.Value, 16));
-            SetAndCompareTextBox(SPBox, Convert.ToString(FormCore.registerFile.SP.Value.Value, 16));
+            string formatString = "{0:X8}:{1:X4}";
 
-            SetAndCompareTextBox(rABox, Convert.ToString(FormCore.registerFile[0].Value.Value, 16));
-            SetAndCompareTextBox(rBBox, Convert.ToString(FormCore.registerFile[1].Value.Value, 16));
-            SetAndCompareTextBox(rCBox, Convert.ToString(FormCore.registerFile[2].Value.Value, 16));
-            SetAndCompareTextBox(rDBox, Convert.ToString(FormCore.registerFile[3].Value.Value, 16));
-            SetAndCompareTextBox(rEBox, Convert.ToString(FormCore.registerFile[4].Value.Value, 16));
-            SetAndCompareTextBox(rFBox, Convert.ToString(FormCore.registerFile[5].Value.Value, 16));
-            SetAndCompareTextBox(rGBox, Convert.ToString(FormCore.registerFile[6].Value.Value, 16));
-            SetAndCompareTextBox(rHBox, Convert.ToString(FormCore.registerFile[7].Value.Value, 16));
-            SetAndCompareTextBox(rIBox, Convert.ToString(FormCore.registerFile[8].Value.Value, 16));
-            SetAndCompareTextBox(rJBox, Convert.ToString(FormCore.registerFile[9].Value.Value, 16));
-            SetAndCompareTextBox(rKBox, Convert.ToString(FormCore.registerFile[10].Value.Value, 16));
-            SetAndCompareTextBox(rLBox, Convert.ToString(FormCore.registerFile[11].Value.Value, 16));
-            SetAndCompareTextBox(rMBox, Convert.ToString(FormCore.registerFile[12].Value.Value, 16));
+            //SetAndCompareTextBox(PCBox,Convert.ToString(FormCore.registerFile.PC.Value.Value, 16));
+            //SetAndCompareTextBox(SPBox, Convert.ToString(FormCore.registerFile.SP.Value.Value, 16));
+
+            //SetAndCompareTextBox(rABox, Convert.ToString(FormCore.registerFile[0].Value.Value, 16));
+            //SetAndCompareTextBox(rBBox, Convert.ToString(FormCore.registerFile[1].Value.Value, 16));
+            //SetAndCompareTextBox(rCBox, Convert.ToString(FormCore.registerFile[2].Value.Value, 16));
+            //SetAndCompareTextBox(rDBox, Convert.ToString(FormCore.registerFile[3].Value.Value, 16));
+            //SetAndCompareTextBox(rEBox, Convert.ToString(FormCore.registerFile[4].Value.Value, 16));
+            //SetAndCompareTextBox(rFBox, Convert.ToString(FormCore.registerFile[5].Value.Value, 16));
+            //SetAndCompareTextBox(rGBox, Convert.ToString(FormCore.registerFile[6].Value.Value, 16));
+            //SetAndCompareTextBox(rHBox, Convert.ToString(FormCore.registerFile[7].Value.Value, 16));
+            //SetAndCompareTextBox(rIBox, Convert.ToString(FormCore.registerFile[8].Value.Value, 16));
+            //SetAndCompareTextBox(rJBox, Convert.ToString(FormCore.registerFile[9].Value.Value, 16));
+            //SetAndCompareTextBox(rKBox, Convert.ToString(FormCore.registerFile[10].Value.Value, 16));
+            //SetAndCompareTextBox(rLBox, Convert.ToString(FormCore.registerFile[11].Value.Value, 16));
+            //SetAndCompareTextBox(rMBox, Convert.ToString(FormCore.registerFile[12].Value.Value, 16));
+
+            SetAndCompareTextBox(PCBox, string.Format(formatString, FormCore.registerFile.PC.Value.Value, FormCore.registerFile.PC.ReorderId == null ? "X" : FormCore.registerFile.PC.ReorderId));
+            SetAndCompareTextBox(SPBox, string.Format(formatString, FormCore.registerFile.SP.Value.Value, FormCore.registerFile.SP.ReorderId == null ? "X" : FormCore.registerFile.SP.ReorderId));
+
+            SetAndCompareTextBox(rABox, string.Format(formatString, FormCore.registerFile[ 0].Value.Value, FormCore.registerFile[ 0].ReorderId == null ? "X" : FormCore.registerFile[ 0].ReorderId));
+            SetAndCompareTextBox(rBBox, string.Format(formatString, FormCore.registerFile[ 1].Value.Value, FormCore.registerFile[ 1].ReorderId == null ? "X" : FormCore.registerFile[ 1].ReorderId));
+            SetAndCompareTextBox(rCBox, string.Format(formatString, FormCore.registerFile[ 2].Value.Value, FormCore.registerFile[ 2].ReorderId == null ? "X" : FormCore.registerFile[ 2].ReorderId));
+            SetAndCompareTextBox(rDBox, string.Format(formatString, FormCore.registerFile[ 3].Value.Value, FormCore.registerFile[ 3].ReorderId == null ? "X" : FormCore.registerFile[ 3].ReorderId));
+            SetAndCompareTextBox(rEBox, string.Format(formatString, FormCore.registerFile[ 4].Value.Value, FormCore.registerFile[ 4].ReorderId == null ? "X" : FormCore.registerFile[ 4].ReorderId));
+            SetAndCompareTextBox(rFBox, string.Format(formatString, FormCore.registerFile[ 5].Value.Value, FormCore.registerFile[ 5].ReorderId == null ? "X" : FormCore.registerFile[ 5].ReorderId));
+            SetAndCompareTextBox(rGBox, string.Format(formatString, FormCore.registerFile[ 6].Value.Value, FormCore.registerFile[ 6].ReorderId == null ? "X" : FormCore.registerFile[ 6].ReorderId));
+            SetAndCompareTextBox(rHBox, string.Format(formatString, FormCore.registerFile[ 7].Value.Value, FormCore.registerFile[ 7].ReorderId == null ? "X" : FormCore.registerFile[ 7].ReorderId));
+            SetAndCompareTextBox(rIBox, string.Format(formatString, FormCore.registerFile[ 8].Value.Value, FormCore.registerFile[ 8].ReorderId == null ? "X" : FormCore.registerFile[ 8].ReorderId));
+            SetAndCompareTextBox(rJBox, string.Format(formatString, FormCore.registerFile[ 9].Value.Value, FormCore.registerFile[ 9].ReorderId == null ? "X" : FormCore.registerFile[ 9].ReorderId));
+            SetAndCompareTextBox(rKBox, string.Format(formatString, FormCore.registerFile[10].Value.Value, FormCore.registerFile[10].ReorderId == null ? "X" : FormCore.registerFile[10].ReorderId));
+            SetAndCompareTextBox(rLBox, string.Format(formatString, FormCore.registerFile[11].Value.Value, FormCore.registerFile[11].ReorderId == null ? "X" : FormCore.registerFile[11].ReorderId));
+            SetAndCompareTextBox(rMBox, string.Format(formatString, FormCore.registerFile[12].Value.Value, FormCore.registerFile[12].ReorderId == null ? "X" : FormCore.registerFile[12].ReorderId));
 
             SetAndCompareTextBox(sBox, Convert.ToString((((uint)FormCore.registerFile.FLAG.Value.Value & 0x0010) >> 4), 2));
             SetAndCompareTextBox(oBox, Convert.ToString((((uint)FormCore.registerFile.FLAG.Value.Value & 0x0008) >> 3), 2));
