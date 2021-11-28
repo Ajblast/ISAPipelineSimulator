@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using CoreGui;
 using Project2Simulator;
 using Project2Simulator.FunctionalUnits;
+using Project2Simulator.Registers;
 using Project2Simulator.ReservationStations;
 
 namespace PipelineGUI
@@ -94,7 +95,7 @@ namespace PipelineGUI
                 pulledValue |= (uint) array[i + 2] << 8;
                 pulledValue |= (uint) array[i + 3] << 0;
 
-                Cpu.memory[i].Value = pulledValue;
+                Cpu.memory[i] = new RegisterValue(pulledValue);
             }
         }
 

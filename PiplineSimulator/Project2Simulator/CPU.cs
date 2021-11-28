@@ -16,7 +16,7 @@ namespace Project2Simulator
 		private MagicPerfectStupidCache magicPerfectStupidCache;
 		public MainMemory memory;
 
-		private const int coreCount = 2;
+		private const int coreCount = 1;
 
 		public CPU(ReservationStationCounts counts, MemoryCycleTimes memoryCycleTimes)
         {

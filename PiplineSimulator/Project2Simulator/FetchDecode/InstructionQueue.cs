@@ -47,10 +47,10 @@ namespace Project2Simulator.FetchDecode
 				return;
 			}
 
-			ReorderBufferSlot newSlot = reorderBuffer.FreeSlot();
-			ReservationStation newStation = reservationStations.GetFreeStation(newInstruction.FunctionalUnitType);
-			if (newSlot == null || newStation == null)
+			if (reservationStations.HasFreeStation(newInstruction.FunctionalUnitType) == false || reorderBuffer.HasFreeSlot() == false)
 				return;
+			ReservationStation newStation = reservationStations.GetFreeStation(newInstruction.FunctionalUnitType);
+			ReorderBufferSlot newSlot = reorderBuffer.FreeSlot();
 
 			Instructions.Dequeue();
 			if (newInstruction.FunctionalUnitType == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT)
