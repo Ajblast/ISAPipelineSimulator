@@ -82,7 +82,7 @@ namespace Project2Simulator.FunctionalUnits
                     Sub();
                     return true;
                 default:
-                    return true;
+                    return false;
             }
             throw new System.NotImplementedException();
         }

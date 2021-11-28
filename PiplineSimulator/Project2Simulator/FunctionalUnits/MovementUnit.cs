@@ -10,9 +10,19 @@ namespace Project2Simulator.FunctionalUnits
 
         public override bool Cycle()
         {
-            dest1.Value = op1.Value;
+            bool retValue = false;
+            switch (opcode)
+            {
+                case Instructions.Opcode.MOV:
+                    dest1.Value = op1.Value;
+                    retValue = true;
+                    break;
+                default:
 
-            return true;
+                    break;
+            }
+
+            return retValue;
         }
     }
 

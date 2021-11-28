@@ -29,6 +29,8 @@ namespace Project2Simulator.ReservationStations
 			this.bus = bus;
 
 			FunctionalUnit = FunctionalFactory.CreateUnit(bus, type, core);
+			FunctionalUnit.Flush();
+
 			StationID = id;
 			Values = new StationValues();
 			Values.Dest = null;
@@ -194,18 +196,10 @@ namespace Project2Simulator.ReservationStations
 		public void Commit()
 		{
 			AskedForCommit = false;
-			//dataBusControlUnit.Flush();
 
 			FunctionalUnit.Commit(Values.Dest);
-			Values = new StationValues();
-			Values.Op1 = new RegisterValue();
-			Values.Op2 = new RegisterValue();
-			Values.Op3 = new RegisterValue();
-			Values.Op1Present = false;
-			Values.Op2Present = false;
-			Values.Op3Present = false;
 
-			Busy = false;
+			FunctionalUnit.Flush();
 		}
 		public void Flush()
 		{

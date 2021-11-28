@@ -74,7 +74,7 @@ namespace Project2Simulator.FunctionalUnits
 			op2.Value = 0;
 			op3.Value = 0;
 
-			address.Value = 0;
+			address = new Address();
 
 			CurrentCycle = 0;
 

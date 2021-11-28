@@ -72,6 +72,9 @@ namespace Project2Simulator.ReorderBuffers
 				bufferSlots[Head].ValidValue = false;
 				bufferSlots[Head].ValidValue2 = false;
 
+				if (bufferSlots[Head].Instruction != null)
+					bufferSlots[Head].Instruction.Flush();
+
 				// Increment the head
 				Head = (Head + 1) % bufferSize;
 			}

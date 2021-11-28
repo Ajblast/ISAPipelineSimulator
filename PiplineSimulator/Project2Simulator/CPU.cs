@@ -24,13 +24,13 @@ namespace Project2Simulator
 			memory = new MainMemory(0x100000, true);
 			magicPerfectStupidCache = new MagicPerfectStupidCache(memory);
 
+			FunctionalFactory.Initialize(THEMMU, magicPerfectStupidCache, memoryCycleTimes);
+
 			cores = new Core[coreCount];
 			for (int i = 0; i < coreCount; i++)
             {
 				cores[i] = new Core(new CoreID(i), memory, counts);
             }
-
-			FunctionalFactory.Initialize(THEMMU, magicPerfectStupidCache, memoryCycleTimes);
         }
 		public void Cycle()
 		{
