@@ -100,7 +100,8 @@ namespace PipelineGUI
                     {
                         // Label
                         labels.Add(line.Substring(0, line.Length - 1));
-                        labelPositions.Add(line.Substring(0, line.Length - 1), counter + 4);
+                        labelPositions.Add(line.Substring(0, line.Length - 1), counter);
+                        continue;
                     }
                     else
                     {
