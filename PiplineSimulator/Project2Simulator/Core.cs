@@ -47,6 +47,7 @@ namespace Project2Simulator
 
 		public void Cycle()
 		{
+			dataBusControlUnit.Cycle();
 			bus.Flush();
 
 			reorderBuffer.CommitHead();

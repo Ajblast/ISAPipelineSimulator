@@ -185,7 +185,7 @@ namespace Project2Simulator.ReservationStations
 		public void Commit()
 		{
 			AskedForCommit = false;
-			dataBusControlUnit.Flush();
+			//dataBusControlUnit.Flush();
 
 			FunctionalUnit.Commit(Values.Dest);
 			Values = new StationValues();
