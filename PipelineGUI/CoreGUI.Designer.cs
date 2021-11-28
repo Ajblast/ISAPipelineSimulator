@@ -794,6 +794,7 @@ namespace CoreGui
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.FlagLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "CoreGUI";
             this.Text = "ISA Debugger";
