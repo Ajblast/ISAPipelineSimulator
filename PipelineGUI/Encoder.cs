@@ -126,6 +126,9 @@ namespace PipelineGUI
             int counter = 0;
             while ((line = intermediaryStream.ReadLine()) != null)
             {
+                if (labelPositions.ContainsValue(counter) == true)
+                    continue;
+
                 uint temp = BuildInstruction(line, counter);
                 output.Write((byte)((temp & 0xFF000000) >> 24));
                 output.Write((byte)((temp & 0x00FF0000) >> 16));
