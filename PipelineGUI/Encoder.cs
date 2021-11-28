@@ -126,7 +126,7 @@ namespace PipelineGUI
             int counter = 0;
             while ((line = intermediaryStream.ReadLine()) != null)
             {
-                if (labelPositions.ContainsValue(counter) == true)
+                if (labels.Contains(line.Substring(0, line.Length - 1)))
                     continue;
 
                 uint temp = BuildInstruction(line, counter);
