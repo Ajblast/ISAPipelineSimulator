@@ -100,7 +100,7 @@ namespace PipelineGUI
                     {
                         // Label
                         labels.Add(line.Substring(0, line.Length - 1));
-                        labelPositions.Add(line.Substring(0, line.Length - 1), counter);
+                        labelPositions.Add(line.Substring(0, line.Length - 1), counter + 4);
                     }
                     else
                     {
@@ -111,7 +111,7 @@ namespace PipelineGUI
 
                 }
 
-                counter += 32;
+                counter += 4;
             }
 
             intermediaryStream.Close();
@@ -135,7 +135,7 @@ namespace PipelineGUI
                 output.Write((byte)((temp & 0x0000FF00) >> 8));
                 output.Write((byte)((temp & 0x000000FF) >> 0));
 
-                counter += 32;
+                counter += 4;
             }
         }
 
