@@ -91,10 +91,9 @@ namespace PipelineGUI
             Encoder.Encode(assemblyFilePath, binaryInFilePath);
 
             InstallBinary(binaryInFilePath);
+
+            UpdateLookup();
         }
-
-
-
         private void ImportBinaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -110,6 +109,8 @@ namespace PipelineGUI
             string binaryInFilePath = openFileDialog.FileName;
 
             InstallBinary(binaryInFilePath);
+
+            UpdateLookup();
         }
 
         private void InstallBinary(string binaryFilepath)
@@ -195,10 +196,7 @@ namespace PipelineGUI
 
         private void CoreStep()
         {
-            foreach (Core core in Cpu.GetCores())
-            {
-                core.Cycle();
-            }
+            Cpu.Cycle();
 
             // Update Visuals
             foreach (CoreGUI Gui in CoreGUIs)

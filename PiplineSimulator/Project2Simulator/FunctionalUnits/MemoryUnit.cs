@@ -127,7 +127,7 @@ namespace Project2Simulator.FunctionalUnits
                     if (CurrentCycle == cycleTimings.StorMemory)
                     {
                         tempAddress = new Address(lookupAddress);
-                        tempValue = op2;
+                        tempValue.Value = op2.Value;
 
                         shouldWrite = true;
                         retValue = true;
@@ -138,7 +138,7 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         dest1.Value = (uint) lookupAddress.Value - RegisterValue.ByteSize;
                         tempAddress = new Address(lookupAddress);
-                        tempValue = op2;
+                        tempValue.Value = op2.Value;
                     
                         shouldWrite = true;
                         retValue = true;
@@ -167,6 +167,7 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        dest1.Value = tempValue.Value;
                         CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
@@ -192,6 +193,7 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        dest1.Value = tempValue.Value;
                         CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
@@ -217,6 +219,7 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        dest1.Value = tempValue.Value;
                         CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
@@ -241,6 +244,7 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        dest1.Value = tempValue.Value;
                         CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
@@ -265,6 +269,7 @@ namespace Project2Simulator.FunctionalUnits
                     {
                         tempAddress = new Address(lookupAddress);
                         tempValue.Value = magicPerfectStupidCache.Load(tempAddress).Value;
+                        dest1.Value = tempValue.Value;
                         CurrentCycle = 0;
 
                         atomicStage = AtomicStage.EXECUTE;
