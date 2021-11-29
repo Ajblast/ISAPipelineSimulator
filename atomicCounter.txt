@@ -1,6 +1,6 @@
 mov rA, #500 		//0
 mov rB, #0		//4
-mov rC, #90000		//8
+mov rC, #500		//8
 loopStart:		//12
 adda rD, rC, #1        	//12	 Atomic add
 add rB, rB, #1        	//16 Increment counter
