@@ -18,7 +18,8 @@ namespace Project2Simulator.FunctionalUnits
 		INTEGER_MULTIPLIER,
 		[Description("MOV")]
 		MOVEMENT_UNIT,
-		ILLEGAL
+		ILLEGAL,
+		HALT
 	}
 
 }
