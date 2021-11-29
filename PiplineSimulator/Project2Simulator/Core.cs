@@ -34,11 +34,6 @@ namespace Project2Simulator
 			registerFile = new RegisterFile();
 
 			reorderBuffer = new ReorderBuffer(registerFile, bus, reorderBufferSize);
-
-			//counts.MemoryUnit = 1;
-			//counts.BranchUnit = 1;
-			//counts.IntegerAdder = 1;
-			//counts.MovementUnit = 1;
 			reservationStations = new Stations(registerFile, counts, bus, dataBusControlUnit, coreID);
 
 			instructionQueue = new InstructionQueue(reservationStations, reorderBuffer, 8);

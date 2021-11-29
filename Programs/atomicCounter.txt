@@ -7,3 +7,4 @@ add rB, rB, #1        	//16 Increment counter
 cmp rA, rB        	//20 Compare coundter and range
 jnz <loopStart>        	//24 Branch to the start of the loop if the counter is not equal
 fetch rE, rC        	//28 Load the atomic value into a register
+halt
