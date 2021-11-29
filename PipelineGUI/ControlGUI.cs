@@ -162,8 +162,10 @@ namespace PipelineGUI
             if (IsRunning == true)
                 return;
 
+            IsRunning = true;
             Stop = false;
             Thread t = new Thread(new ThreadStart(RunCores));
+            t.Start();
         }
         
         private void RunCores()
@@ -173,7 +175,7 @@ namespace PipelineGUI
             // You could also just ignore this because this project is stupid at this point, and just keep it at 1 second between updates.
             // Only reason I suggest this is when we show off the project, own personal demonstration could use the 1 second, then we could make it like 1 ms when doing the
             // the big demonstration.
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
             while (Stop == false)
             {
@@ -182,6 +184,8 @@ namespace PipelineGUI
                 // The thread needs to sleep otherwise it will just go turbo
                 Thread.Sleep(threadSleepMS);
             }
+
+            IsRunning = false;
         }
 
         private void StopButton_Click(object sender, EventArgs e)

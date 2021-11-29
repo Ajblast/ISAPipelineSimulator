@@ -1,11 +1,7 @@
 mov ra, #5
-mov rb, #50
+mov rb, #200
 
 stor rb, ra
-adda rc, rb, #1
-adda rc, rb, #1
-adda rc, rb, #1
-adda rc, rb, #1
 adda rc, rb, #1
 adda rc, rb, #1
 adda rc, rb, #1

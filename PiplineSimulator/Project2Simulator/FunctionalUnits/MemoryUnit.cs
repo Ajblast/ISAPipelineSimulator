@@ -49,9 +49,6 @@ namespace Project2Simulator.FunctionalUnits
 
         public override bool Cycle()
         {
-            // Increase the current cycle count
-            CurrentCycle++;
-
             // Determine the lookup address
             Address lookupAddress;
             switch (opcode)
@@ -110,6 +107,9 @@ namespace Project2Simulator.FunctionalUnits
 
             if (hasMemoryAccess == false)
                 return false;
+
+            // Increase the current cycle count
+            CurrentCycle++;
 
             // Do the stuff
             bool retValue = false;
@@ -355,11 +355,17 @@ namespace Project2Simulator.FunctionalUnits
             return retValue;
         }
 
-        public override void Flush()
+        public override void Reset()
         {
+            base.Reset();
+
             tempValue = new RegisterValue();
             tempAddress = new Address();
             shouldWrite = false;
+        }
+        public override void Flush()
+        {
+            Reset();
 
             MMU.RemoveAtomic(core);
             base.Flush();
