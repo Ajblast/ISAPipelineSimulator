@@ -3,3 +3,4 @@ add rA, rA, #0	// 0
 add rB, rB, #1	// 4
 add rC, rC, #1	// 8
 jmp <loop>	// 16
+halt

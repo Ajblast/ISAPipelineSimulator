@@ -40,9 +40,9 @@ namespace Project2Simulator.FunctionalUnits
             cycleTimings = cycleTimes;
         }
 
-        public override void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3, Address address)
+        public override void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3, RegisterID dest1Reg, RegisterID dest2Reg, Address address)
         {
-            base.StartExecution(opcode, op1, op2, op3, address);
+            base.StartExecution(opcode, op1, op2, op3, dest1Reg, dest2Reg, address);
 
             atomicStage = AtomicStage.LOAD;
         }

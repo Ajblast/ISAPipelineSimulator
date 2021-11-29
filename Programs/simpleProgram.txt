@@ -1,1 +1,2 @@
 mov rA, #500
+halt

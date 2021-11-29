@@ -58,14 +58,14 @@ namespace Project2Simulator.ReorderBuffers
 			// TODO: Change from valid value to the speculative execution tracker
             if (bufferSlots[Head].Ocupodo == false && bufferSlots[Head].ValidValue == true)
 			{
-                if (bufferSlots[Head].DestRegId != null && bufferSlots[Head].ValidValue)
+                if (bufferSlots[Head].DestRegId != null && bufferSlots[Head].ValidValue && registerFile[bufferSlots[Head].DestRegId.ID].ReorderId.Equals(bufferSlots[Head].ReorderBufferID))
                 {
 					registerFile[bufferSlots[Head].DestRegId.ID].Value = new RegisterValue(bufferSlots[Head].Value);
 					registerFile[bufferSlots[Head].DestRegId.ID].Busy = false;
 					registerFile[bufferSlots[Head].DestRegId.ID].ReorderId = null;
 				}
 
-                if (bufferSlots[Head].DestRegId2 != null && bufferSlots[Head].ValidValue2)
+                if (bufferSlots[Head].DestRegId2 != null && bufferSlots[Head].ValidValue2 && registerFile[bufferSlots[Head].DestRegId2.ID].ReorderId.Equals(bufferSlots[Head].ReorderBufferID))
                 {
 					registerFile[bufferSlots[Head].DestRegId2.ID].Value = new RegisterValue(bufferSlots[Head].Value2);
 					registerFile[bufferSlots[Head].DestRegId2.ID].Busy = false;
@@ -78,7 +78,9 @@ namespace Project2Simulator.ReorderBuffers
 					THECommonDataBus.Write(
 						bufferSlots[Head].ReorderBufferID,
 						bufferSlots[Head].Value,
+						bufferSlots[Head].DestRegId,
 						bufferSlots[Head].Value2,
+						bufferSlots[Head].DestRegId2,
 						bufferSlots[Head].ValidValue2
 						);
 

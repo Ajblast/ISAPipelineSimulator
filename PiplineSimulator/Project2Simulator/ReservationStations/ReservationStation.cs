@@ -64,6 +64,7 @@ namespace Project2Simulator.ReservationStations
 				else
                 {
 					Values.Op1Present = false;
+					Values.Op1Reg = new RegisterID(instruction.Op1Reg);
 					Values.Op1Src = new ReorderBufferID(op1ID);
                 }
 			}
@@ -72,55 +73,61 @@ namespace Project2Simulator.ReservationStations
 				Values.Op1 = new RegisterValue(instruction.Op1);
 				Values.Op1Present = true;
 				Values.Op1Src = null;
-            }
-
+				Values.Op1Reg = null;
+            }	
+			
 			// Check if op2 uses the register file
 			if (instruction.Op2Reg != null)
 			{
 				// Check the register file busy flag
 				ReorderBufferID op2ID = registerFile[instruction.Op2Reg.ID].ReorderId;
 				if (op2ID == null)
-				{
+                {
 					Values.Op2 = new RegisterValue(registerFile[instruction.Op2Reg.ID].Value);
 					Values.Op2Present = true;
 					Values.Op2Src = null;
-				}
+                }
 				else
-				{
+                {
 					Values.Op2Present = false;
+					Values.Op2Reg = new RegisterID(instruction.Op2Reg);
 					Values.Op2Src = new ReorderBufferID(op2ID);
-				}
+                }
 			}
 			else
-			{
+            {
 				Values.Op2 = new RegisterValue(instruction.Op2);
 				Values.Op2Present = true;
 				Values.Op2Src = null;
-			}
-
+				Values.Op2Reg = null;
+            }	
+			
 			// Check if op3 uses the register file
 			if (instruction.Op3Reg != null)
 			{
 				// Check the register file busy flag
 				ReorderBufferID op3ID = registerFile[instruction.Op3Reg.ID].ReorderId;
 				if (op3ID == null)
-				{
+                {
 					Values.Op3 = new RegisterValue(registerFile[instruction.Op3Reg.ID].Value);
 					Values.Op3Present = true;
 					Values.Op3Src = null;
-				}
+                }
 				else
-				{
+                {
 					Values.Op3Present = false;
+					Values.Op3Reg = new RegisterID(instruction.Op3Reg);
 					Values.Op3Src = new ReorderBufferID(op3ID);
-				}
+                }
 			}
 			else
-			{
+            {
 				Values.Op3 = new RegisterValue(instruction.Op3);
 				Values.Op3Present = true;
 				Values.Op3Src = null;
-			}
+				Values.Op3Reg = null;
+            }
+
 
 			// Get the address from the instruction
 			Values.Addr = instruction.Address;
@@ -129,11 +136,17 @@ namespace Project2Simulator.ReservationStations
 
 			// If the destination is valid, set it as used
 			if (instruction.Destination != null)
+			{
 				registerFile[instruction.Destination.ID].ReorderId = new ReorderBufferID(id);
-			
+				Values.Dest1Reg = new RegisterID(instruction.Destination);
+			}
+
 			// If the destination 2 is valid, set it as used
 			if (instruction.Destination2 != null)
+			{
 				registerFile[instruction.Destination2.ID].ReorderId = new ReorderBufferID(id);
+				Values.Dest2Reg = new RegisterID(instruction.Destination2);
+			}
 
 			Busy = true;
 
@@ -151,19 +164,31 @@ namespace Project2Simulator.ReservationStations
 
 			if (Values.Op1Present == false && bus.ReorderID.Equals(Values.Op1Src))
 			{
-				Values.Op1 = new RegisterValue(bus.Value);
+				if (bus.ValueRegister.Equals(Values.Op1Reg))
+					Values.Op1 = new RegisterValue(bus.Value);
+				else if (bus.Value2Register.Equals(Values.Op1Reg) && bus.ValidValue2)
+					Values.Op1 = new RegisterValue(bus.Value2);
+
 				Values.Op1Present = true;
 				Values.Op1Src = null;
 			}
 			if (Values.Op2Present == false && bus.ReorderID.Equals(Values.Op2Src))
 			{
-				Values.Op2 = new RegisterValue(bus.Value);
+				if (bus.ValueRegister.Equals(Values.Op2Reg))
+					Values.Op2 = new RegisterValue(bus.Value);
+				else if (bus.Value2Register.Equals(Values.Op2Reg) && bus.ValidValue2)
+					Values.Op2 = new RegisterValue(bus.Value2);
+
 				Values.Op2Present = true;
 				Values.Op2Src = null;
 			}
 			if (Values.Op3Present == false && bus.ReorderID.Equals(Values.Op3Src))
 			{
-				Values.Op3 = new RegisterValue(bus.Value);
+				if (bus.ValueRegister.Equals(Values.Op3Reg))
+					Values.Op3 = new RegisterValue(bus.Value);
+				else if (bus.Value2Register.Equals(Values.Op3Reg) && bus.ValidValue2)
+					Values.Op3 = new RegisterValue(bus.Value2);
+
 				Values.Op3Present = true;
 				Values.Op3Src = null;
 			}
@@ -183,7 +208,7 @@ namespace Project2Simulator.ReservationStations
 					return;
 
 				if (FunctionalUnit.Executing == false)
-					FunctionalUnit.StartExecution(Values.Opcode, Values.Op1, Values.Op2, Values.Op3, Values.Addr);
+					FunctionalUnit.StartExecution(Values.Opcode, Values.Op1, Values.Op2, Values.Op3, Values.Dest1Reg, Values.Dest2Reg, Values.Addr);
 
 				// Cycle the functional unit
 				if (FunctionalUnit.Cycle())

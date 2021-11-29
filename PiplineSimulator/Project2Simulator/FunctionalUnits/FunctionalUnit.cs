@@ -16,9 +16,14 @@ namespace Project2Simulator.FunctionalUnits
 		protected CoreID core;
 
 		protected Opcode opcode;
+
+
 		protected RegisterValue op1;
 		protected RegisterValue op2;	// Immediate values are stored here
 		protected RegisterValue op3;
+
+		private RegisterID dest1Reg;
+		private RegisterID dest2Reg;
 
 		protected RegisterValue dest1;
 		protected RegisterValue dest2;
@@ -47,12 +52,15 @@ namespace Project2Simulator.FunctionalUnits
 			CurrentCycle = 0;
 		}
 
-		public virtual void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3, Address addr)
+		public virtual void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3, RegisterID dest1Reg, RegisterID dest2Reg, Address addr)
         {
 			this.opcode = opcode;
 			this.op1 = new RegisterValue(op1);
 			this.op2 = new RegisterValue(op2);
 			this.op3 = new RegisterValue(op3);
+
+			this.dest1Reg = new RegisterID(dest1Reg);
+			this.dest2Reg = new RegisterID(dest2Reg);
 
 			dest1 = new RegisterValue();
 			dest2 = new RegisterValue();
@@ -83,7 +91,7 @@ namespace Project2Simulator.FunctionalUnits
 
 		public virtual void Commit(ReorderBufferID id)
         {
-			bus.Write(id, dest1, dest2, dest2Valid);
+			bus.Write(id, dest1, dest1Reg, dest2, dest2Reg, dest2Valid);
         }
 
 	}

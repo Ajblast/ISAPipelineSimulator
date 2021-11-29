@@ -12,7 +12,8 @@ namespace Project2Simulator.Registers
         }
         public RegisterID(RegisterID other)
         {
-            ID = other.ID;
+            if (other != null)
+                ID = other.ID;
         }
 
         public override bool Equals(object obj)
