@@ -177,7 +177,6 @@ namespace PipelineGUI
             this.label1.Size = new System.Drawing.Size(66, 21);
             this.label1.TabIndex = 11;
             this.label1.Text = "Address";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // StopButton
             // 
@@ -229,7 +228,6 @@ namespace PipelineGUI
             this.label2.Size = new System.Drawing.Size(48, 21);
             this.label2.TabIndex = 19;
             this.label2.Text = "Value";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // Lookup6Output
             // 
