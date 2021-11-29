@@ -84,13 +84,15 @@ namespace CoreGui
             this.label29 = new System.Windows.Forms.Label();
             this.BranchResList = new System.Windows.Forms.ListBox();
             this.CoreIDLabel = new System.Windows.Forms.Label();
+            this.waitingBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // FlagLabel
             // 
             this.FlagLabel.AutoSize = true;
             this.FlagLabel.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FlagLabel.Location = new System.Drawing.Point(1654, 16);
+            this.FlagLabel.Location = new System.Drawing.Point(1548, 13);
             this.FlagLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FlagLabel.Name = "FlagLabel";
             this.FlagLabel.Size = new System.Drawing.Size(65, 21);
@@ -101,7 +103,7 @@ namespace CoreGui
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(1717, 16);
+            this.label4.Location = new System.Drawing.Point(1628, 9);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(21, 21);
@@ -112,7 +114,7 @@ namespace CoreGui
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(1755, 16);
+            this.label5.Location = new System.Drawing.Point(1666, 9);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(21, 21);
@@ -123,18 +125,19 @@ namespace CoreGui
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(1792, 16);
+            this.label6.Location = new System.Drawing.Point(1496, 9);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(32, 21);
             this.label6.TabIndex = 12;
             this.label6.Text = "EQ";
+            this.label6.Visible = false;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(1842, 16);
+            this.label7.Location = new System.Drawing.Point(1714, 9);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(21, 21);
@@ -145,7 +148,7 @@ namespace CoreGui
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(1884, 16);
+            this.label8.Location = new System.Drawing.Point(1756, 9);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(21, 21);
@@ -156,7 +159,7 @@ namespace CoreGui
             // 
             this.sBox.BackColor = System.Drawing.SystemColors.Window;
             this.sBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sBox.Location = new System.Drawing.Point(1719, 51);
+            this.sBox.Location = new System.Drawing.Point(1630, 44);
             this.sBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.sBox.Name = "sBox";
             this.sBox.ReadOnly = true;
@@ -167,7 +170,7 @@ namespace CoreGui
             // 
             this.oBox.BackColor = System.Drawing.SystemColors.Window;
             this.oBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.oBox.Location = new System.Drawing.Point(1759, 51);
+            this.oBox.Location = new System.Drawing.Point(1670, 44);
             this.oBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.oBox.Name = "oBox";
             this.oBox.ReadOnly = true;
@@ -178,18 +181,19 @@ namespace CoreGui
             // 
             this.eqBox.BackColor = System.Drawing.SystemColors.Window;
             this.eqBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.eqBox.Location = new System.Drawing.Point(1800, 51);
+            this.eqBox.Location = new System.Drawing.Point(1504, 44);
             this.eqBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.eqBox.Name = "eqBox";
             this.eqBox.ReadOnly = true;
             this.eqBox.Size = new System.Drawing.Size(23, 29);
             this.eqBox.TabIndex = 17;
+            this.eqBox.Visible = false;
             // 
             // zBox
             // 
             this.zBox.BackColor = System.Drawing.SystemColors.Window;
             this.zBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.zBox.Location = new System.Drawing.Point(1841, 51);
+            this.zBox.Location = new System.Drawing.Point(1713, 44);
             this.zBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.zBox.Name = "zBox";
             this.zBox.ReadOnly = true;
@@ -200,7 +204,7 @@ namespace CoreGui
             // 
             this.cBox.BackColor = System.Drawing.SystemColors.Window;
             this.cBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cBox.Location = new System.Drawing.Point(1883, 51);
+            this.cBox.Location = new System.Drawing.Point(1755, 44);
             this.cBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cBox.Name = "cBox";
             this.cBox.ReadOnly = true;
@@ -211,7 +215,7 @@ namespace CoreGui
             // 
             this.PCBox.BackColor = System.Drawing.SystemColors.Window;
             this.PCBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PCBox.Location = new System.Drawing.Point(1538, 68);
+            this.PCBox.Location = new System.Drawing.Point(1538, 101);
             this.PCBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.PCBox.Name = "PCBox";
             this.PCBox.ReadOnly = true;
@@ -222,7 +226,7 @@ namespace CoreGui
             // 
             this.SPBox.BackColor = System.Drawing.SystemColors.Window;
             this.SPBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SPBox.Location = new System.Drawing.Point(1538, 100);
+            this.SPBox.Location = new System.Drawing.Point(1538, 133);
             this.SPBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.SPBox.Name = "SPBox";
             this.SPBox.ReadOnly = true;
@@ -233,7 +237,7 @@ namespace CoreGui
             // 
             this.rLBox.BackColor = System.Drawing.SystemColors.Window;
             this.rLBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rLBox.Location = new System.Drawing.Point(1759, 260);
+            this.rLBox.Location = new System.Drawing.Point(1759, 293);
             this.rLBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rLBox.Name = "rLBox";
             this.rLBox.ReadOnly = true;
@@ -244,7 +248,7 @@ namespace CoreGui
             // 
             this.rABox.BackColor = System.Drawing.SystemColors.Window;
             this.rABox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rABox.Location = new System.Drawing.Point(1538, 132);
+            this.rABox.Location = new System.Drawing.Point(1538, 165);
             this.rABox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rABox.Name = "rABox";
             this.rABox.ReadOnly = true;
@@ -255,7 +259,7 @@ namespace CoreGui
             // 
             this.rBBox.BackColor = System.Drawing.SystemColors.Window;
             this.rBBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rBBox.Location = new System.Drawing.Point(1538, 164);
+            this.rBBox.Location = new System.Drawing.Point(1538, 197);
             this.rBBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rBBox.Name = "rBBox";
             this.rBBox.ReadOnly = true;
@@ -266,7 +270,7 @@ namespace CoreGui
             // 
             this.rCBox.BackColor = System.Drawing.SystemColors.Window;
             this.rCBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rCBox.Location = new System.Drawing.Point(1538, 196);
+            this.rCBox.Location = new System.Drawing.Point(1538, 229);
             this.rCBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rCBox.Name = "rCBox";
             this.rCBox.ReadOnly = true;
@@ -277,7 +281,7 @@ namespace CoreGui
             // 
             this.rEBox.BackColor = System.Drawing.SystemColors.Window;
             this.rEBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rEBox.Location = new System.Drawing.Point(1538, 260);
+            this.rEBox.Location = new System.Drawing.Point(1538, 293);
             this.rEBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rEBox.Name = "rEBox";
             this.rEBox.ReadOnly = true;
@@ -288,7 +292,7 @@ namespace CoreGui
             // 
             this.rFBox.BackColor = System.Drawing.SystemColors.Window;
             this.rFBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rFBox.Location = new System.Drawing.Point(1538, 292);
+            this.rFBox.Location = new System.Drawing.Point(1538, 325);
             this.rFBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rFBox.Name = "rFBox";
             this.rFBox.ReadOnly = true;
@@ -299,7 +303,7 @@ namespace CoreGui
             // 
             this.rGBox.BackColor = System.Drawing.SystemColors.Window;
             this.rGBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rGBox.Location = new System.Drawing.Point(1759, 100);
+            this.rGBox.Location = new System.Drawing.Point(1759, 133);
             this.rGBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rGBox.Name = "rGBox";
             this.rGBox.ReadOnly = true;
@@ -310,7 +314,7 @@ namespace CoreGui
             // 
             this.rHBox.BackColor = System.Drawing.SystemColors.Window;
             this.rHBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rHBox.Location = new System.Drawing.Point(1759, 132);
+            this.rHBox.Location = new System.Drawing.Point(1759, 165);
             this.rHBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rHBox.Name = "rHBox";
             this.rHBox.ReadOnly = true;
@@ -321,7 +325,7 @@ namespace CoreGui
             // 
             this.rIBox.BackColor = System.Drawing.SystemColors.Window;
             this.rIBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rIBox.Location = new System.Drawing.Point(1759, 164);
+            this.rIBox.Location = new System.Drawing.Point(1759, 197);
             this.rIBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rIBox.Name = "rIBox";
             this.rIBox.ReadOnly = true;
@@ -332,7 +336,7 @@ namespace CoreGui
             // 
             this.rJBox.BackColor = System.Drawing.SystemColors.Window;
             this.rJBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rJBox.Location = new System.Drawing.Point(1759, 196);
+            this.rJBox.Location = new System.Drawing.Point(1759, 229);
             this.rJBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rJBox.Name = "rJBox";
             this.rJBox.ReadOnly = true;
@@ -343,7 +347,7 @@ namespace CoreGui
             // 
             this.rKBox.BackColor = System.Drawing.SystemColors.Window;
             this.rKBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rKBox.Location = new System.Drawing.Point(1759, 228);
+            this.rKBox.Location = new System.Drawing.Point(1759, 261);
             this.rKBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rKBox.Name = "rKBox";
             this.rKBox.ReadOnly = true;
@@ -354,7 +358,7 @@ namespace CoreGui
             // 
             this.rMBox.BackColor = System.Drawing.SystemColors.Window;
             this.rMBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rMBox.Location = new System.Drawing.Point(1759, 292);
+            this.rMBox.Location = new System.Drawing.Point(1759, 325);
             this.rMBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rMBox.Name = "rMBox";
             this.rMBox.ReadOnly = true;
@@ -365,7 +369,7 @@ namespace CoreGui
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(1495, 71);
+            this.label12.Location = new System.Drawing.Point(1495, 104);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(32, 21);
@@ -376,7 +380,7 @@ namespace CoreGui
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(1495, 103);
+            this.label13.Location = new System.Drawing.Point(1495, 136);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(32, 21);
@@ -387,7 +391,7 @@ namespace CoreGui
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(1720, 263);
+            this.label14.Location = new System.Drawing.Point(1720, 296);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(32, 21);
@@ -398,7 +402,7 @@ namespace CoreGui
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(1498, 135);
+            this.label3.Location = new System.Drawing.Point(1498, 168);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 21);
@@ -409,7 +413,7 @@ namespace CoreGui
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label15.Location = new System.Drawing.Point(1498, 167);
+            this.label15.Location = new System.Drawing.Point(1498, 200);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(32, 21);
@@ -420,7 +424,7 @@ namespace CoreGui
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label16.Location = new System.Drawing.Point(1498, 199);
+            this.label16.Location = new System.Drawing.Point(1498, 232);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(32, 21);
@@ -431,7 +435,7 @@ namespace CoreGui
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label17.Location = new System.Drawing.Point(1498, 263);
+            this.label17.Location = new System.Drawing.Point(1498, 296);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(32, 21);
@@ -442,7 +446,7 @@ namespace CoreGui
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label18.Location = new System.Drawing.Point(1498, 295);
+            this.label18.Location = new System.Drawing.Point(1498, 328);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(32, 21);
@@ -453,7 +457,7 @@ namespace CoreGui
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label19.Location = new System.Drawing.Point(1718, 103);
+            this.label19.Location = new System.Drawing.Point(1718, 136);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(32, 21);
@@ -464,7 +468,7 @@ namespace CoreGui
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label20.Location = new System.Drawing.Point(1718, 135);
+            this.label20.Location = new System.Drawing.Point(1718, 168);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(32, 21);
@@ -475,7 +479,7 @@ namespace CoreGui
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label21.Location = new System.Drawing.Point(1722, 167);
+            this.label21.Location = new System.Drawing.Point(1722, 200);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(32, 21);
@@ -486,7 +490,7 @@ namespace CoreGui
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label22.Location = new System.Drawing.Point(1720, 199);
+            this.label22.Location = new System.Drawing.Point(1720, 232);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(32, 21);
@@ -497,7 +501,7 @@ namespace CoreGui
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label23.Location = new System.Drawing.Point(1719, 231);
+            this.label23.Location = new System.Drawing.Point(1719, 264);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(32, 21);
@@ -508,7 +512,7 @@ namespace CoreGui
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label24.Location = new System.Drawing.Point(1718, 295);
+            this.label24.Location = new System.Drawing.Point(1718, 328);
             this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(32, 21);
@@ -519,7 +523,7 @@ namespace CoreGui
             // 
             this.rDBox.BackColor = System.Drawing.SystemColors.Window;
             this.rDBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rDBox.Location = new System.Drawing.Point(1538, 228);
+            this.rDBox.Location = new System.Drawing.Point(1538, 261);
             this.rDBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rDBox.Name = "rDBox";
             this.rDBox.ReadOnly = true;
@@ -530,7 +534,7 @@ namespace CoreGui
             // 
             this.rDLabel.AutoSize = true;
             this.rDLabel.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rDLabel.Location = new System.Drawing.Point(1497, 231);
+            this.rDLabel.Location = new System.Drawing.Point(1497, 264);
             this.rDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.rDLabel.Name = "rDLabel";
             this.rDLabel.Size = new System.Drawing.Size(32, 21);
@@ -684,6 +688,28 @@ namespace CoreGui
             this.CoreIDLabel.TabIndex = 88;
             this.CoreIDLabel.Text = "Core ID: ";
             // 
+            // waitingBox
+            // 
+            this.waitingBox.BackColor = System.Drawing.SystemColors.Window;
+            this.waitingBox.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.waitingBox.Location = new System.Drawing.Point(1821, 44);
+            this.waitingBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.waitingBox.Name = "waitingBox";
+            this.waitingBox.ReadOnly = true;
+            this.waitingBox.Size = new System.Drawing.Size(23, 29);
+            this.waitingBox.TabIndex = 89;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(1791, 9);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(87, 21);
+            this.label2.TabIndex = 90;
+            this.label2.Text = "Waiting";
+            // 
             // CoreGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -691,6 +717,8 @@ namespace CoreGui
             this.AutoScroll = true;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1914, 641);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.waitingBox);
             this.Controls.Add(this.CoreIDLabel);
             this.Controls.Add(this.BranchResList);
             this.Controls.Add(this.label29);
@@ -811,6 +839,8 @@ namespace CoreGui
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.ListBox BranchResList;
         private System.Windows.Forms.Label CoreIDLabel;
+        private System.Windows.Forms.TextBox waitingBox;
+        private System.Windows.Forms.Label label2;
     }
 }
 

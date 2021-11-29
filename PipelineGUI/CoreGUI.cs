@@ -170,6 +170,8 @@ namespace CoreGui
             SetAndCompareTextBox(eqBox, Convert.ToString((((uint)FormCore.registerFile.FLAG.Value.Value & 0x0004) >> 2), 2));
             SetAndCompareTextBox(zBox, Convert.ToString((((uint)FormCore.registerFile.FLAG.Value.Value & 0x0002) >> 1), 2));
             SetAndCompareTextBox(cBox, Convert.ToString(((uint)FormCore.registerFile.FLAG.Value.Value & 0x0001), 2));
+            SetAndCompareTextBox(waitingBox, string.Format(FormCore.registerFile.FLAG.ReorderId == null ? "X" : FormCore.registerFile.FLAG.ReorderId.ToString()));
+          
 
         }
 
