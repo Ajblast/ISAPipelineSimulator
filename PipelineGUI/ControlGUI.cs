@@ -30,6 +30,9 @@ namespace PipelineGUI
         public bool Stop = false;
         public int threadSleepMS = 1000;    // TODO: Make this an actual variable people can change in the gui
 
+        private List<TextBox> lookupInputs;
+        private List<TextBox> lookupOutputs;
+
         public ControlGUI()
         {
             memoryCycleTimes = new MemoryCycleTimes();
@@ -49,6 +52,25 @@ namespace PipelineGUI
             AtomicGui = new AtomicGUI();
             AtomicGui.Show();
             RemakeCPU();
+
+            lookupInputs = new List<TextBox>() { 
+                Lookup1Input,
+                Lookup2Input,
+                Lookup3Input,
+                Lookup4Input,
+                Lookup5Input,
+                Lookup6Input,
+                Lookup7Input
+            };
+            lookupOutputs = new List<TextBox>() { 
+                Lookup1Output,
+                Lookup2Output,
+                Lookup3Output,
+                Lookup4Output,
+                Lookup5Output,
+                Lookup6Output,
+                Lookup7Output
+            };
         }
 
         private void ImportAssemblyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,15 +129,7 @@ namespace PipelineGUI
 
         private void StepButton_Click(object sender, EventArgs e)
         {
-            foreach (Core core in Cpu.GetCores())
-            {
-                core.Cycle();
-            }
-            foreach (CoreGUI Gui in CoreGUIs)
-            {
-                Gui.UpdateValues();
-            }
-            AtomicGui.UpdateAtomics(Cpu.THEMMU);
+            CoreStep();
         }
 
         private void RemakeCPU()
@@ -138,6 +152,7 @@ namespace PipelineGUI
 
             AtomicGui.UpdateAtomics(Cpu.THEMMU);
 
+            UpdateLookup();
         }
 
         private void RunButton_Click(object sender, EventArgs e)
@@ -160,15 +175,7 @@ namespace PipelineGUI
 
             while (Stop == false)
             {
-                foreach (Core core in Cpu.GetCores())
-                {
-                    core.Cycle();
-                }
-                foreach (CoreGUI Gui in CoreGUIs)
-                {
-                    Gui.UpdateValues();
-                }
-                AtomicGui.UpdateAtomics(Cpu.THEMMU);
+                CoreStep();
 
                 // The thread needs to sleep otherwise it will just go turbo
                 Thread.Sleep(threadSleepMS);
@@ -180,38 +187,41 @@ namespace PipelineGUI
             Stop = true;
             IsRunning = false;
         }
-
         private void LookupButton_Click(object sender, EventArgs e)
         {
-            Lookup1Output.Text = String.Empty;
-            Lookup2Output.Text = String.Empty;
-            Lookup3Output.Text = String.Empty;
-
-            int Lookup1Addr;
-            if(Lookup1Input.Text != String.Empty && Int32.TryParse(Lookup1Input.Text, out Lookup1Addr))
-            {
-                Lookup1Output.Text = ToHexString(Cpu.memory[Lookup1Addr].Value);
-            }
-
-            int Lookup2Addr;
-            if (Lookup2Input.Text != String.Empty && Int32.TryParse(Lookup2Input.Text, out Lookup2Addr))
-            {
-                Lookup2Output.Text = ToHexString(Cpu.memory[Lookup2Addr].Value);
-            }
-
-            int Lookup3Addr;
-            if (Lookup3Input.Text != String.Empty && Int32.TryParse(Lookup3Input.Text, out Lookup3Addr))
-            {
-                Lookup2Output.Text = ToHexString(Cpu.memory[Lookup3Addr].Value);
-            }
-
+            UpdateLookup();
         }
 
+        private void CoreStep()
+        {
+            foreach (Core core in Cpu.GetCores())
+            {
+                core.Cycle();
+            }
 
+            // Update Visuals
+            foreach (CoreGUI Gui in CoreGUIs)
+                Gui.UpdateValues();
+            
+            AtomicGui.UpdateAtomics(Cpu.THEMMU);
+
+            UpdateLookup();
+        }
+        private void UpdateLookup()
+        {
+            int address;
+
+            foreach (var box in lookupOutputs)
+                box.Text = String.Empty;
+
+            for (int i = 0; i < lookupInputs.Count; i++)
+                if (lookupInputs[i].Text != String.Empty && Int32.TryParse(lookupInputs[i].Text, out address))
+                    lookupOutputs[i].Text = ToHexString(Cpu.memory[address].Value);
+        }
 
         private static string ToHexString(uint val)
         {
-            return Convert.ToString(val, 16);
+            return String.Format("{0:X8}", val);
         }
     }
 }
