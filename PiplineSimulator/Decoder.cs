@@ -387,7 +387,7 @@ namespace Project2Simulator
 				null,
 				null,
 				new RegisterValue(0),
-				new RegisterValue(RegFile.PC.Value.Value),
+				new RegisterValue(RegFile.PC.Value.Value + 4),
 				new RegisterValue(0),
 				new Address(newPC),
 				OpcodeHelper.GetFunctionalUnitType(opcode)
