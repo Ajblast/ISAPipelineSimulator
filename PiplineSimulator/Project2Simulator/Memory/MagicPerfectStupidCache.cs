@@ -33,13 +33,13 @@ namespace Project2Simulator.Memory
 
 		public void Store(Address addr, RegisterValue value)
 		{
-			StoreQueue.Add(new Tuple<Address, RegisterValue>(addr, value));
+			StoreQueue.Add(new Tuple<Address, RegisterValue>(new Address(addr), new RegisterValue(value)));
 		}
 
 		public void Cycle()
 		{
             foreach (var pair in StoreQueue)
-				memory[pair.Item1.Value].Value = pair.Item2.Value;
+				memory[pair.Item1.Value] = pair.Item2;
 
 			StoreQueue.Clear();
 		}

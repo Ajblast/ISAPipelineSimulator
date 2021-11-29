@@ -54,13 +54,13 @@ namespace Project2Simulator.Instructions
         {
 			return string.Format(StringFormatService.GetInstructionFormat(),
 				Opcode.ToString(),
-                (Destination == null) ? "X":Destination.ID.ToString(),
-				(Destination2 == null) ? "X":Destination2.ID.ToString(),
-				(Op1Reg == null) ? "X":Op1Reg.ID.ToString(),
+                (Destination == null) ? "X": RegisterHelper.IDtoName(Destination),
+				(Destination2 == null) ? "X": RegisterHelper.IDtoName(Destination2),
+				(Op1Reg == null) ? "X": RegisterHelper.IDtoName(Op1Reg),
 				Op1.Value,
-				(Op2Reg == null) ? "X":Op2Reg.ID.ToString(),
+				(Op2Reg == null) ? "X": RegisterHelper.IDtoName(Op2Reg),
 				Op2.Value,
-				(Op3Reg == null) ? "X":Op3Reg.ID.ToString(),
+				(Op3Reg == null) ? "X": RegisterHelper.IDtoName(Op3Reg),
 				Op3.Value,
 				(Address == null) ? "X":Address.Value.ToString(),
 				GetDescription(this.FunctionalUnitType)

@@ -383,7 +383,7 @@ namespace Project2Simulator
 				opcode,
 				new RegisterID(RegFile.PC.ID),
 				null,
-				new RegisterID(RegFile.FLAG.ID.ID),
+				new RegisterID(RegFile.FLAG.ID),
 				null,
 				null,
 				new RegisterValue(0),

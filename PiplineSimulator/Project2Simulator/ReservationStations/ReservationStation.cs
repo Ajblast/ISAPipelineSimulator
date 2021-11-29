@@ -125,18 +125,15 @@ namespace Project2Simulator.ReservationStations
 			// Get the address from the instruction
 			Values.Addr = instruction.Address;
 
+			Values.Dest = new ReorderBufferID(id);
+
 			// If the destination is valid, set it as used
 			if (instruction.Destination != null)
-			{
-				Values.Dest = new ReorderBufferID(id);
 				registerFile[instruction.Destination.ID].ReorderId = new ReorderBufferID(id);
-			}
 			
 			// If the destination 2 is valid, set it as used
 			if (instruction.Destination2 != null)
-			{
 				registerFile[instruction.Destination2.ID].ReorderId = new ReorderBufferID(id);
-			}
 
 			Busy = true;
 

@@ -1,0 +1,15 @@
+mov ra, #5
+mov rb, #50
+
+stor rb, ra
+adda rc, rb, #1
+adda rc, rb, #1
+adda rc, rb, #1
+adda rc, rb, #1
+adda rc, rb, #1
+adda rc, rb, #1
+adda rc, rb, #1
+adda rc, rb, #1
+adda rc, rb, #1
+fetch re, rb
+halt

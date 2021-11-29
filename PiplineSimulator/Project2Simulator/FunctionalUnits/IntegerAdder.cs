@@ -18,13 +18,16 @@ namespace Project2Simulator.FunctionalUnits
                 case Opcode.ADD:
                     op3.Value = (uint)(op3.Value & ~(1 << 0) | 0);
                     Add();
+                    dest2Valid = true;
                     return true;
 				case Opcode.ADDC:
                     Add();
+                    dest2Valid = true;
                     return true;
 				case Opcode.SUB:
                     op3.Value = (uint)(op3.Value & ~(1 << 0) | 0);
                     Sub();
+                    dest2Valid = true;
                     return true;
                 case Opcode.SUBB:
                     // OP2 + CF
@@ -40,46 +43,60 @@ namespace Project2Simulator.FunctionalUnits
                     op3.Value = (uint)(op3.Value & ~(1 << 0) | 0);
 
                     Sub();
+                    dest2Valid = true;
                     return true;
                 case Opcode.AND:
                     And();
+                    dest2Valid = true;
                     return true;
 				case Opcode.OR:
                     Or();
+                    dest2Valid = true;
                     return true;
 				case Opcode.NOR:
                     Nor();
+                    dest2Valid = true;
                     return true;
 				case Opcode.NEG:
                     Neg();
+                    dest2Valid = true;
                     return true;
 				case Opcode.XOR:
                     Xor();
+                    dest2Valid = true;
                     return true;
 				case Opcode.SHL:
                     Shl();
+                    dest2Valid = true;
                     return true;
 				case Opcode.SHR:
                     Shr();
+                    dest2Valid = true;
                     return true;
 				case Opcode.SHAR:
                     Shar();
+                    dest2Valid = true;
                     return true;
 				case Opcode.ROR:
                     Ror();
+                    dest2Valid = true;
                     return true;
 				case Opcode.ROL:
                     Rol();
+                    dest2Valid = true;
                     return true;
 				case Opcode.RORC:
                     Rorc();
+                    dest2Valid = true;
                     return true;
 				case Opcode.ROLC:
                     Rolc();
+                    dest2Valid = true;
                     return true;
 				case Opcode.CMP:
                     op3.Value = (uint)(op3.Value & ~(1 << 0) | 0);
                     Sub();
+                    dest2Valid = true;
                     return true;
                 default:
                     return false;
