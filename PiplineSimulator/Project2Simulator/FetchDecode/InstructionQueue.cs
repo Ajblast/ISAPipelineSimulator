@@ -4,6 +4,7 @@ using Project2Simulator.ReorderBuffers;
 using Project2Simulator.Instructions;
 using Project2Simulator.Registers;
 using System.Collections.Generic;
+using System;
 
 namespace Project2Simulator.FetchDecode
 {
@@ -19,6 +20,8 @@ namespace Project2Simulator.FetchDecode
 
 		private int numBranchInstructions;
 
+		private int numHaltInstructions;
+
 		public InstructionQueue(Stations stations, ReorderBuffer buffer, int capacity)
 		{
 			Instructions = new Queue<Instruction>();
@@ -26,6 +29,7 @@ namespace Project2Simulator.FetchDecode
 			reorderBuffer = buffer;
 			Capacity = capacity;
 			numBranchInstructions = 0;
+			numHaltInstructions = 0;
 		}
 
 		//Precondition: Instructions.Count >= Capacity
@@ -33,6 +37,8 @@ namespace Project2Simulator.FetchDecode
 		{
 			if (instruction.FunctionalUnitType == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT)
 				numBranchInstructions++;
+			if (instruction.FunctionalUnitType == FunctionalUnits.FunctionalUnitType.HALT)
+				numHaltInstructions++;
 			Instructions.Enqueue(instruction);
 		}
 
@@ -42,6 +48,12 @@ namespace Project2Simulator.FetchDecode
 				return;
 
 			Instruction newInstruction = Instructions.Peek();
+
+            if (newInstruction.FunctionalUnitType == FunctionalUnits.FunctionalUnitType.HALT)
+            {
+				return;
+            }
+
 			if (newInstruction.FunctionalUnitType == FunctionalUnits.FunctionalUnitType.NULL)
 			{
 				Instructions.Dequeue();
@@ -69,7 +81,12 @@ namespace Project2Simulator.FetchDecode
 
 		}
 
-		public bool IsFull()
+        internal bool HasHaltInstruction()
+        {
+			return numHaltInstructions > 0;
+        }
+
+        public bool IsFull()
         {
 			return Instructions.Count >= Capacity;
         }

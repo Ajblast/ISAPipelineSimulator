@@ -39,7 +39,7 @@ namespace Project2Simulator.FetchDecode
 			//throw new System.Exception(); 
 
 
-			if (reorderBuffer.IsUncommittedBranchInstruction() || instructionQueue.HasBranchInstruction() || instructionQueue.IsFull())
+			if (reorderBuffer.IsUncommittedBranchInstruction() || instructionQueue.HasBranchInstruction() || instructionQueue.IsFull() || instructionQueue.HasHaltInstruction())
 				return;
 
 			uint PCValue = registerFile.PC.Value.Value;

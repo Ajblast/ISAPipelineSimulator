@@ -97,7 +97,7 @@ namespace Project2Simulator
 					CreatedInstruction = CreateNEGInstruction(EncodedInstruction);
 					break;
 				case (ushort)Opcode.HALT:
-					CreatedInstruction = new Instruction(Opcode.HALT, null, null, null, null, null, new RegisterValue(0), new RegisterValue(0), new RegisterValue(0), null, FunctionalUnitType.NULL);
+					CreatedInstruction = new Instruction(Opcode.HALT, null, null, null, null, null, new RegisterValue(0), new RegisterValue(0), new RegisterValue(0), null, FunctionalUnitType.HALT);
 					break;
 				case (ushort)Opcode.FETCH:
 					CreatedInstruction = CreateFetchInstruction((Opcode)opCode, EncodedInstruction);
