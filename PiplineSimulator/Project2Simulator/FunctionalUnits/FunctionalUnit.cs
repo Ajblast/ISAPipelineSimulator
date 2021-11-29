@@ -50,9 +50,9 @@ namespace Project2Simulator.FunctionalUnits
 		public virtual void StartExecution(Opcode opcode, RegisterValue op1, RegisterValue op2, RegisterValue op3, Address addr)
         {
 			this.opcode = opcode;
-			this.op1 = op1;
-			this.op2 = op2;
-			this.op3 = op3;
+			this.op1 = new RegisterValue(op1);
+			this.op2 = new RegisterValue(op2);
+			this.op3 = new RegisterValue(op3);
 
 			dest1 = new RegisterValue();
 			dest2 = new RegisterValue();
@@ -78,14 +78,12 @@ namespace Project2Simulator.FunctionalUnits
 
 			CurrentCycle = 0;
 
-			Executing = false;
+			Executing = true;
         }
 
 		public virtual void Commit(ReorderBufferID id)
         {
 			bus.Write(id, dest1, dest2, dest2Valid);
-
-			Executing = false;
         }
 
 	}

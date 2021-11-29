@@ -36,7 +36,7 @@ namespace Project2Simulator.FetchDecode
 			// We need to figure out a better way of keeping tracking if something in the reorder buffer is not in use. Getting tired of the reorder buffer "stuff" and
 			// Just want to get things done. Thinking of just adding a boolean flag that says if it is in actual use to make things simplier. Maybe, Don't know anything
 			// at this point.
-			throw new System.Exception(); 
+			//throw new System.Exception(); 
 
 
 			if (reorderBuffer.IsUncommittedBranchInstruction() || instructionQueue.HasBranchInstruction() || instructionQueue.IsFull())

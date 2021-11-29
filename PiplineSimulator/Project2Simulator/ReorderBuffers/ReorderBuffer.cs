@@ -89,11 +89,10 @@ namespace Project2Simulator.ReorderBuffers
 				if (bufferSlots[Head].Instruction != null)
 					bufferSlots[Head].Instruction.Flush();
 
-				bufferSlots[Head].Head = false;
 
 				// Increment the head
+				bufferSlots[Head].Head = false;
 				Head = (Head + 1) % bufferSize;
-
 				bufferSlots[Head].Head = true;
 			}
 
@@ -101,8 +100,7 @@ namespace Project2Simulator.ReorderBuffers
 
 		public ReorderBufferSlot FreeSlot()
 		{
-			// Tail caught up to head. Structural Hazard
-			if (bufferSlots[Tail].Ocupodo == true)
+			if (HasFreeSlot() == false)
 				return null;
 
 			ReorderBufferSlot retValue = bufferSlots[Tail];
@@ -117,7 +115,7 @@ namespace Project2Simulator.ReorderBuffers
 		public bool HasFreeSlot()
         {
 			// Tail caught up to head. Structural Hazard
-			if (bufferSlots[Tail].Ocupodo == true)
+			if (bufferSlots[Tail].Ocupodo == true || (bufferSlots[Tail].Ocupodo == false && bufferSlots[Tail].ValidValue == true))
 				return false;
 
 			return true;
@@ -132,7 +130,9 @@ namespace Project2Simulator.ReorderBuffers
 		public bool IsUncommittedBranchInstruction()
         {
 			int slot = (Tail + bufferSize - 1) % bufferSize;
-			return bufferSlots[slot].Ocupodo == true && bufferSlots[slot].Instruction.FunctionalUnit.Type == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT;
+			return 
+				(bufferSlots[slot].Ocupodo == true && bufferSlots[slot].Instruction.FunctionalUnit.Type == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT) ||
+				(bufferSlots[slot].Ocupodo == false && bufferSlots[slot].ValidValue == true && bufferSlots[slot].Instruction.FunctionalUnit.Type == FunctionalUnits.FunctionalUnitType.BRANCH_UNIT);
 		}
     }
 

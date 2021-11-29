@@ -139,6 +139,8 @@ namespace Project2Simulator.ReservationStations
 			}
 
 			Busy = true;
+
+			FunctionalUnit.Executing = false;
         }
 
 		public void CheckDataBus()
