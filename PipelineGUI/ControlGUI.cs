@@ -49,11 +49,7 @@ namespace PipelineGUI
             Counts.MovementUnit = 2;
             InitializeComponent();
 
-            AtomicGui = new AtomicGUI();
-            AtomicGui.Show();
-            RemakeCPU();
-
-            lookupInputs = new List<TextBox>() { 
+            lookupInputs = new List<TextBox>() {
                 Lookup1Input,
                 Lookup2Input,
                 Lookup3Input,
@@ -62,7 +58,7 @@ namespace PipelineGUI
                 Lookup6Input,
                 Lookup7Input
             };
-            lookupOutputs = new List<TextBox>() { 
+            lookupOutputs = new List<TextBox>() {
                 Lookup1Output,
                 Lookup2Output,
                 Lookup3Output,
@@ -71,6 +67,11 @@ namespace PipelineGUI
                 Lookup6Output,
                 Lookup7Output
             };
+
+            AtomicGui = new AtomicGUI();
+            AtomicGui.Show();
+            RemakeCPU();
+
         }
 
         private void ImportAssemblyToolStripMenuItem_Click(object sender, EventArgs e)
