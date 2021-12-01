@@ -3,15 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp", "TestApp\TestApp.csproj", "{90B1327A-B3DA-4710-85E4-0B157B5D2406}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsaGui", "IsaGui\IsaGui.csproj", "{058C77CE-8B4E-415B-8F11-A029F15621A3}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B} = {8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulator", "Simulator\Simulator.csproj", "{8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiplineSimulator", "PiplineSimulator\PiplineSimulator.csproj", "{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipelineGUI", "PipelineGUI\PipelineGUI.csproj", "{2E78D4EA-5EF9-410E-9478-55E9734B1CB8}"
@@ -25,18 +16,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{90B1327A-B3DA-4710-85E4-0B157B5D2406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90B1327A-B3DA-4710-85E4-0B157B5D2406}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90B1327A-B3DA-4710-85E4-0B157B5D2406}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90B1327A-B3DA-4710-85E4-0B157B5D2406}.Release|Any CPU.Build.0 = Release|Any CPU
-		{058C77CE-8B4E-415B-8F11-A029F15621A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{058C77CE-8B4E-415B-8F11-A029F15621A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{058C77CE-8B4E-415B-8F11-A029F15621A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{058C77CE-8B4E-415B-8F11-A029F15621A3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8727E1FE-6C2B-4EA0-AFD6-0F57E44AE27B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC733D69-A3C7-40CD-8CE2-A4CCE5892794}.Release|Any CPU.ActiveCfg = Release|Any CPU
