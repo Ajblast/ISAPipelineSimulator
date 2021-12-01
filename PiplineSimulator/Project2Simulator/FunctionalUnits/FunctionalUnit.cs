@@ -75,7 +75,7 @@ namespace Project2Simulator.FunctionalUnits
 
 		public abstract bool Cycle();
 
-		public virtual void Flush()
+		public virtual void Reset()
         {
 			opcode = Opcode.NOP;
 			op1.Value = 0;
@@ -87,6 +87,10 @@ namespace Project2Simulator.FunctionalUnits
 			CurrentCycle = 0;
 
 			Executing = true;
+		}
+		public virtual void Flush()
+        {
+			Reset();
         }
 
 		public virtual void Commit(ReorderBufferID id)

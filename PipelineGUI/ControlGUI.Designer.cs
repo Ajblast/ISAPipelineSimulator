@@ -103,6 +103,7 @@ namespace PipelineGUI
             // 
             // RunButton
             // 
+            this.RunButton.Enabled = false;
             this.RunButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.RunButton.Location = new System.Drawing.Point(103, 39);
             this.RunButton.Name = "RunButton";
@@ -180,6 +181,7 @@ namespace PipelineGUI
             // 
             // StopButton
             // 
+            this.StopButton.Enabled = false;
             this.StopButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.StopButton.Location = new System.Drawing.Point(195, 39);
             this.StopButton.Name = "StopButton";

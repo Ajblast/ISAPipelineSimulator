@@ -1,0 +1,23 @@
+mov ra, #5
+mov rb, #200
+
+stor rb, ra
+
+load rd, rb
+add rc, rd, #1
+stor rb, rc
+load rd, rb
+add rc, rd, #1
+stor rb, rc
+load rd, rb
+add rc, rd, #1
+stor rb, rc
+load rd, rb
+add rc, rd, #1
+stor rb, rc
+load rd, rb
+add rc, rd, #1
+stor rb, rc
+
+load re, rb
+halt

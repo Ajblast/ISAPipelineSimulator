@@ -162,8 +162,10 @@ namespace PipelineGUI
             if (IsRunning == true)
                 return;
 
+            IsRunning = true;
             Stop = false;
             Thread t = new Thread(new ThreadStart(RunCores));
+            t.Start();
         }
         
         private void RunCores()
@@ -182,6 +184,8 @@ namespace PipelineGUI
                 // The thread needs to sleep otherwise it will just go turbo
                 Thread.Sleep(threadSleepMS);
             }
+
+            IsRunning = false;
         }
 
         private void StopButton_Click(object sender, EventArgs e)

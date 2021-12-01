@@ -1,2 +1,9 @@
 mov rA, #500
+mov rB, rA
+
+stor rA, #50
+load rC, #50
+
+
+
 halt
